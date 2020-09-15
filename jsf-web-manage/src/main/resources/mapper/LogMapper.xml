@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsf.mapper.LogMapper">
+
+	<sql id="logCondition">
+		<where>
+            <if test="operator != null and operator != ''">AND operator = #{operator}</if>
+            <if test="startDate != null and startDate != ''">AND DATE_FORMAT(create_time,"%Y-%m-%d") = #{startDate}</if>
+		</where>
+	</sql>
+
+    <sql id="baseColumn">
+        operator,
+        remark,
+        ip,
+        params,
+        create_time
+    </sql>
+	
+	<resultMap type="com.jsf.database.model.manage.Log" id="logResultMap">
+		<id property="id" column="id" />
+		<result property="operator" column="operator" />
+		<result property="remark" column="remark" />
+		<result property="ip" column="ip" />
+		<result property="params" column="params" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<select id="findByCondition" resultMap="logResultMap" parameterType="baseVo">
+		SELECT <include refid="baseColumn"></include>
+		FROM s_log
+		<include refid="logCondition"></include>
+		<include refid="COMMON.ORDER"></include>
+	</select>
+
+	<select id="findCountAll" resultType="int">
+		SELECT COUNT(1) FROM s_log
+	</select>
+
+	<select id="findOldLog" resultType="hashMap" parameterType="int">
+		<![CDATA[SELECT * FROM s_log WHERE create_time < (SELECT ADDDATE(NOW(),INTERVAL -#{monthAgo} MONTH))]]>
+	</select>
+
+	<insert id="insert" parameterType="com.jsf.database.model.manage.Log">
+		INSERT INTO s_log (
+		  operator,
+		  remark,
+		  ip,
+		  params
+		)
+		VALUES (
+		  #{operator},
+		  #{remark},
+		  #{ip},
+		  #{params}
+		)
+	</insert>
+
+	<delete id="deleteOldLog" parameterType="int">
+		<![CDATA[DELETE FROM s_log WHERE create_time < (SELECT ADDDATE(NOW(),INTERVAL -#{monthAgo} MONTH))]]>
+	</delete>
+	
+</mapper>

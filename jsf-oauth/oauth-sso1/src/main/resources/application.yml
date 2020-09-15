@@ -1,0 +1,35 @@
+auth-server: http://192.168.24.200:8090
+server:
+  port: 8091
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        name: OAUTH2SESSION
+spring:
+#  session:
+#    store-type: redis
+#    timeout: 5m
+#    redis:  # SSO环境下使用jackson或fastjson序列化有BUG，使用默认序列化方式即可
+#      namespace: session:sso
+#  redis:
+#    host: dev
+#    port: 6379
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+security:
+  oauth2:
+    sso:
+      login-path: /sso/login
+    client:
+      client-id: sso01
+      client-secret: 123456
+      user-authorization-uri: ${auth-server}/oauth/authorize
+      access-token-uri: ${auth-server}/oauth/token
+    resource:
+      user-info-uri: ${auth-server}/authentication/user
+logging:
+  level:
+    org.springframework: info

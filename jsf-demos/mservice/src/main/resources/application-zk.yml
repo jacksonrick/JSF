@@ -1,0 +1,26 @@
+# 需启动jframe-srv-gateway/zookeeper-server服务提供者
+server:
+  port: 8070
+spring:
+  application:
+    name: ms-provider
+  cloud:
+    zookeeper:
+      enabled: true
+      connect-string: dev:2181
+      discovery:
+        enabled: true
+        register: false # 客户端不注册
+        root: /discovery
+# 应用信息
+info:
+  app:
+    name: ${spring.application.name}
+    version: "1"
+    description: ${spring.application.name}
+feign: # 断路器
+  hystrix:
+    enabled: true
+management:
+  endpoints: # Actuator监控
+    enabled-by-default: true

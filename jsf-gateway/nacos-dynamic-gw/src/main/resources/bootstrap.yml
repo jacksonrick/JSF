@@ -1,0 +1,17 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: nc-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.24.200:8848
+gw:
+  data-id: nacos.gateway
+  group: MYGROUP
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

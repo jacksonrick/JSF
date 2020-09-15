@@ -1,0 +1,22 @@
+auth-server: http://192.168.24.200:8090
+server:
+  port: 8092
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        name: OAUTH2SESSION
+security:
+  oauth2:
+    sso:
+      login-path: /sso/login
+    client:
+      client-id: sso02
+      client-secret: 123456
+      user-authorization-uri: ${auth-server}/oauth/authorize
+      access-token-uri: ${auth-server}/oauth/token
+    resource:
+      user-info-uri: ${auth-server}/authentication/user
+logging:
+  level:
+    org.springframework: info

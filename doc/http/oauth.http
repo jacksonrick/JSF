@@ -1,0 +1,71 @@
+#
+# 本模块是基于Springcloud oauth2开发，支持client、password、sso
+#
+
+########## OAuth2.0 ##########
+# grant_type
+# client_credentials | password | refresh_token
+# auth_code
+
+###client模式
+POST {{host}}/oauth/token?grant_type=client_credentials&scope=all&client_id=client&client_secret=123456
+Accept: */*
+Cache-Control: no-cache
+
+###password模式
+# test 77bf499d-62a2-40a6-aadc-8586a0266337
+# fei  ea41981c-9cd2-4e9d-a552-b752950c303b
+POST {{host}}/oauth/token?grant_type=password&scope=all&client_id=pwd&client_secret=123456&username=fei&password=123456
+Accept: */*
+Cache-Control: no-cache
+
+###刷新access_token
+# 12f00969-9f2b-4ebb-937b-407157b80886
+# b634231b-7b8f-454d-a441-fa5c86c21764
+POST {{host}}/oauth/token?grant_type=refresh_token&refresh_token=9ac53b21-662c-4770-810e-cd3729374614&client_id=pwd&client_secret=123456
+Accept: */*
+Cache-Control: no-cache
+
+
+###授权码模式authorization_code【浏览器访问】
+POST {{host}}/oauth/authorize?response_type=code&client_id=sso01&client_secret=123456&state=states&redirect_uri=http://www.baidu.com
+Accept: */*
+Cache-Control: no-cache
+
+###implicit【隐藏模式】
+POST {{host}}/oauth/authorize?response_type=token&client_id=web&scope=all&redirect_uri=https://www.baidu.com
+Accept: */*
+Cache-Control: no-cache
+
+
+####################################################################################################
+
+###check_token
+POST {{host}}/oauth/check_token?token=786997ef-518b-4945-90e7-daf23009d9a4
+Accept: */*
+Cache-Control: no-cache
+
+###访问受保护的资源[auth server]
+###两种传值方式：url param | header
+
+#POST {{host}}/authentication/user?access_token=ea41981c-9cd2-4e9d-a552-b752950c303b
+POST {{host}}/authentication/user
+Accept: */*
+Cache-Control: no-cache
+Authorization: Bearer 786997ef-518b-4945-90e7-daf23009d9a4
+
+###
+GET {{host}}/oauth/token_key
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+###
+GET http://127.0.0.1:8099/test1
+Accept: */*
+Cache-Control: no-cache
+
+###
+GET http://127.0.0.1:8099/test3
+Accept: */*
+Cache-Control: no-cache

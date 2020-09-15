@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsf.database.mapper.ConfigMapper">
+
+	<select id="findAll" resultType="com.jsf.database.model.manage.Config">
+		SELECT * FROM s_config
+	</select>
+
+	<select id="findByKey" resultType="string" parameterType="string">
+		SELECT val FROM s_config
+		WHERE "key" = #{key}
+	</select>
+
+	<select id="findByKeys" resultType="config">
+		SELECT "key", val, descr FROM s_config
+		WHERE "key" IN
+		<foreach item="idx" collection="keys" open="(" separator="," close=")"> #{idx} </foreach>
+	</select>
+
+	<update id="updateBatch" parameterType="list">
+		UPDATE s_config
+		SET val = CASE id
+		<foreach collection="configs" index="idx" item="item" separator="">
+			WHEN #{item.id} THEN #{item.text}
+		</foreach>
+		END
+		<!--
+		WHERE id IN
+		<foreach collection="configs" index="idx" item="item" open="(" separator="," close=")"> #{item.id} </foreach>
+		-->
+	</update>
+
+</mapper>

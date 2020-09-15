@@ -1,0 +1,50 @@
+server:
+  address: 127.0.0.1
+  port: 10000
+logging:
+  config: classpath:logback-boot.xml
+spring:
+  application:
+    name: CLOUD-SERVER
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  profiles: # 本地配置
+    active: native
+  cloud: # ConfigServer
+    config:
+      server:
+        native: # 本地
+          search-locations: classpath:/configs/
+        prefix: /cfg # 配置地址前缀
+        #git: # Git远程仓库
+          #uri: https://github.com/
+          #username:
+          #password:
+          #search-paths: dir,dir2*
+management:
+  endpoints:
+    enabled-by-default: false
+eureka: # eureka服务端
+  dashboard:
+    enabled: false
+  instance: # 实例配置
+    #hostname: 127.0.0.1
+    #prefer-ip-address: false
+    ip-address: 127.0.0.1
+  security: # 登录用户名密码
+    username: eureka
+    password: eureka1234
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl: # 注册地址
+      defaultZone: http://${eureka.security.username}:${eureka.security.password}@${eureka.instance.ip-address}:${server.port}/eureka/
+oauth: # oauth服务器，client模式
+  token_url: http://127.0.0.1:8090/oauth/token?grant_type=client_credentials&scope=all&client_id=client&client_secret=123456

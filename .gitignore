@@ -1,0 +1,24 @@
+# IntelliJ project files
+/.idea
+*.iml
+
+# Eclipse
+/out/
+/.settings/
+.classpath
+.launch
+.project
+
+# for mac | windows
+.DS_Store
+Thumbs.db
+
+# for maven
+target/
+*/target/
+*/*/target/
+
+# this project
+/logs
+/upload
+/generate

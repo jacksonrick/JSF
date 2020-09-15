@@ -1,0 +1,26 @@
+server:
+  port: 8090
+  servlet:
+    session:
+      cookie:
+        name: OAUTHID # SSO服务器Cookie值（唯一）
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  freemarker:
+    cache: true
+    charset: UTF-8
+    content-type: text/html
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/jframe?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: root
+      password: 12345678
+logging:
+  level:
+    org.springframework: INFO
