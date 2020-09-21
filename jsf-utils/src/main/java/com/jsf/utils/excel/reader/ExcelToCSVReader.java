@@ -1,4 +1,4 @@
-package com.jsf.utils.poi;
+package com.jsf.utils.excel.reader;
 
 import com.jsf.utils.exception.SysException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -20,13 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 读取Excel，Excel to CSV
+ * 读取Excel，xls to CSV
  * <p>适合万级，十万级以上的数据量；需要2007版本以上</p>
  *
  * @author rick
  * @version 1.0
  */
-public class ExcelReaderOPC {
+public class ExcelToCSVReader {
 
     private List<String[]> datas;
     public List<String> headers;
@@ -34,7 +34,7 @@ public class ExcelReaderOPC {
     public boolean includeHeader;
     public boolean hasDateType;
 
-    public ExcelReaderOPC(boolean includeHeader, boolean hasDateType) {
+    public ExcelToCSVReader(boolean includeHeader, boolean hasDateType) {
         this.datas = new ArrayList<>();
         this.includeHeader = includeHeader;
         this.hasDateType = hasDateType;

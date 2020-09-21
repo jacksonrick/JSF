@@ -1,4 +1,4 @@
-package com.jsf.utils.poi;
+package com.jsf.utils.excel.writer;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -7,7 +7,6 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +16,13 @@ import java.util.Map;
  *
  * @author rick
  */
-public class ExcelWriterSXSS {
+public class ExcelWriter {
 
     // 在内存中保持100行，超过100行将被刷新到磁盘
     private SXSSFWorkbook workbook = new SXSSFWorkbook(1000);
     private SXSSFSheet sheet = null;
 
-    public ExcelWriterSXSS() {
+    public ExcelWriter() {
         sheet = workbook.createSheet("sheet");
     }
 
@@ -39,7 +38,7 @@ public class ExcelWriterSXSS {
             Row row = sheet.createRow(i);
             String[] strs = String.valueOf(data.get(i)).split(",");
             for (int j = 0; j < strs.length; j++) {
-                ExcelWriterSXSS.createCell(row, j, strs[j]);
+                ExcelWriter.createCell(row, j, strs[j]);
             }
         }
 

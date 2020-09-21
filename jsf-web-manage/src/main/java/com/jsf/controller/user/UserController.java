@@ -2,6 +2,7 @@ package com.jsf.controller.user;
 
 import com.github.pagehelper.PageInfo;
 import com.jsf.common.BaseController;
+import com.jsf.controller.view.ViewCSV;
 import com.jsf.controller.view.ViewExcel;
 import com.jsf.controller.view.ViewPDF;
 import com.jsf.database.enums.ResCode;
@@ -11,7 +12,7 @@ import com.jsf.service.system.SystemService;
 import com.jsf.service.user.UserService;
 import com.jsf.utils.annotation.AuthPassport;
 import com.jsf.utils.entity.ResMsg;
-import com.jsf.utils.poi.ExcelReaderXSSAuto;
+import com.jsf.utils.excel.reader.ExcelAnnoReader;
 import com.jsf.utils.string.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -168,7 +169,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 导出用户信息Excel
+     * 导出用户信息 Excel
      *
      * @param condition
      * @return
@@ -185,7 +186,7 @@ public class UserController extends BaseController {
     private ViewPDF viewPDF;
 
     /**
-     * 导出用户信息PDF
+     * 导出用户信息 PDF
      *
      * @param condition
      * @return
@@ -198,6 +199,22 @@ public class UserController extends BaseController {
         model.put("ftl", "tpl/pdf/users.ftl");
         return new ModelAndView(viewPDF, model);
     }
+
+    /**
+     * 导出用户信息 CSV
+     *
+     * @param condition
+     * @return
+     */
+    @GetMapping("/exportCSV")
+    @AuthPassport
+    public ModelAndView exportCSV(User condition) {
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("list", userService.findUserExcelByCondition(condition));
+        // ViewCSV<T>(true) 压缩
+        return new ModelAndView(new ViewCSV<UserExcel>(true), model);
+    }
+
 
     /**
      * 用户导入
@@ -225,7 +242,7 @@ public class UserController extends BaseController {
         // return userService.generate(maps);
 
         // 也可以使用ExcelReaderXSSAuto注解式导入
-        ExcelReaderXSSAuto read = new ExcelReaderXSSAuto();
+        ExcelAnnoReader read = new ExcelAnnoReader();
         List<UserExcel> list = read.read(file.getInputStream(), UserExcel.class);
         for (UserExcel user : list) {
             System.out.println(user);

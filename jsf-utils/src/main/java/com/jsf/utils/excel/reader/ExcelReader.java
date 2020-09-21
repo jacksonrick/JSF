@@ -1,8 +1,7 @@
-package com.jsf.utils.poi;
+package com.jsf.utils.excel.reader;
 
 import com.jsf.utils.exception.SysException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,15 +16,15 @@ import java.util.*;
  * 读取Excel
  * <p>支持excel2007以上版本</p>
  * <p>
- *     HSSF: 2003
- *     XSSF: 2007
- *     SXSSF: XSSF增强(降低内存消耗)
+ * HSSF: 2003
+ * XSSF: 2007
+ * SXSSF: XSSF增强(降低内存消耗)
  * </p>
  *
  * @author rick
  * @version 1.2
  */
-public class ExcelReaderXSS {
+public class ExcelReader {
 
     private POIFSFileSystem fs;
     private XSSFWorkbook wb;
@@ -48,10 +47,8 @@ public class ExcelReaderXSS {
         row = sheet.getRow(0);
         // 标题总列数
         int colNum = row.getPhysicalNumberOfCells();
-        // System.out.println("******总列数:" + colNum);
         String[] title = new String[colNum];
         for (int i = 0; i < colNum; i++) {
-            // title[i] = getStringCellValue(row.getCell(i));
             title[i] = getCellFormatValue(row.getCell(i));
         }
         return title;
@@ -126,62 +123,6 @@ public class ExcelReaderXSS {
     }
 
     /**
-     * 获取单元格数据内容为字符串类型的数据
-     *
-     * @param cell Excel单元格
-     * @return String 单元格数据内容
-     */
-    private String getStringCellValue(XSSFCell cell) {
-        String strCell = "";
-        switch (cell.getCellType()) {
-            case XSSFCell.CELL_TYPE_STRING:
-                strCell = cell.getStringCellValue();
-                break;
-            case XSSFCell.CELL_TYPE_NUMERIC:
-                strCell = String.valueOf(cell.getNumericCellValue());
-                break;
-            case XSSFCell.CELL_TYPE_BOOLEAN:
-                strCell = String.valueOf(cell.getBooleanCellValue());
-                break;
-            case XSSFCell.CELL_TYPE_BLANK:
-                strCell = "";
-                break;
-            default:
-                strCell = "";
-                break;
-        }
-        if ("".equals(strCell) || strCell == null) {
-            return "";
-        }
-        return strCell;
-    }
-
-    /**
-     * 获取单元格数据内容为日期类型的数据
-     *
-     * @param cell Excel单元格
-     * @return String 单元格数据内容
-     */
-    private String getDateCellValue(XSSFCell cell) {
-        String result = "";
-        try {
-            int cellType = cell.getCellType();
-            if (cellType == XSSFCell.CELL_TYPE_NUMERIC) {
-                Date date = cell.getDateCellValue();
-                result = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-            } else if (cellType == XSSFCell.CELL_TYPE_STRING) {
-                String date = getStringCellValue(cell);
-                result = date.replaceAll("[年月]", "-").replace("日", "").trim();
-            } else if (cellType == XSSFCell.CELL_TYPE_BLANK) {
-                result = "";
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-        return result;
-    }
-
-    /**
      * 根据XSSFCell类型设置数据
      *
      * @param cell
@@ -195,26 +136,25 @@ public class ExcelReaderXSS {
 
         try {
             // 判断当前Cell的Type
-            switch (cell.getCellType()) {
-                case XSSFCell.CELL_TYPE_FORMULA: {
+            switch (cell.getCellTypeEnum()) {
+                case NUMERIC:
+                case FORMULA: {
                     // 判断当前的cell是否为Date
                     if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
                         // 如果是Date类型则，转化为Data格式
                         Date date = cell.getDateCellValue();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                         cellvalue = sdf.format(date);
-
                     } else { // 如果是纯数字
                         // 取得当前Cell的数值
                         cellvalue = String.valueOf(cell.getNumericCellValue());
                     }
                     break;
                 }
-                case XSSFCell.CELL_TYPE_STRING:
+                case STRING:
                     cellvalue = cell.getRichStringCellValue().getString();
                     break;
                 default:
-                    cell.setCellType(CellType.STRING);
                     cellvalue = cell.getRichStringCellValue().getString();
             }
         } catch (Exception e) {

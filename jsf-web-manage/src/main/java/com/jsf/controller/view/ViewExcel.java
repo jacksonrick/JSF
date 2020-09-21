@@ -1,11 +1,8 @@
 package com.jsf.controller.view;
 
-import com.fasterxml.jackson.databind.util.ClassUtil;
 import com.jsf.utils.annotation.excel.Excel;
 import com.jsf.utils.annotation.excel.Fields;
-import com.jsf.utils.annotation.excel.TypeValue;
-import com.jsf.utils.exception.SysException;
-import com.jsf.utils.poi.render.AbstractCellRender;
+import com.jsf.utils.excel.BaseExcel;
 import com.jsf.utils.system.LogManager;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
@@ -30,8 +27,6 @@ import java.util.Map;
  * @version 2.0
  */
 public class ViewExcel<T> extends AbstractXlsView {
-
-    private final String NULL_VALUE = "--";
 
     @Override
     protected Workbook createWorkbook(Map<String, Object> model, HttpServletRequest request) {
@@ -59,7 +54,7 @@ public class ViewExcel<T> extends AbstractXlsView {
                 .append(".xlsx").toString(); // 文件后缀为xlsx(excel 2010)
         // 设置response方式,使执行此controller时候自动出现下载页面,而非直接使用excel打开
         response.setContentType("APPLICATION/OCTET-STREAM"); // application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-        response.setHeader("Content-Disposition", "attachment; filename=" + encodeFileName(excelName, request));
+        response.setHeader("Content-Disposition", "attachment; filename=" + BaseExcel.encodeFileName(excelName, request));
 
         // 创建sheet
         SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet("sheet1");
@@ -88,8 +83,6 @@ public class ViewExcel<T> extends AbstractXlsView {
             }
         }
 
-        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         int total = cell; // 总列
         int line = 1; // 行序号，第二行开始
         for (T model : list) {
@@ -97,49 +90,17 @@ public class ViewExcel<T> extends AbstractXlsView {
             cell = 0; // 列序号
             for (int i = 0; i < fs.length; i++) {
                 Fields field = fs[i].getAnnotation(Fields.class); // 获取Fields注解信息
-                if (field != null) {
-                    String fieldName = fs[i].getName();
-                    String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
-                    Method getMethod = t.getClass().getMethod(getMethodName, new Class[]{});
-                    Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
-                    String val = String.valueOf(obj);
-                    if ("null".equals(val) || "".equals(val)) {
-                        row.createCell(cell).setCellValue(NULL_VALUE); // 默认值
-                    } else {
-                        // 转换器(优先)
-                        Class<? extends AbstractCellRender> render = field.render();
-                        if (render != AbstractCellRender.None.class) {
-                            AbstractCellRender r = ClassUtil.createInstance(render, true);
-                            String result = r.render(val);
-                            row.createCell(cell).setCellValue(result);
-                        } else {
-                            switch (field.type()) {
-                                // 其他类型暂定
-                                case ENUM: // 枚举
-                                    TypeValue[] values = field.typeValues();
-                                    for (int j = 0; j < values.length; j++) {
-                                        if (values[j].value().equals(val)) {
-                                            row.createCell(cell).setCellValue(values[j].name());
-                                        }
-                                    }
-                                    break;
-                                case BOOLEAN:
-                                    if ("1".equals(val)) {
-                                        row.createCell(cell).setCellValue("是");
-                                    } else if ("0".equals(val)) {
-                                        row.createCell(cell).setCellValue("否");
-                                    } else {
-                                        row.createCell(cell).setCellValue(NULL_VALUE);
-                                    }
-                                    break;
-                                default: // 字符
-                                    row.createCell(cell).setCellValue(val);
-                                    break;
-                            }
-                        }
-                    }
-                    cell++;
+                if (field == null) {
+                    continue;
                 }
+                String fieldName = fs[i].getName();
+                String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
+                Method getMethod = t.getClass().getMethod(getMethodName, new Class[]{});
+                Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
+                String val = String.valueOf(obj);
+                // 写入单元格
+                BaseExcel.writeCell(row, cell, field, val);
+                cell++;
             }
         }
 
@@ -149,28 +110,6 @@ public class ViewExcel<T> extends AbstractXlsView {
         for (int i = 0; i < total; i++) {
             sheet.autoSizeColumn(i);
         }
-    }
-
-    /**
-     * @param fileNames
-     * @param request
-     * @return
-     */
-    public static String encodeFileName(String fileNames, HttpServletRequest request) {
-        String codedFilename = null;
-        try {
-            String agent = request.getHeader("USER-AGENT");
-            if (null != agent && -1 != agent.indexOf("MSIE") || null != agent
-                    && -1 != agent.indexOf("Trident") || null != agent && -1 != agent.indexOf("Edge")) {// ie浏览器及Edge浏览器
-                String name = java.net.URLEncoder.encode(fileNames, "UTF-8");
-                codedFilename = name;
-            } else if (null != agent && -1 != agent.indexOf("Mozilla")) {// 火狐,Chrome等浏览器
-                codedFilename = new String(fileNames.getBytes("UTF-8"), "iso-8859-1");
-            }
-        } catch (Exception e) {
-            throw new SysException(e.getMessage(), e);
-        }
-        return codedFilename;
     }
 
 }

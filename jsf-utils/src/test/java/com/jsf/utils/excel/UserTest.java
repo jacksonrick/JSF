@@ -15,7 +15,9 @@ import com.jsf.utils.annotation.excel.Fields;
 public class UserTest {
 
     @Fields(value = "ID")
-    private Integer A;
+    private Integer id;
+    @Fields(value = "AA")
+    private String A;
     @Fields(value = "BB")
     private String B;
     @Fields(value = "CC")
@@ -29,15 +31,26 @@ public class UserTest {
     @Fields(value = "GG", type = FieldType.BOOLEAN)
     private String G;
 
-    public UserTest(Integer a) {
-        A = a;
+    public UserTest() {
     }
 
-    public Integer getA() {
+    public UserTest(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getA() {
         return A;
     }
 
-    public void setA(Integer a) {
+    public void setA(String a) {
         A = a;
     }
 
@@ -89,4 +102,17 @@ public class UserTest {
         G = g;
     }
 
+    @Override
+    public String toString() {
+        return "UserTest{" +
+                "id=" + id +
+                ", A='" + A + '\'' +
+                ", B='" + B + '\'' +
+                ", C='" + C + '\'' +
+                ", D='" + D + '\'' +
+                ", E='" + E + '\'' +
+                ", F='" + F + '\'' +
+                ", G='" + G + '\'' +
+                '}';
+    }
 }

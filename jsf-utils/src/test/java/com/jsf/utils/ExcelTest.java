@@ -1,9 +1,14 @@
 package com.jsf.utils;
 
 import com.jsf.utils.excel.CustList;
-import com.jsf.utils.excel.PersonModel;
 import com.jsf.utils.excel.UserTest;
-import com.jsf.utils.poi.*;
+import com.jsf.utils.excel.reader.CSVReader;
+import com.jsf.utils.excel.reader.ExcelAnnoReader;
+import com.jsf.utils.excel.reader.ExcelJsonCfgReader;
+import com.jsf.utils.excel.reader.ExcelToCSVReader;
+import com.jsf.utils.excel.writer.CSVWriter;
+import com.jsf.utils.excel.writer.ExcelAnnoWriter;
+import com.jsf.utils.excel.writer.ExcelWriter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +27,48 @@ import java.util.List;
 public class ExcelTest {
 
     public static void main(String[] args) throws Exception {
-        testOPC();
+        testCSVReader();
+    }
+
+
+    /**
+     * csv写入
+     * 1000000条数据测试
+     * testCSVWriter()  3009ms
+     * testSXSSAuto()   16045ms
+     *
+     * @throws Exception
+     */
+    public static void testCSVWriter() throws Exception {
+        long start = System.currentTimeMillis();
+        List<UserTest> users = getTestUsers(1000000);
+        CSVWriter writer = new CSVWriter();
+        writer.write(users, UserTest.class);
+        writer.toFile("/Users/xujunfei/Downloads");
+        System.out.println("time: " + (System.currentTimeMillis() - start));
+    }
+
+    /**
+     * csv读取
+     * 1000000条数据测试
+     * testReaderAuto() 3min
+     * testCSVReader()  15123ms
+     */
+    public static void testCSVReader() throws Exception {
+        long start = System.currentTimeMillis();
+        FileInputStream fis = new FileInputStream(new File("/Users/xujunfei/Downloads/111.csv"));
+        List<UserTest> list = CSVReader.read(fis, UserTest.class);
+        System.out.println("size: " + list.size());
+        //for (UserTest user : list) {
+        //    System.out.println(user);
+        //}
+
+        //List<String> list = CSVReader.read(fis);
+        //System.out.println("size: " + list.size());
+        //for (String[] strings : list) {
+        //    System.out.println(Arrays.toString(strings));
+        //}
+        System.out.println("time: " + (System.currentTimeMillis() - start));
     }
 
     /**
@@ -30,12 +76,12 @@ public class ExcelTest {
      *
      * @throws Exception
      */
-    public static void testOPC() throws Exception {
+    public static void testCSV() throws Exception {
         long start = System.currentTimeMillis();
 
         File file = new File("/Users/xujunfei/Downloads/test.xlsx");
         InputStream is = new FileInputStream(file);
-        ExcelReaderOPC xlsx2csv = new ExcelReaderOPC(true, false);
+        ExcelToCSVReader xlsx2csv = new ExcelToCSVReader(true, false);
         List<String[]> datas = xlsx2csv.process(is);
 
         long end = System.currentTimeMillis();
@@ -64,13 +110,13 @@ public class ExcelTest {
      * @throws Exception
      */
     public static void testReaderAuto() throws Exception {
+        long start = System.currentTimeMillis();
         File file = new File("/Users/xujunfei/Downloads/test.xlsx");
         InputStream is = new FileInputStream(file);
-        ExcelReaderXSSAuto read = new ExcelReaderXSSAuto();
-        List<PersonModel> list = read.read(is, PersonModel.class);
-        for (PersonModel model : list) {
-            System.out.println(model);
-        }
+        ExcelAnnoReader reader = new ExcelAnnoReader();
+        List<UserTest> list = reader.read(is, UserTest.class);
+        System.out.println(list.size());
+        System.out.println("time: " + (System.currentTimeMillis() - start));
     }
 
     /**
@@ -88,8 +134,8 @@ public class ExcelTest {
             tests.add("A,B,C,D,E,F,G,H,I,J,K,L,M,N");
         }
 
-        ExcelWriterSXSS sxss = new ExcelWriterSXSS();
-        sxss.write(tests, "/Users/xujunfei/Downloads/output.xlsx");
+        ExcelWriter writer = new ExcelWriter();
+        writer.write(tests, "/Users/xujunfei/Downloads/output.xlsx");
 
         System.out.println("time: " + (System.currentTimeMillis() - start));
     }
@@ -104,50 +150,31 @@ public class ExcelTest {
         // 测试数据
         int total = 1000000;
         int pagesize = 10000;
-        List<UserTest> tests = new ArrayList<>();
-        for (int i = 0; i < total; i++) {
-            UserTest user = new UserTest(i + 1);
-            user.setB("b");
-            user.setC("c");
-            user.setD("d");
-            user.setE("e");
-            user.setF("f");
-            user.setG("1");
-            tests.add(user);
-        }
+        List<UserTest> tests = getTestUsers(total);
 
-        ExcelWriterSXSSAuto<UserTest> sxss = new ExcelWriterSXSSAuto<>(UserTest.class);
-
+        ExcelAnnoWriter<UserTest> writer = new ExcelAnnoWriter<>(UserTest.class);
         // 次数
         int times = total % pagesize > 0 ? total / pagesize + 1 : total / pagesize;
         for (int i = 0; i < times; i++) {
             List<UserTest> fd = tests.subList(0, pagesize);
-            sxss.writePage(fd);
+            writer.writePage(fd);
             fd.clear();
         }
-        sxss.export("/Users/xujunfei/Downloads/");
+        writer.export("/Users/xujunfei/Downloads/");
 
         System.out.println("time: " + (System.currentTimeMillis() - start));
     }
 
+    /**
+     * @throws Exception
+     */
     public static void testSXSSAuto2() throws Exception {
         long start = System.currentTimeMillis();
         // 测试数据
-        int total = 1000;
-        List<UserTest> tests = new ArrayList<>();
-        for (int i = 0; i < total; i++) {
-            UserTest user = new UserTest(i + 1);
-            user.setB("b");
-            user.setC("c");
-            user.setD("d");
-            user.setE("e");
-            user.setF("f");
-            user.setG("1");
-            tests.add(user);
-        }
+        List<UserTest> tests = getTestUsers(1000);
 
-        ExcelWriterSXSSAuto<UserTest> sxss = new ExcelWriterSXSSAuto<>(UserTest.class);
-        String path = sxss.write(tests, "/Users/xujunfei/Downloads/");
+        ExcelAnnoWriter<UserTest> writer = new ExcelAnnoWriter<>(UserTest.class);
+        String path = writer.write(tests, "/Users/xujunfei/Downloads/");
         System.out.println(path);
 
         System.out.println("time: " + (System.currentTimeMillis() - start));
@@ -158,10 +185,10 @@ public class ExcelTest {
      */
     public static void testReaderConfig() {
         File file = new File("/Users/xujunfei/Downloads/test.xlsx");
-        ExcelReaderConfig read = new ExcelReaderConfig();
+        ExcelJsonCfgReader reader = new ExcelJsonCfgReader();
         try {
             String jsonConfig = getConfig();
-            List<CustList> list = read.read(new FileInputStream(file), jsonConfig, CustList.class);
+            List<CustList> list = reader.read(new FileInputStream(file), jsonConfig, CustList.class);
             System.out.println(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,4 +212,19 @@ public class ExcelTest {
         return jsonConfig;
     }
 
+    private static List<UserTest> getTestUsers(int total) {
+        List<UserTest> tests = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            UserTest user = new UserTest(i + 1);
+            user.setA("aa");
+            user.setB("bb");
+            user.setC("cc");
+            user.setD("dd");
+            user.setE("ee");
+            user.setF("ff");
+            user.setG((i % 2) == 0 ? "0" : "1");
+            tests.add(user);
+        }
+        return tests;
+    }
 }

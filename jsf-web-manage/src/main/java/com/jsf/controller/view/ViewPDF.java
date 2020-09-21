@@ -31,7 +31,7 @@ public class ViewPDF extends AbstractItextView {
 
     protected void buildPdfDocument(Map<String, Object> map, Document document, PdfWriter pdfWriter, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         String ftl = String.valueOf(map.get("ftl"));
-        if (ftl == null || ftl == "") {
+        if (ftl == null || "".equals(ftl)) {
             throw new RuntimeException("文档名不能为空");
         }
         // 获取模板文件

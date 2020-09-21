@@ -1,7 +1,4 @@
-package com.jsf.utils.poi.model;
-
-import java.util.Arrays;
-import java.util.List;
+package com.jsf.utils.entity;
 
 /**
  * Created with IntelliJ IDEA.

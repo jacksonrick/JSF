@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.0.0`
+##### Version `v6.0.0.dev`
 Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.cn) 
 
 
@@ -52,7 +52,7 @@ Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.c
 * PageHelper分页、封装分页组件、Freemarker模板、Freemarker函数和指令
 * Quartz(单点/集群)、UI管理、异步任务、线程池
 * 第三方：微信SDK/支付宝SDK/JPush推送/高德地图/Geetest/阿里云OSS/短信/邮件/微信扫码登陆
-* 工具包：字符、时间、金额、JSON、Http、PDF、License、分页、文件、对象、加密、二维码、图形验证码、ID生成器、POI(注解)等
+* 工具包：字符、时间、金额、JSON、Http、PDF、License、分页、文件、POI和CSV读写、对象、加密、二维码、图形验证码、ID生成器等
 * JS插件：Ajax/DataTables/CityPicker/Layer/DatePicker/Ztree/Select2/Upload等
 
 ### 环境与配置
@@ -102,6 +102,7 @@ Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.c
 ---
 
 ### 更新日志：
+* v6.0.0.dev `开发中`
 * v5.9.4 `20200904`
     * 5.x最后版本优化
 * v5.9.3 `20200812`

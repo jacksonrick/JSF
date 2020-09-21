@@ -1,11 +1,9 @@
-package com.jsf.utils.poi;
+package com.jsf.utils.excel.writer;
 
-import com.fasterxml.jackson.databind.util.ClassUtil;
 import com.jsf.utils.annotation.excel.Excel;
 import com.jsf.utils.annotation.excel.Fields;
-import com.jsf.utils.annotation.excel.TypeValue;
+import com.jsf.utils.excel.BaseExcel;
 import com.jsf.utils.exception.SysException;
-import com.jsf.utils.poi.render.AbstractCellRender;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
@@ -27,7 +25,7 @@ import java.util.List;
  * Date: 2019-03-11
  * Time: 10:21
  */
-public class ExcelWriterSXSSAuto<T> {
+public class ExcelAnnoWriter<T> {
 
     private List<T> datas = new ArrayList<>();
     public String excelName;
@@ -36,13 +34,11 @@ public class ExcelWriterSXSSAuto<T> {
     private Class<T> clz;
     private Field[] fs;
 
-    private final String NULL_VALUE = "--";
-
     // 在内存中保持1000行，超过1000行将被刷新到磁盘
     private SXSSFWorkbook workbook = new SXSSFWorkbook(1000);
     private SXSSFSheet sheet = null;
 
-    public ExcelWriterSXSSAuto(Class<T> clazz) {
+    public ExcelAnnoWriter(Class<T> clazz) {
         this.clz = clazz;
         Excel excel = clz.getAnnotation(Excel.class);
         if (excel == null || excel.name() == null) {
@@ -107,49 +103,17 @@ public class ExcelWriterSXSSAuto<T> {
             int cell = 0; // 列序号
             for (int i = 0; i < fs.length; i++) {
                 Fields field = fs[i].getAnnotation(Fields.class); // 获取Fields注解信息
-                if (field != null) {
-                    String fieldName = fs[i].getName();
-                    String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
-                    Method getMethod = clz.getMethod(getMethodName, new Class[]{});
-                    Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
-                    String val = String.valueOf(obj);
-                    if ("null".equals(val) || "".equals(val)) {
-                        row.createCell(cell).setCellValue(NULL_VALUE); // 默认值
-                    } else {
-                        // 转换器(优先)
-                        Class<? extends AbstractCellRender> render = field.render();
-                        if (render != AbstractCellRender.None.class) {
-                            AbstractCellRender r = ClassUtil.createInstance(render, true);
-                            String result = r.render(val);
-                            row.createCell(cell).setCellValue(result);
-                        } else {
-                            switch (field.type()) {
-                                // 其他类型暂定
-                                case ENUM: // 枚举
-                                    TypeValue[] values = field.typeValues();
-                                    for (int j = 0; j < values.length; j++) {
-                                        if (values[j].value().equals(val)) {
-                                            row.createCell(cell).setCellValue(values[j].name());
-                                        }
-                                    }
-                                    break;
-                                case BOOLEAN:
-                                    if ("1".equals(val)) {
-                                        row.createCell(cell).setCellValue("是");
-                                    } else if ("0".equals(val)) {
-                                        row.createCell(cell).setCellValue("否");
-                                    } else {
-                                        row.createCell(cell).setCellValue(NULL_VALUE);
-                                    }
-                                    break;
-                                default: // 字符
-                                    row.createCell(cell).setCellValue(val);
-                                    break;
-                            }
-                        }
-                    }
-                    cell++;
+                if (field == null) {
+                    continue;
                 }
+                String fieldName = fs[i].getName();
+                String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
+                Method getMethod = clz.getMethod(getMethodName, new Class[]{});
+                Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
+                String val = String.valueOf(obj);
+                // 写入单元格
+                BaseExcel.writeCell(row, cell, field, val);
+                cell++;
             }
         }
 

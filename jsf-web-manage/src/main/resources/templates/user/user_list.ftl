@@ -27,6 +27,7 @@
                     </label>
                     <button type="button" id="search" class="btn btn-sm btn-info"><i class="fa fa-search"></i></button>
                     <button type="button" id="export" class="btn btn-sm btn-info"><i class="fa fa-share"></i>导出到Excel</button>
+                    <button type="button" id="export1" class="btn btn-sm btn-info"><i class="fa fa-share"></i>导出到CSV</button>
                     <button type="button" id="export2" class="btn btn-sm btn-info"><i class="fa fa-share"></i>导出到PDF</button>
                     <button type="button" id="import" class="btn btn-sm btn-info"><i class="fa fa-arrow-down"></i>导入Excel</button>
                 </form>
@@ -113,6 +114,10 @@
         $("#export").click(function () {// 导出到Excel
             var formData = $("#queryForm").serialize();
             location.href = '/admin/user/export?' + formData;
+        });
+        $("#export1").click(function () {// 导出到CSV
+            var formData = $("#queryForm").serialize();
+            location.href = '/admin/user/exportCSV?' + formData;
         });
         $("#export2").click(function () {// 导出到Pdf
             var formData = $("#queryForm").serialize();
