@@ -14,7 +14,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
-        spring.json.type.mapping: foo:com.jf.bean.Foo,bar:com.jf.bean.Bar #按照bean类型分发处理
+        spring.json.type.mapping: foo:com.jsf.bean.Foo,bar:com.jsf.bean.Bar #按照bean类型分发处理
         isolation.level: read_committed # tx support
     listener:
       type: batch # 批量消费

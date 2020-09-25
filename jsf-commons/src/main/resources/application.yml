@@ -4,6 +4,7 @@ logging:
 server:
   port: 8080 # 默认端口号
   connection-timeout: 5000
+  use-forward-headers: true
   tomcat: # tomcat容器
     uri-encoding: UTF-8
     max-threads: 800
@@ -102,8 +103,8 @@ spring:
         enabled: false
         url-pattern: /druid/*
         reset-enable: true
-        login-username: admin
-        login-password: 1ead34fjf48adsjvnm323
+        login-username: dbadmin
+        login-password: D8JOAW912UFHHIJVBB01YUIP
       web-stat-filter:
         enabled: false
         url-pattern: /*
@@ -143,16 +144,16 @@ spring:
   #    sentinel: # Sentinel集群
   #      master: mymaster
   #      nodes:
-  #        - 192.168.1.168:26379
-  #        - 192.168.1.168:26380
+  #        - dev:26379
+  #        - dev:26380
   #    cluster: # Cluster集群(6)
   #      nodes:
-  #        - 192.168.1.168:7001
-  #        - 192.168.1.168:7002
-  #        - 192.168.1.168:7003
-  #        - 192.168.1.168:7004
-  #        - 192.168.1.168:7005
-  #        - 192.168.1.168:7006
+  #        - dev:7001
+  #        - dev:7002
+  #        - dev:7003
+  #        - dev:7004
+  #        - dev:7005
+  #        - dev:7006
   rabbitmq: # rabbitmq
     host: dev # 服务器地址
     port: 5672
@@ -201,7 +202,7 @@ fdfs: # fastDFS配置
   so-timeout: 3000
   connect_timeout: 3000
   tracker-list: # 可设置多个
-    - 192.168.31.205:22122
+    - dev:22122
   nginx: http://192.168.1.1/ # DFS Nginx代理服务器地址
 
 # 环境配置说明：

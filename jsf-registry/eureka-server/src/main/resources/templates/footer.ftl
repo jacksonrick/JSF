@@ -1,1 +1,1 @@
-<footer>JFrame® Copyright 2018</footer>
+<footer>JSF® Copyright 2020</footer>

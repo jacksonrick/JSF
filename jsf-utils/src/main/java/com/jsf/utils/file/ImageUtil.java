@@ -20,7 +20,7 @@ public class ImageUtil {
         InputStream is = null;
         try {
             is = new FileInputStream(file);
-            FileUtils.copyInputStreamToFile(new ByteArrayInputStream(ImageUtil.waterMark(is, "JFrame", "png")), out);
+            FileUtils.copyInputStreamToFile(new ByteArrayInputStream(ImageUtil.waterMark(is, "xxx", "png")), out);
         } catch (Exception e) {
 
         }

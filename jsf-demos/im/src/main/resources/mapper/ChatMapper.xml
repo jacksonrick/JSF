@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jf.database.mapper.ChatMapper">
+<mapper namespace="com.jsf.database.mapper.ChatMapper">
 
-	<resultMap id="chatResultMapper" type="com.jf.database.model.Chat">
+	<resultMap id="chatResultMapper" type="com.jsf.database.model.Chat">
 		<id property="id" column="id"/>
 		<result property="chatNo" column="chat_no"/>
 		<result property="otherId" column="other_id"/>
 		<result property="otherName" column="nickname"/>
 		<result property="unread" column="unread"/>
-		<association property="lastMsg" javaType="com.jf.database.model.Message">
+		<association property="lastMsg" javaType="com.jsf.database.model.Message">
 			<id property="id" column="msg_id"/>
 			<result property="fromId" column="from_id"/>
 			<result property="toId" column="to_id"/>
@@ -58,7 +58,7 @@
 		SELECT MAX(chat_no) FROM im_chat
 	</select>
 
-	<insert id="insert" parameterType="com.jf.database.model.Chat">
+	<insert id="insert" parameterType="com.jsf.database.model.Chat">
 		INSERT INTO im_chat (
 			chat_no,
 			user_id,

@@ -141,11 +141,11 @@
     </repositories>-->
 
     <!-- local repos server:nexus [pom.xml] -->
-    <!--<distributionManagement>
+    <distributionManagement>
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://maven.xxx.cn/repository/maven-releases/</url>
+            <url>http://maven.zy.cn/repository/maven-releases/</url>
         </repository>
-    </distributionManagement>-->
+    </distributionManagement>
 </project>

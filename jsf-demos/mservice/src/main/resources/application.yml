@@ -10,7 +10,7 @@ spring:
     nacos:
       discovery:
         group: SRV_REG_GROUP
-        server-addr: 192.168.24.200:8848
+        server-addr: dev:8848
 # 应用信息
 info:
   app:

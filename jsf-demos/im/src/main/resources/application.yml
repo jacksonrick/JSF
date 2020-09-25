@@ -8,7 +8,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: JFRAME-IM
+    name: IM
   mvc:
     static-path-pattern: /static/** # 静态地址映射
   servlet:
@@ -52,4 +52,4 @@ spring:
       min-idle: 5 # 最小连接池数量
 logging:
   level:
-    com.jf.database: DEBUG
+    com.jsf.database: DEBUG

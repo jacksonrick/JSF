@@ -4,6 +4,6 @@ spring:
   application:
     name: ZOOKEEPER
 zookeeper:
-  address: 192.168.40.200:2181
+  address: dev:2181
   config-path: /cfgs
   registry-path: /registry

@@ -1,0 +1,20 @@
+### 自定义接口新增路由
+POST http://127.0.0.1:9091/route/add
+Content-Type: application/json
+
+{
+  "id": "test",
+  "predicates": [
+    {
+      "name": "Path",
+      "args": {
+        "pattern": "/api/**"
+      }
+    }
+  ],
+  "uri": "https://www.baidu.com/",
+  "filters": []
+}
+
+### 路由表
+GET http://127.0.0.1:9091/actuator/gateway/routes

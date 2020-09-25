@@ -17,7 +17,6 @@
     <modules>
         <module>nacos-dynamic-gw</module>
         <module>zuul-gw</module>
-        <module>springcloud-gw</module>
     </modules>
 
 </project>

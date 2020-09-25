@@ -3,16 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.jf</groupId>
-        <artifactId>jframe-demos</artifactId>
+        <groupId>com.jsf</groupId>
+        <artifactId>jsf-demos</artifactId>
         <version>FINAL</version>
     </parent>
 
     <artifactId>actuator</artifactId>
-    <version>0.0.1</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>actuator</name>
-    <description>Test project for Actuator</description>
 
     <dependencies>
         <dependency>

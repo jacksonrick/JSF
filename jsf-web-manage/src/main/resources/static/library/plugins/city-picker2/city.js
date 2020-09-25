@@ -19,7 +19,7 @@
         box.append(sel);
 
         var prov = "<option value=''>--省--</option>";
-        $.getJSON("static/library/plugins/jf-city-picker/address.json", function (data) {
+        $.getJSON("static/library/plugins/city-picker2/address.json", function (data) {
             db = data.RECORDS;
             $.each(db, function (k, v) {
                 if (v.parent == 0) {

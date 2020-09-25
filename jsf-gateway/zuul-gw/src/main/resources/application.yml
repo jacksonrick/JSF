@@ -2,7 +2,7 @@ server:
   port: 10080
 spring:
   application:
-    name: JFRAME-SRV-GATEWAY
+    name: ZUUL-GATEWAY
   zipkin: # 链路追踪
     base-url: http://dev:9411
   sleuth:
@@ -21,11 +21,11 @@ eureka: # 注册到Eureka
 zuul:
   routes: # 服务路由
     api-a: # 服务ID
-      serviceId: JFRAME-SRV-ORDER-01
+      serviceId: ms-provider1
       path: /api-a/**
       sensitiveHeaders: Cookie, Set-Cookie, Authorization
     api-b:
-      serviceId: JFRAME-SRV-ORDER-02
+      serviceId: ms-provider2
       path: /api-b/**
       sensitiveHeaders: Cookie, Set-Cookie, Authorization
   ratelimit: # redis限流

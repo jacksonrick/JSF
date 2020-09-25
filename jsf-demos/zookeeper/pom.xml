@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>zookeeper</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>zookeeper</name>
 
 	<parent>
-		<groupId>com.jf</groupId>
-		<artifactId>jframe-demos</artifactId>
+		<groupId>com.jsf</groupId>
+		<artifactId>jsf-demos</artifactId>
 		<version>FINAL</version>
 	</parent>
 

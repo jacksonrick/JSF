@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jf.database.mapper.UserMapper">
+<mapper namespace="com.jsf.database.mapper.UserMapper">
 
-	<select id="findById" resultType="com.jf.database.model.User" parameterType="long">
+	<select id="findById" resultType="com.jsf.database.model.User" parameterType="long">
 		SELECT id, nickname
 		FROM t_user
 		WHERE id = #{id}

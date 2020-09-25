@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jf.database.mapper.MessageMapper">
+<mapper namespace="com.jsf.database.mapper.MessageMapper">
 
 	<sql id="allColumn">
 		id,
@@ -16,7 +16,7 @@
 		extra
 	</sql>
 
-	<resultMap type="com.jf.database.model.Message" id="baseResultMap">
+	<resultMap type="com.jsf.database.model.Message" id="baseResultMap">
 		<id property="id" column="id" />
 		<result property="chatNo" column="chat_no" />
 		<result property="fromId" column="from_id" />
@@ -39,7 +39,7 @@
 		SELECT COUNT(1) FROM im_message WHERE to_id = #{userId} AND readed = 0
 	</select>
 
-	<insert id="insert" parameterType="com.jf.database.model.Message" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="com.jsf.database.model.Message" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO im_message (
 			chat_no,
 			from_id,

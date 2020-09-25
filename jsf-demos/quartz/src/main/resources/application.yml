@@ -4,4 +4,4 @@ spring:
   profiles:
     active: dev
   application:
-    name: JFRAME-TEST-QUARTZ
+    name: QUARTZ

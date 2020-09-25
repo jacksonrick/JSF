@@ -32,7 +32,7 @@ sharding:
             table-strategy: # 策略
               standard:
                 sharding-column: id # 根据id来区分(id值必须存在)
-                precise-algorithm-class-name: com.jf.config.MyPreciseShardingAlgorithm # 配置数据分表的策略的类
+                precise-algorithm-class-name: com.jsf.config.MyPreciseShardingAlgorithm # 配置数据分表的策略的类
         master-slave-rules: # 配置主从库
           ds_0:
             load-balance-algorithm-type: round_robin
@@ -43,4 +43,4 @@ spring:
     allow-bean-definition-overriding: true # 由于shading-jdbc也会创建bean=Datasource，必须开启覆盖
 logging:
   level:
-    com.jf.mapper: DEBUG
+    com.jsf.mapper: DEBUG

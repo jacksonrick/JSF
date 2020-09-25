@@ -15,9 +15,8 @@ Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.c
     * oauth-sso `SSO客户端`
     * oauth-client `Client模式`
 * jsf-gateway `网关模块`
-    * nacos-dynamic-gw `Nacos动态网关`
+    * nacos-dynamic-gw `Nacos&SpingCloud动态网关`
     * zuul-gw `Zuul网关`
-    * springcloud-gw `springcloud网关`
 * jsf-registry `注册中心`
     * eureka-server `Eureka注册中心`
     * zookeeper-server `ZK注册中心`

@@ -15,18 +15,24 @@
     <name>jsf-demos</name>
 
     <modules>
-        <module>rabbitmq</module>
+        <module>activiti</module>
+        <module>actuator</module>
         <module>dubbo</module>
+        <module>elasticsearch</module>
+        <module>im</module>
+        <module>influxdb</module>
         <module>kafka</module>
+        <module>mservice</module>
+        <module>nacos-config</module>
         <module>quartz</module>
+        <module>rabbitmq</module>
+        <module>redis</module>
+        <module>sharding-db</module>
+        <module>spring-security</module>
+        <module>storm</module>
         <module>websocket</module>
         <module>websocket-mq</module>
         <module>zookeeper</module>
-        <module>actuator</module>
-        <module>elasticsearch</module>
-        <module>nacos-config</module>
-        <module>sharding-db</module>
-        <module>im</module>
     </modules>
 
 </project>

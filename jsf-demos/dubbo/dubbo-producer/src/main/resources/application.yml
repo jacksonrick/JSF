@@ -10,7 +10,7 @@ dubbo: # dubbo配置
   provider:
     threads: 200 # 服务线程池大小
   scan:
-    base-packages: com.jf.service.impl # 包扫描路径
+    base-packages: com.jsf.service.impl # 包扫描路径
   protocol:
     name: dubbo # 协议
     port: -1 # 随机端口

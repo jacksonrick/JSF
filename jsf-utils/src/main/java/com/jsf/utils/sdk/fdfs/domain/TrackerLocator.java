@@ -35,7 +35,7 @@ public class TrackerLocator {
 
     /**
      * 初始化Tracker服务器地址
-     * 配置方式为 ip:port 如 192.168.1.2:21000
+     * 配置方式为 ip:port 如 192.168.1.1:21000
      * 
      * @param trackerList
      */

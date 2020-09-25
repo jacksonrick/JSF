@@ -1,4 +1,4 @@
-# 需启动jframe-srv-gateway/zookeeper-server服务提供者
+# 需启动jsf-gateway/zookeeper-server注册中心
 server:
   port: 8070
 spring:
