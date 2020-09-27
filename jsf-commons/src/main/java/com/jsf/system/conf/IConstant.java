@@ -12,6 +12,10 @@ public class IConstant {
     // redis token prefix
     public final static String TOKEN_PREFIX = "token:";
     public final static String TOKEN_UID_PREFIX = TOKEN_PREFIX + "uid:";
+
+    // 默认Token过期时间
+    public static final int DEFAULT_TIMEOUT_DAYS = 7;
+
     // exclude path
     public final static String[] excludePathPatterns = {"/static/**", "/images/**", "/js/**", "/css/**", "/error/**"};
 

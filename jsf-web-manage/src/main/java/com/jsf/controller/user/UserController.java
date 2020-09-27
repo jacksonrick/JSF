@@ -129,7 +129,20 @@ public class UserController extends BaseController {
         String phone = user.getPhone();
         String email = user.getEmail();
         Long userId = user.getId();
-        if (userId != null) {
+        if (userId == null) { //新增
+            if (userService.findUserCountByPhone(phone) > 0) {
+                return new ResMsg(3, "手机号已存在");
+            }
+            if (userService.findUserCountByEmail(email) > 0) {
+                return new ResMsg(4, "邮箱已存在");
+            }
+            int res = userService.insertUser(user);
+            if (res > 0) {
+                systemService.addAdminLog(request, "新增用户", "phone=" + phone);
+                return new ResMsg(ResCode.INSERT_SUCCESS.code(), ResCode.INSERT_SUCCESS.msg());
+            }
+            return new ResMsg(ResCode.INSERT_FAIL.code(), ResCode.INSERT_FAIL.msg());
+        } else { //更新
             User t = userService.findUserById(userId);
             if (!phone.equals(t.getPhone())) {
                 if (userService.findUserCountByPhone(phone) > 0) {
@@ -143,12 +156,11 @@ public class UserController extends BaseController {
             }
             int res = userService.updateUser(user);
             if (res > 0) {
-                systemService.addAdminLog(request, "编辑用户", "phone=" + phone);
+                systemService.addAdminLog(request, "更新用户", "phone=" + phone);
                 return new ResMsg(ResCode.UPDATE_SUCCESS.code(), ResCode.UPDATE_SUCCESS.msg());
             }
             return new ResMsg(ResCode.UPDATE_FAIL.code(), ResCode.UPDATE_FAIL.msg());
         }
-        return new ResMsg(ResCode.CODE_22.code(), ResCode.CODE_22.msg());
     }
 
     /**

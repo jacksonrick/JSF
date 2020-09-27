@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:请求校验工具类
+ * Description: 微信请求签名校验工具类
  * User: xujunfei
  * Date: 2018-01-16
  * Time: 10:42

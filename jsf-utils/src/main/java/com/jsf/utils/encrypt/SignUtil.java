@@ -1,7 +1,6 @@
 package com.jsf.utils.encrypt;
 
 import com.jsf.utils.exception.SysException;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.MessageDigest;
@@ -20,20 +19,19 @@ public class SignUtil {
     /**
      * 获取密文
      *
-     * @param treeMap 参数键值对，不包含sign，值如果是对象请先转换为JSON
-     * @param secret  固定密钥
+     * @param params 参数键值对，不包含sign
+     * @param secret 固定密钥或随机字符串
      * @return
      */
-    public static String getSign(TreeMap<String, Object> treeMap, String secret) {
+    public static String getSign(TreeMap<String, String> params, String secret) {
         StringBuilder sb = new StringBuilder();
-        if (MapUtils.isNotEmpty(treeMap)) {
-            for (Iterator<String> iterator = treeMap.keySet().iterator(); iterator.hasNext(); ) {
-                String key = iterator.next();
-                Object obj = treeMap.get(key);
-                if (null != obj) {
-                    if (!StringUtils.equals("sign", key)) {
-                        sb.append(key).append("=").append(obj);
-                    }
+        for (Iterator<String> iterator = params.keySet().iterator(); iterator.hasNext(); ) {
+            String key = iterator.next();
+            String val = params.get(key);
+            if (null != val) {
+                // 过滤空值和key为sign
+                if (!StringUtils.equals("sign", key)) {
+                    sb.append(key).append("=").append(val);
                 }
             }
         }
@@ -46,13 +44,13 @@ public class SignUtil {
     /**
      * 校验
      *
-     * @param treeMap 参数键值对，包含sign
-     * @param secret  固定密钥
+     * @param params 参数键值对，包含sign
+     * @param secret 固定密钥
      * @return
      */
-    public static boolean checkSign(TreeMap<String, Object> treeMap, String secret) {
-        String signaInterface = String.valueOf(treeMap.get("sign"));
-        String signaOwn = getSign(treeMap, secret);
+    public static boolean checkSign(TreeMap<String, String> params, String secret) {
+        String signaInterface = String.valueOf(params.get("sign"));
+        String signaOwn = getSign(params, secret);
         return StringUtils.equals(signaOwn, signaInterface);
     }
 

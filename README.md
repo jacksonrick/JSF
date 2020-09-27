@@ -8,7 +8,12 @@ Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.c
 * jsf-commons `系统配置/数据库配置/处理器/拦截器等`
 * jsf-utils `工具类`
 * jsf-web-api `API端`
+    * API安全
+    * 常用接口
+    * DEMO：微信/支付宝支付、公众号、扫码登陆
 * jsf-web-manage `后台管理端`
+    * 模块：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志(可视化)、系统配置
+    * 代码生成：可视化；生成实体类、Mapper接口、MapperSQL、Service、Controller、模板页面、菜单、数据字典
 * jsf-oauth `OAuth模块`
     * oauth-server `授权服务器`
     * oauth-resource `资源服务器`
@@ -43,16 +48,14 @@ Developed by @jackson-rick  Blog: [http://www.liu-nian.cn](http://www.liu-nian.c
 ### 集成
 * Spring/MyBatis/SpringBoot/SpringCloud
 * Spring Redis/Redis Session/Redisson/RedisTemplate
-* AOP/AppToken/SpringSecurity/OAuth授权/SSO单点登录
-* 后台管理功能：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志、系统配置等
-* 代码生成：可视化；生成实体类、Mapper接口、Mapper SQL、Service、Controller、模板页面、菜单、数据字典
-* 日志文件可视化管理、Actuator健康监控、数据源监控
-* 日志服务、分布式日志ELK、异常处理、多数据源、分布式锁、分布式Session、FastDFS
+* APIToken/API验签/防重/SpringSecurity/OAuth授权/SSO单点登录
+* Actuator健康监控、数据源监控
+* 日志服务、分布式日志ELK、全局异常处理、多数据源、分布式锁、分布式Session、FastDFS
 * PageHelper分页、封装分页组件、Freemarker模板、Freemarker函数和指令
 * Quartz(单点/集群)、UI管理、异步任务、线程池
-* 第三方：微信SDK/支付宝SDK/JPush推送/高德地图/Geetest/阿里云OSS/短信/邮件/微信扫码登陆
+* 第三方：微信SDK/支付宝SDK/JPush推送/高德地图/Geetest/阿里云OSS/短信/邮件
 * 工具包：字符、时间、金额、JSON、Http、PDF、License、分页、文件、POI和CSV读写、对象、加密、二维码、图形验证码、ID生成器等
-* JS插件：Ajax/DataTables/CityPicker/Layer/DatePicker/Ztree/Select2/Upload等
+* JS插件：Ajax/DataTables/CityPicker/Layer/DatePicker/Ztree/Select2/Dropzone等
 
 ### 环境与配置
 * Jdk 1.8

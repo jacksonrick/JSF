@@ -5,6 +5,7 @@ import com.jsf.database.enums.ResCode;
 import com.jsf.database.model.User;
 import com.jsf.service.CommonService;
 import com.jsf.service.UserService;
+import com.jsf.utils.annotation.RepeatSubmit;
 import com.jsf.utils.annotation.Token;
 import com.jsf.utils.entity.ResMsg;
 import com.jsf.utils.string.StringUtil;
@@ -266,6 +267,7 @@ public class AppController extends BaseController {
 
     @PostMapping("/userinfo")
     @Token
+    @RepeatSubmit(timeout = 5) // 防重复提交TEST
     public ResMsg userinfo(Long userId) {
         User user = userService.findUserById(userId);
         return ResMsg.successdata(user);

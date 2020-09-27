@@ -159,18 +159,10 @@ public class UserService {
     /**
      * 新增用户
      *
-     * @param nickname
-     * @param email
-     * @param password
-     * @param phone
      * @return
      */
-    public int insertUser(String nickname, String email, String password, String phone) {
-        User user = new User(uidGenerator.getUID());
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phone);
-        user.setNickname(nickname);
+    public int insertUser(User user) {
+        user.setId(uidGenerator.getUID());
         // 新增用户
         return userMapper.insert(user);
     }

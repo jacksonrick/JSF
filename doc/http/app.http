@@ -5,41 +5,44 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-######## For APP ########
-POST http://127.0.0.1:8081/app/register?phone=17755451875&password=5d24bbbe2fe58aba66827aa870004c79&sms=377204
+###
+GET http://127.0.0.1:8081/api/
 Accept: */*
-Cache-Control: no-cache
-Req-Type: APP
+X-Requested-With: XMLHttpRequest
+timestamp: 1601192988
+nonce: u81djiwd33dk
+sign: 915C032E2D2EC0160C21142851DA59AE
+
+###
+POST http://127.0.0.1:8081/api/register?phone=17755451875&password=5d24bbbe2fe58aba66827aa870004c79&sms=377204
+Accept: */*
 X-Requested-With: XMLHttpRequest
 
 ###
-POST http://127.0.0.1:8081/app/login?phone=17755451873&password=5d24bbbe2fe58aba66827aa870004c79
+POST http://127.0.0.1:8081/api/login?phone=13055451873&password=5d24bbbe2fe58aba66827aa870004c79
 Accept: */*
-Cache-Control: no-cache
-Req-Type: APP
+X-Requested-With: XMLHttpRequest
+timestamp: 1601193079
+nonce: u81djiwd33dk
+sign: 18FB719F283A5E6C21151BC9428D6429
+
+###
+POST http://127.0.0.1:8081/api/sms?phone=17755451875&codeType=reg
+Accept: */*
 X-Requested-With: XMLHttpRequest
 
 ###
-POST http://127.0.0.1:8081/app/sms?phone=17755451875&codeType=reg
+POST http://127.0.0.1:8081/api/pwd/forget?phone=17755451873&password=5d24bbbe2fe58aba66827aa870004c79&sms=749950
 Accept: */*
-Cache-Control: no-cache
-Req-Type: APP
-X-Requested-With: XMLHttpRequest
-
-###
-POST http://127.0.0.1:8081/app/pwd/forget?phone=17755451873&password=5d24bbbe2fe58aba66827aa870004c79&sms=749950
-Accept: */*
-Cache-Control: no-cache
-Req-Type: APP
 X-Requested-With: XMLHttpRequest
 token: 0336F4989043232C4AA1C98F06EDB0F7
 
 ###
-POST http://127.0.0.1:8081/app/userinfo
+POST http://127.0.0.1:8081/api/userinfo
 Accept: */*
-Cache-Control: no-cache
-Req-Type: APP
-Content-Type: application/json
 X-Requested-With: XMLHttpRequest
-token: 9D281F3D79D6A8A37ABDB0264D723A42
+token: 27E15706722B966FF2908B78015C4299
+timestamp: 1601193312
+nonce: u81djiwd33dk
+sign: F585D44DD1B9AB58250A8EF636BF40B5
 

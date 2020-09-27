@@ -25,14 +25,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: App Token
+ * Description: 前置处理器，用户Token，仅拦截接口方法上带有Token注解
  * User: xujunfei
  * Date: 2018-05-24
  * Time: 15:07
  */
 @Aspect
 @Component
-@Order(2)
+@Order(101)
 public class AspectToken {
 
     private final static Logger log = LoggerFactory.getLogger(AspectToken.class);
@@ -71,14 +71,14 @@ public class AspectToken {
         if (IConstant.TOKEN_HEADER.equals(type)) {
             token = request.getHeader(name);
         } else if (IConstant.TOKEN_PARAM.equals(type)) {
+            token = request.getParameter(name);
+        } else if (IConstant.TOKEN_COOKIE.equals(type)) {
             Cookie cookieValue = WebUtils.getCookie(request, name);
             if (cookieValue != null) {
                 token = cookieValue.getValue();
             }
-        } else if (IConstant.TOKEN_COOKIE.equals(type)) {
-            token = request.getParameter(name);
         }
-        log.debug("api token: " + token);
+        log.info("api token: " + token);
 
         if (!need) { //非必须
             if (StringUtil.isBlank(token)) {

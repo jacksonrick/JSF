@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: Token处理器 支持Redis与MySQL数据
+ * Description: Token处理器 支持Redis与关系型数据库
  * User: xujunfei
  * Date: 2019-05-05
  * Time: 16:13
@@ -28,9 +28,6 @@ public class TokenHandler {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private TokenMapper tokenMapper;
-
-    // 默认过期时间
-    public static final int DEFAULT_TIMEOUT_DAYS = 7;
 
     /**
      * 绑定token [redis]
@@ -44,7 +41,7 @@ public class TokenHandler {
             stringRedisTemplate.delete(IConstant.TOKEN_PREFIX + oldToken); // 删除旧token
         }
         // 绑定用户唯一token
-        stringRedisTemplate.opsForValue().set(IConstant.TOKEN_PREFIX + newToken, userId + "", DEFAULT_TIMEOUT_DAYS, TimeUnit.DAYS);
+        stringRedisTemplate.opsForValue().set(IConstant.TOKEN_PREFIX + newToken, userId + "", IConstant.DEFAULT_TIMEOUT_DAYS, TimeUnit.DAYS);
         return newToken;
     }
 
@@ -58,7 +55,7 @@ public class TokenHandler {
         String newToken = StringUtil.getTokenId();
         Token oldToken = tokenMapper.findByUid(String.valueOf(userId));
         if (oldToken == null) {
-            Token tk = new Token(String.valueOf(userId), newToken, DateUtil.dateAddDay(new Date(), DEFAULT_TIMEOUT_DAYS));
+            Token tk = new Token(String.valueOf(userId), newToken, DateUtil.dateAddDay(new Date(), IConstant.DEFAULT_TIMEOUT_DAYS));
             if (tokenMapper.insert(tk) > 0) {
                 return newToken;
             } else {
@@ -66,7 +63,7 @@ public class TokenHandler {
             }
         } else {
             oldToken.setToken(newToken);
-            oldToken.setExpired(DateUtil.dateAddDay(new Date(), DEFAULT_TIMEOUT_DAYS));
+            oldToken.setExpired(DateUtil.dateAddDay(new Date(), IConstant.DEFAULT_TIMEOUT_DAYS));
             if (tokenMapper.update(oldToken) > 0) {
                 return newToken;
             } else {
