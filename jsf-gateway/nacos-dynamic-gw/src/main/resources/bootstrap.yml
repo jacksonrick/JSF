@@ -5,13 +5,14 @@ spring:
     name: nc-gateway
   cloud:
     nacos:
-      config:
-        server-addr: dev:8848
-gw:
+      server-addr: dev:8848
+      discovery: # 开启注册中心，注意：所有注册服务需要在同一个组中
+        group: NACOS_GROUP
+nacos: # 动态路由监听配置所在的数据节点
   data-id: nacos.gateway
   group: MYGROUP
 management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: '*' # 暴露监控点，方便查询已配置路由

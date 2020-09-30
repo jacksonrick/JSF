@@ -1,4 +1,4 @@
-package com.jsf.system.aspect;
+package com.jsf.system.component;
 
 import com.jsf.system.conf.SysConfig;
 import com.jsf.utils.entity.ResMsg;

@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class AspectApiSafe {
 
     private final static Logger log = LoggerFactory.getLogger(AspectApiSafe.class);
-    public final static int requestExpireSecond = 120;
+    public final static int requestExpireSecond = 120; // 此处设置请求时间戳不能与服务器时间戳相差120秒
 
     @Autowired(required = false)
     private StringRedisTemplate stringRedisTemplate;

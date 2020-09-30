@@ -46,3 +46,34 @@ timestamp: 1601193312
 nonce: u81djiwd33dk
 sign: F585D44DD1B9AB58250A8EF636BF40B5
 
+
+###
+GET http://127.0.0.1:8081/valid/get?nickname=hello&phone=13476354473
+
+###
+POST http://127.0.0.1:8081/valid/post1
+Content-Type: application/x-www-form-urlencoded
+
+nickname=hello&phone=13476354473&age=20
+
+###
+POST http://127.0.0.1:8081/valid/post2
+Content-Type: application/json
+
+{
+  "nickname": "world",
+  "phone": "13476354473",
+  "age": 30,
+  "agrs": [
+    {
+      "name": "xx",
+      "val": 10
+    },
+    {
+      "name": "yy",
+      "val": -1
+    }
+  ]
+}
+
+###

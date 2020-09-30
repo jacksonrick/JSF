@@ -1,4 +1,4 @@
-package com.jsf.system.helper;
+package com.jsf.system.component;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

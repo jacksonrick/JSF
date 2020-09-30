@@ -1,15 +1,18 @@
 # 需安装Nacos注册中心
 # 启动多个provider或consumer，注意修改port
+# port      name
+# 8070|8071 provider
+# 8072      consumer
 server:
-  port: 8072
+  port: 8070
 spring:
   application:
-#    name: ms-provider
-    name: ms-consumer
+    name: ms-provider
+#    name: ms-consumer
   cloud:
     nacos:
       discovery:
-        group: SRV_REG_GROUP
+        group: NACOS_GROUP # 注意：所有注册服务需要在同一个组中
         server-addr: dev:8848
 # 应用信息
 info:

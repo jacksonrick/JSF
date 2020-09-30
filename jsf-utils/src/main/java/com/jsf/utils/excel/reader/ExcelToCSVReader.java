@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 读取Excel，xls to CSV
+ * SAX模式读取Excel (xls to CSV)
  * <p>适合万级，十万级以上的数据量；需要2007版本以上</p>
  *
  * @author rick
@@ -32,12 +32,10 @@ public class ExcelToCSVReader {
     public List<String> headers;
     public int cols;
     public boolean includeHeader;
-    public boolean hasDateType;
 
-    public ExcelToCSVReader(boolean includeHeader, boolean hasDateType) {
+    public ExcelToCSVReader(boolean includeHeader) {
         this.datas = new ArrayList<>();
         this.includeHeader = includeHeader;
-        this.hasDateType = hasDateType;
         if (includeHeader) {
             headers = new ArrayList<>();
         }
@@ -56,7 +54,7 @@ public class ExcelToCSVReader {
             opcPackage = OPCPackage.open(is);
             ReadOnlySharedStringsTable strings = new ReadOnlySharedStringsTable(opcPackage);
             XSSFReader xssfReader = new XSSFReader(opcPackage);
-            StylesTable styles = xssfReader.getStylesTable();
+            StylesTable styles = xssfReader.getStylesTable(); //getSharedStringsTable
             XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
 
             // 取第一个表
@@ -125,12 +123,8 @@ public class ExcelToCSVReader {
             currentCol = thisCol;
             if (!firstCellOfRow) { // 非首行
                 if (currentCol < cols) { // 遍历列
-                    if (hasDateType) {
-                        // replace 时间格式问题，可能会替换非日期字段
-                        data[currentCol] = formattedValue.replaceAll("\"", "").replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", "").replaceAll("/", "-");
-                    } else {
-                        data[currentCol] = formattedValue;
-                    }
+                    data[currentCol] = formattedValue;
+                    // 注意时间格式问题
                 }
             } else {
                 if (includeHeader) {

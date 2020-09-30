@@ -1,7 +1,7 @@
 package com.jsf.common;
 
 import com.jsf.database.enums.ResCode;
-import com.jsf.system.aspect.AspectLog;
+import com.jsf.system.component.AspectLog;
 import com.jsf.utils.annotation.Except;
 import com.jsf.utils.entity.ResMsg;
 import com.jsf.utils.exception.*;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.net.URLEncoder;
@@ -56,8 +58,6 @@ public class BaseExceptionHandler {
             String value = request.getParameter(name);
             rvs.put(name, value);
         }
-        // 如果异常类有`@Unstack`注解，则不输出Stacktrace
-        Annotation[] annotations = e.getClass().getDeclaredAnnotations();
         String s = "Error: {0}, Msg: {1}, Caused by {2}.{3}:{4}, Uri: {5}, Params: {6}";
         s = MessageFormat.format(s,
                 e.getClass().getName(),
@@ -68,6 +68,8 @@ public class BaseExceptionHandler {
                 request.getRequestURI(),
                 rvs);
 
+        // 如果异常类有`@Unstack`注解，则不输出Stacktrace
+        Annotation[] annotations = e.getClass().getDeclaredAnnotations();
         if (annotations.length > 0) {
             // 注意：异常类只能有一个注解，且为Except
             Except except = (Except) annotations[0];
@@ -88,25 +90,25 @@ public class BaseExceptionHandler {
             log.error(s, e);
         }
 
-        // 自定义的系统异常
-        if (e instanceof SysException) {
+        // 自定义异常处理o
+        if (e instanceof SysException) { //系统异常
             return new ResMsg(ResCode.ERROR.code(), e.getMessage());
-        }
-        // api异常
-        if (e instanceof ApiException) {
+        } else if (e instanceof ApiException) { // api异常
             return new ResMsg(ResCode.APP_ERROR.code(), e.getMessage());
-        }
-        // api token异常
-        if (e instanceof ApiTokenException) {
+        } else if (e instanceof ApiTokenException) { // api token异常
             return new ResMsg(ResCode.TOKEN_EXP.code(), e.getMessage());
-        }
-
-        String requestType = request.getHeader("X-Requested-With");
-        // 未登录(特殊处理)
-        if (e instanceof NoLoginException) {
+        } else if (e instanceof ConstraintViolationException) { // 接口参数验证异常
+            ConstraintViolationException ex = (ConstraintViolationException) e;
+            Set<ConstraintViolation<?>> cvs = ex.getConstraintViolations();
+            for (ConstraintViolation<?> cv : cvs) {
+                return new ResMsg(ResCode.CODE_24.code(), cv.getMessage());
+            }
+            return new ResMsg(ResCode.CODE_24.code(), e.getMessage());
+        } else if (e instanceof NoLoginException) { // 未登录
+            String requestType = request.getHeader("X-Requested-With");
             if ("XMLHttpRequest".equalsIgnoreCase(requestType)) { // Ajax
                 return new ResMsg(ResCode.NO_LOGIN.code(), ResCode.NO_LOGIN.msg());
-            } else { // Page
+            } else { // 如果是页面访问，重定向到登陆页
                 String url = request.getRequestURL().toString();
                 Map<String, String[]> parameters = request.getParameterMap();
                 String para_URL = "";
@@ -129,10 +131,8 @@ public class BaseExceptionHandler {
                 map.put("redirectURL", para_URL);
                 return new ModelAndView("/loginPage", map);
             }
-        }
-
-        // 拒绝访问
-        if (e instanceof NotAllowException) {
+        } else if (e instanceof NotAllowException) { // 拒绝访问
+            String requestType = request.getHeader("X-Requested-With");
             if ("XMLHttpRequest".equalsIgnoreCase(requestType)) { // Ajax
                 return new ResMsg(ResCode.NOT_ALLOW.code(), ResCode.NOT_ALLOW.msg());
             } else { // Page
@@ -140,9 +140,8 @@ public class BaseExceptionHandler {
                 map.put("msg", e.getMessage());
                 return new ModelAndView("error/refuse", map);
             }
-        }
-        // admin未登录
-        if (e instanceof AdminNoLoginException) {
+        } else if (e instanceof AdminNoLoginException) {// admin未登录
+            String requestType = request.getHeader("X-Requested-With");
             if ("XMLHttpRequest".equalsIgnoreCase(requestType)) { // Ajax
                 return new ResMsg(ResCode.NO_LOGIN.code(), ResCode.NO_LOGIN.msg());
             } else { // Page
@@ -150,10 +149,10 @@ public class BaseExceptionHandler {
                 map.put("msg", e.getMessage());
                 return new ModelAndView("/admin/login", map);
             }
+        } else {
+            // 默认异常处理
+            return new ResMsg(ResCode.ERROR.code(), ResCode.ERROR.msg());
         }
-
-        // 以下为默认异常处理
-        return new ResMsg(ResCode.ERROR.code(), ResCode.ERROR.msg());
         /*if ("XMLHttpRequest".equalsIgnoreCase(requestType)) { // Ajax
             return new ResMsg(ResCode.ERROR.code(), ResCode.ERROR.msg());
         } else { // Page

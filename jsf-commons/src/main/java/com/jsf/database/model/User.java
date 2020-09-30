@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.jsf.database.model.custom.BaseVo;
 import com.jsf.database.model.custom.Extend;
-import com.jsf.system.handler.valid.EmptyPattern;
+import com.jsf.utils.validator.EmptyPattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 

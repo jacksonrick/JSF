@@ -2,7 +2,7 @@ package com.jsf.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jsf.database.enums.ResCode;
-import com.jsf.system.helper.RestClient;
+import com.jsf.system.component.RestClient;
 import com.jsf.system.utils.Constant;
 import com.jsf.system.utils.CookieUtils;
 import com.jsf.utils.entity.ResMsg;

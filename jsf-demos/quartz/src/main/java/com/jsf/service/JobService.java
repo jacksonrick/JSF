@@ -2,9 +2,9 @@ package com.jsf.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.jsf.commons.LogManager;
 import com.jsf.database.mapper.JobsMapper;
 import com.jsf.database.model.Jobs;
+import com.jsf.utils.system.LogManager;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

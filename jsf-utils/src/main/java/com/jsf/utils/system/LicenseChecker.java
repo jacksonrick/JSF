@@ -1,4 +1,4 @@
-package com.jsf.system.helper;
+package com.jsf.utils.system;
 
 import com.jsf.utils.system.LogManager;
 import com.jsf.utils.exception.SysException;
@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: 简单的许可证实现
+ * Description: 许可证实现
+ * 请在启动类方法第一行加入LicenseChecker.check(license_file)
  * User: xujunfei
  * Date: 2020-02-19
  * Time: 13:10

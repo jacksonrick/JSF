@@ -1,4 +1,4 @@
-package com.jsf.system.helper;
+package com.jsf.utils.system;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;

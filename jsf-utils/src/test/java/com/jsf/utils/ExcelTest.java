@@ -27,7 +27,7 @@ import java.util.List;
 public class ExcelTest {
 
     public static void main(String[] args) throws Exception {
-        testCSVReader();
+        testSXSSFThread();
     }
 
 
@@ -45,6 +45,17 @@ public class ExcelTest {
         CSVWriter writer = new CSVWriter();
         writer.write(users, UserTest.class);
         writer.toFile("/Users/xujunfei/Downloads");
+        System.out.println("time: " + (System.currentTimeMillis() - start));
+    }
+
+    /**
+     * 多线程写入
+     *
+     * @throws Exception
+     */
+    public static void testCSVWriterThread() throws Exception {
+        long start = System.currentTimeMillis();
+
         System.out.println("time: " + (System.currentTimeMillis() - start));
     }
 
@@ -81,7 +92,7 @@ public class ExcelTest {
 
         File file = new File("/Users/xujunfei/Downloads/test.xlsx");
         InputStream is = new FileInputStream(file);
-        ExcelToCSVReader xlsx2csv = new ExcelToCSVReader(true, false);
+        ExcelToCSVReader xlsx2csv = new ExcelToCSVReader(true);
         List<String[]> datas = xlsx2csv.process(is);
 
         long end = System.currentTimeMillis();
@@ -120,11 +131,16 @@ public class ExcelTest {
     }
 
     /**
-     * SXSS写入
+     * Excel写入
+     * 1000000测试数据
+     * 普通方式  2000刷新   18914
+     * 20000刷新  17209
+     * 50000刷新  16954
+     * 100000刷新 19367
      *
      * @throws Exception
      */
-    public static void testSXSS() throws Exception {
+    public static void testSXSSF() throws Exception {
         long start = System.currentTimeMillis();
 
         // 测试数据
@@ -134,8 +150,32 @@ public class ExcelTest {
             tests.add("A,B,C,D,E,F,G,H,I,J,K,L,M,N");
         }
 
-        ExcelWriter writer = new ExcelWriter();
-        writer.write(tests, "/Users/xujunfei/Downloads/output.xlsx");
+        ExcelWriter writer = new ExcelWriter(50000);
+        writer.writeSplit(tests, "/Users/xujunfei/Downloads/output.xlsx");
+
+        System.out.println("time: " + (System.currentTimeMillis() - start));
+    }
+
+    /**
+     * 多线程写入
+     * 1000000测试数据
+     * 5页 18132
+     * 10页 19026
+     *
+     * @throws Exception
+     */
+    public static void testSXSSFThread() throws Exception {
+        long start = System.currentTimeMillis();
+
+        // 测试数据
+        int total = 1000000;
+        List<String> tests = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            tests.add("A,B,C,D,E,F,G,H,I,J,K,L,M,N");
+        }
+
+        ExcelWriter writer = new ExcelWriter(50000);
+        writer.writeSplitMutilThread(tests, 100000, "/Users/xujunfei/Downloads/output.xlsx");
 
         System.out.println("time: " + (System.currentTimeMillis() - start));
     }

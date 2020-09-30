@@ -32,11 +32,11 @@ public class DynamicRouteServiceImplByNacos {
     @Autowired
     private DynamicRouteServiceImpl dynamicRouteService;
 
-    @Value("${spring.cloud.nacos.config.server-addr}")
+    @Value("${spring.cloud.nacos.server-addr}")
     private String serverAddr;
-    @Value("${gw.data-id}")
+    @Value("${nacos.data-id}")
     private String dataId;
-    @Value("${gw.group}")
+    @Value("${nacos.group}")
     private String group;
 
     @PostConstruct

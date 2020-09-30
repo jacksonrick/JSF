@@ -5,8 +5,8 @@ import com.jsf.database.mapper.UserMapper;
 import com.jsf.database.model.User;
 import com.jsf.database.model.custom.IdText;
 import com.jsf.database.model.excel.UserExcel;
+import com.jsf.utils.string.IdGen;
 import com.jsf.utils.string.StringUtil;
-import com.jsf.utils.uid.UidGenerator;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,8 @@ public class UserService {
 
     @Resource
     private UserMapper userMapper;
+    /*@Resource
+    private UidGenerator uidGenerator;*/
 
     /**
      * 按id查询用户
@@ -153,16 +155,13 @@ public class UserService {
         return userMapper.findForExcel(condition);
     }
 
-    @Resource
-    private UidGenerator uidGenerator;
-
     /**
      * 新增用户
      *
      * @return
      */
     public int insertUser(User user) {
-        user.setId(uidGenerator.getUID());
+        user.setId(IdGen.get().nextId());
         // 新增用户
         return userMapper.insert(user);
     }

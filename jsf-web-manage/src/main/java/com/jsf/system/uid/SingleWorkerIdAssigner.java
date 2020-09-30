@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Date: 2020-06-23
  * Time: 10:10
  */
-@Service
+//@Service
 public class SingleWorkerIdAssigner implements WorkerIdAssigner {
 
     public long assignWorkerId() {

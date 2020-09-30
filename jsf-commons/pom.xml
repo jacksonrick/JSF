@@ -13,6 +13,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
     <name>jsf-commons</name>
+    <description>公共模块，单项目可以直接合并</description>
 
     <dependencies>
         <dependency>

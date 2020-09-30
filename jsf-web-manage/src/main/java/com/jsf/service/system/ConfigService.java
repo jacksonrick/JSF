@@ -3,7 +3,7 @@ package com.jsf.service.system;
 import com.jsf.database.mapper.ConfigMapper;
 import com.jsf.database.model.custom.IdText;
 import com.jsf.database.model.manage.Config;
-import com.jsf.system.helper.AppRunners;
+import com.jsf.system.component.AppRunners;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package com.jsf.system.helper;
+package com.jsf.system.component;
 
 import com.jsf.database.mapper.ConfigMapper;
 import com.jsf.database.model.manage.Config;

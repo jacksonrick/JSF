@@ -1,4 +1,4 @@
-package com.jsf.system.handler.valid;
+package com.jsf.utils.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * Date: 2020-06-23
  * Time: 10:10
  */
-@Configuration
+//@Configuration
 public class CachedUidGeneratorConfig {
 
     @Bean

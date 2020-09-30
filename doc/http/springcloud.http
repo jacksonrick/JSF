@@ -6,7 +6,10 @@ Accept: application/json
 GET http://127.0.0.1:8085/getOpen
 Accept: application/json
 
+
+
 ### springcloud服务发现
+# 消费端
 GET http://127.0.0.1:8072/order?userId=1&productId=2
 
 ###
