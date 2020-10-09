@@ -1164,6 +1164,9 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("-- fa图标请从后台或官网查询\n\n");
 
         for (String table : tables) {
+            if (!info.getTables().isEmpty() && !info.getTables().contains(table)) {
+                continue;
+            }
             processTable(table);
             String bean = processBeanName(beanName);
             bw.write("\n-- menu for " + table + "\n");

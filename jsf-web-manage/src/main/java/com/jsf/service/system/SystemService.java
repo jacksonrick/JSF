@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -290,11 +291,16 @@ public class SystemService {
             return ResMsg.success("已生成到项目根目录");
         } else if ("zip".equals(action)) {
             // 压缩到下载路径
-            String outputZip = "./upload/generate/" + time + ".zip";
+            String parentDir = "./upload/generate/";
+            File parentDirFile = new File(parentDir);
+            if (!parentDirFile.exists()) {
+                parentDirFile.mkdirs();
+            }
+            String outputZip = parentDir + time + ".zip";
             try {
                 ZipUtil.zipDir(output, outputZip, true);
             } catch (Exception e) {
-                throw new RuntimeException("压缩失败");
+                throw new RuntimeException("压缩失败", e);
             }
             return ResMsg.success("生成成功，请稍后", outputZip.substring(1, outputZip.length()));
         } else {
