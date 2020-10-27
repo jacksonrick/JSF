@@ -12,6 +12,8 @@ public class User {
     private String username;
     private String password;
     private String roles;
+    private Boolean disabled;
+    private Integer locks;
 
     public User() {
     }
@@ -20,6 +22,8 @@ public class User {
         this.username = user.username;
         this.password = user.password;
         this.roles = user.roles;
+        this.disabled = user.disabled;
+        this.locks = user.locks;
     }
 
     public String getUsername() {
@@ -44,5 +48,21 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public Integer getLocks() {
+        return locks;
+    }
+
+    public void setLocks(Integer locks) {
+        this.locks = locks;
     }
 }

@@ -31,6 +31,7 @@ import java.util.Map;
  * Time: 11:45
  */
 @Controller
+@RequestMapping("/wechat")
 public class WxController {
 
     @Resource
@@ -91,6 +92,7 @@ public class WxController {
         }
     }
 
+    // 微信开发者配置验证
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public String doGet(String timestamp, String nonce, String echostr, String signature) {

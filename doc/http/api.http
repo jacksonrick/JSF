@@ -46,6 +46,14 @@ timestamp: 1601193312
 nonce: u81djiwd33dk
 sign: F585D44DD1B9AB58250A8EF636BF40B5
 
+###
+GET http://127.0.0.1:8081/api/report
+Accept: */*
+X-Requested-With: XMLHttpRequest
+timestamp: 1603786507
+nonce: u81djiwd33dk
+sign: 3FF6201D2E9F2B4546F57DE582B7CFF2
+
 
 ###
 GET http://127.0.0.1:8081/valid/get?nickname=hello&phone=13476354473

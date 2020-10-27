@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.0.1`
+##### Version `v6.0.2`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -81,7 +81,10 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * clean package -Dmaven.test.skip=true -e
 * 将target目录下的打包文件上传到服务器目录
 * 运行`doc/scripts/start.sh`命令
-* 注意：运行脚本前，请先查看注释，需要按照指定的命名方式
+* 注意：运行脚本前，请先查看注释
+* 目录说明
+    * upload: 文件上传
+    * logs: 日志目录
 
 #### Docker
 * 直接运行打包命令，将上传到服务器目录，如:/home/docker/web
@@ -103,7 +106,11 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 
 ---
 
-### 更新日志：
+### 更新日志
+* v6.0.2 `20201027`
+    * SSO登陆页面UI更新，新增禁用和锁定
+    * API安全新增接口锁定
+    * Excel优化导入导出及注释说明
 * v6.0.1 `20201009`
     * 改动优化太多，懒得写
 * v5.9.4 `20200904`

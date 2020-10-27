@@ -51,7 +51,7 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
             // 验证码等校验
             OUserExtDetail detail = (OUserExtDetail) authentication.getDetails();
             if (!detail.getVerify().equalsIgnoreCase(detail.getVerifySession())) {
-                throw new BadCredentialsException("验证码错误");
+                throw new BadCredentialsException("04");
             }
         } else if (details instanceof LinkedHashMap) { // password
             //LinkedHashMap detailMap = (LinkedHashMap) authentication.getDetails();
@@ -62,9 +62,19 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
 
         // 用户名密码校验
         UserDetail userDetail = (UserDetail) oUserDetailService.loadUserByUsername(authentication.getName());
+        if (userDetail.getDisabled()) {
+            throw new BadCredentialsException("01"); //账户禁用
+        }
+        if (userDetail.getLocks() >= 5) {
+            throw new BadCredentialsException("02"); //账户已锁定
+        }
         if (!userDetail.getUsername().equals(authentication.getName()) ||
                 !passwordEncoder.matches(String.valueOf(authentication.getCredentials()), userDetail.getPassword())) {
-            throw new BadCredentialsException("密码错误");
+            oUserDetailService.updateLocks(userDetail.getUsername());
+            throw new BadCredentialsException("03"); //密码错误
+        }
+        if (userDetail.getLocks() > 0) { //密码正确，如果有锁，则置0
+            oUserDetailService.updateLock0(userDetail.getUsername());
         }
 
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();

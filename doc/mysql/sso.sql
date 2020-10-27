@@ -104,6 +104,8 @@ CREATE TABLE `oauth_user`
     `role` varchar(255) DEFAULT NULL,
     `name` varchar(255) DEFAULT NULL,
     `pwd`  varchar(255) DEFAULT NULL,
+    `disabled` bit(1) DEFAULT b'0',
+    `locks` tinyint(2) DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 2
@@ -111,7 +113,7 @@ CREATE TABLE `oauth_user`
 
 BEGIN;
 INSERT INTO `oauth_user`
-VALUES (1, 'ADMIN,USER,MGM', 'test', '$2a$10$2QaFSy4T84/06c2uREOqxeTSNRsA1z6YYsGM/NJl..ZbjrOP9lL02');
+VALUES (1, 'ADMIN,USER,MGM', 'test', '$2a$10$2QaFSy4T84/06c2uREOqxeTSNRsA1z6YYsGM/NJl..ZbjrOP9lL02', 0, 0);
 COMMIT;
 
 

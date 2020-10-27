@@ -1,6 +1,6 @@
 package com.jsf.service;
 
-import com.jsf.common.TokenHandler;
+import com.jsf.system.handler.TokenHandler;
 import com.jsf.database.mapper.TokenMapper;
 import com.jsf.database.mapper.UserMapper;
 import com.jsf.database.model.User;

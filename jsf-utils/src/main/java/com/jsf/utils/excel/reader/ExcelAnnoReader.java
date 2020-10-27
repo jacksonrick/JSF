@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * 注解式导入Excel
- * <p>支持excel2007以上版本，适合万级以下的数据</p>
+ * <p>仅支持excel2007及以上版本</p>
  *
  * @author rick
  * @version 1.2

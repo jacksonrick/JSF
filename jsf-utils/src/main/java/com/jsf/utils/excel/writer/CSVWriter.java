@@ -15,7 +15,9 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: 写入CSV文件
+ * Description: 导出到CSV文件
+ * <p>1、导出百万级数据容易OOM、CPU爆满，建议分页</p>
+ * <p>2、大量数据时，反射会有严重性能问题，建议去除反射部分</p>
  * User: xujunfei
  * Date: 2020-09-15
  * Time: 16:22

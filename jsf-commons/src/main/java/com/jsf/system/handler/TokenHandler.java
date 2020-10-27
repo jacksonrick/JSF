@@ -1,4 +1,4 @@
-package com.jsf.common;
+package com.jsf.system.handler;
 
 import com.jsf.database.enums.ResCode;
 import com.jsf.database.mapper.TokenMapper;

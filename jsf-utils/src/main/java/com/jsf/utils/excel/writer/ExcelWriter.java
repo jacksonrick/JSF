@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 /**
- * 写入Excel
+ * Excel导出
  *
  * @author rick
  */

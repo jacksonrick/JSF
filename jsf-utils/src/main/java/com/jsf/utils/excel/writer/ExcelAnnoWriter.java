@@ -20,7 +20,9 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: Excel大量数据导出 注解式
+ * Description: Excel导出 注解式
+ * <p>导出百万级数据容易OOM、CPU爆满，建议分页</p>
+ * <p>2、大量数据时，反射会有严重性能问题，建议去除反射部分</p>
  * User: xujunfei
  * Date: 2019-03-11
  * Time: 10:21

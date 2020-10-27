@@ -1,5 +1,7 @@
 package com.jsf.system.aspect;
 
+import com.jsf.system.handler.ApiLocker;
+import com.jsf.utils.annotation.ApiLock;
 import com.jsf.utils.annotation.RepeatSubmit;
 import com.jsf.utils.encrypt.SignUtil;
 import com.jsf.utils.exception.ApiException;
@@ -91,6 +93,14 @@ public class AspectApiSafe {
             } else {
                 // 如果不存在，保存到数据库，并设置超时时间
                 stringRedisTemplate.opsForValue().set(signStr, timestamp, repeatSubmitAnno.timeout(), TimeUnit.SECONDS);
+            }
+        }
+
+        // API锁
+        ApiLock apiLockAnno = signature.getMethod().getAnnotation(ApiLock.class);
+        if (apiLockAnno != null) {
+            if (!ApiLocker.lock(apiLockAnno.name())) {
+                throw new ApiException(apiLockAnno.desc());
             }
         }
     }

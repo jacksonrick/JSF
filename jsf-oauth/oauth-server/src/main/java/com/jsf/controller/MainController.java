@@ -23,24 +23,25 @@ import java.util.Random;
 public class MainController {
 
     @GetMapping("/")
-    @ResponseBody
+    //@ResponseBody
     public String index() {
-        return "Welcome to OAuth2.0";
+        //return "Welcome to OAuth2.0";
+        return "index";
     }
 
     @GetMapping("/logoutPage")
     public String logout() {
-        return "logout";
+        return "index";
     }
 
     @GetMapping("/valid")
     public void getValidCode(HttpServletRequest request, HttpServletResponse response) {
         try {
-            BufferedImage bi = new BufferedImage(100, 35, BufferedImage.TYPE_INT_RGB);
+            BufferedImage bi = new BufferedImage(80, 35, BufferedImage.TYPE_INT_RGB);
             Graphics g = bi.getGraphics();
             Color c = new Color(127, 255, 212);
             g.setColor(c);
-            int width = 100;
+            int width = 80;
             int height = 35;
             g.fillRect(0, 0, width, height);
             g.setFont(new Font("Default", Font.PLAIN, 24));
@@ -62,8 +63,8 @@ public class MainController {
             char[] ch = "0123456789".toCharArray();
             int len = ch.length, index;
             StringBuffer sb = new StringBuffer();
-            // 验证码位数：5
-            for (int i = 0; i < 5; i++) {
+            // 验证码位数：4
+            for (int i = 0; i < 4; i++) {
                 Graphics2D gg = (Graphics2D) g.create();
                 gg.translate((i * 15) + 14, 20);
                 gg.rotate(random.nextInt(60) * Math.PI / 180);

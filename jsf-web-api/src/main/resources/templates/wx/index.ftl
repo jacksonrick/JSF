@@ -8,6 +8,6 @@
 </head>
 <body>
 微信公众号首页-必须登录才可以看到这个页面
-<a href="/user">个人中心</a>
+<a href="/wechat/user">个人中心</a>
 </body>
 </html>

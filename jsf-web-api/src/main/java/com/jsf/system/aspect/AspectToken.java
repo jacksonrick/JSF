@@ -1,6 +1,6 @@
 package com.jsf.system.aspect;
 
-import com.jsf.common.TokenHandler;
+import com.jsf.system.handler.TokenHandler;
 import com.jsf.database.enums.ResCode;
 import com.jsf.system.conf.IConstant;
 import com.jsf.utils.annotation.Token;

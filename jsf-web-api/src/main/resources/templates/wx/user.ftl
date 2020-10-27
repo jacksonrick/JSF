@@ -19,7 +19,7 @@
     $.ajax({
         type: "get",
         async: true,
-        url: "/userinfo",
+        url: "/wechat/userinfo",
         dataType: "json",
         success: function (data) {
             console.log(data);
