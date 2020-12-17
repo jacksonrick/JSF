@@ -33,6 +33,7 @@
         <module>websocket</module>
         <module>websocket-mq</module>
         <module>zookeeper</module>
+        <module>retry</module>
     </modules>
 
 </project>

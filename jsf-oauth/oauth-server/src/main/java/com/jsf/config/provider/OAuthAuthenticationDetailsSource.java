@@ -1,6 +1,6 @@
 package com.jsf.config.provider;
 
-import com.jsf.database.model.OUserExtDetail;
+import org.springframework.security.OUserExtDetail;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 public class OAuthAuthenticationDetailsSource implements AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> {
 
     @Override
-    public WebAuthenticationDetails buildDetails(HttpServletRequest context) {
-        return new OUserExtDetail(context);
+    public WebAuthenticationDetails buildDetails(HttpServletRequest request) {
+        return new OUserExtDetail(request);
     }
 
 }

@@ -1,12 +1,13 @@
-package com.jsf.database.model;
+package org.springframework.security;
 
+import com.jsf.database.model.ICONSTANT;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 自定义校验（springsecurity2.3.7版本反序列化时校验了包名：org.springframework.security，所以在这里单独建立个包）
  * User: xujunfei
  * Date: 2018-10-31
  * Time: 16:30

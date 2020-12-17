@@ -1,6 +1,6 @@
 package com.jsf.config.provider;
 
-import com.jsf.database.model.OUserExtDetail;
+import org.springframework.security.OUserExtDetail;
 import com.jsf.database.model.UserDetail;
 import com.jsf.service.OUserDetailService;
 import org.slf4j.Logger;

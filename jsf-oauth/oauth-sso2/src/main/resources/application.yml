@@ -1,4 +1,4 @@
-auth-server: http://dev:8090
+auth-server: http://127.0.0.1:8090
 server:
   port: 8092
   servlet:
