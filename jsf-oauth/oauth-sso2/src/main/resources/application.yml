@@ -6,6 +6,8 @@ server:
     session:
       cookie:
         name: OAUTH2SESSION
+  use-forward-headers: true # 解决配置https代理还是跳转http的问题，客户端都需要配置，Nginx代理配置请求头
+  # forward-headers-strategy: native
 security:
   oauth2:
     sso:

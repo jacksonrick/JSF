@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.0.3`
+##### Version `v6.0.4`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -20,8 +20,6 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * oauth-sso `SSO客户端`
     * oauth-client `Client模式`
 * jsf-gateway `网关模块`
-    * nacos-dynamic-gw `Nacos&SpingCloud动态网关`
-    * zuul-gw `Zuul网关`
 * jsf-registry `注册中心`
     * eureka-server `Eureka注册中心`
     * zookeeper-server `ZK注册中心`
@@ -44,6 +42,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * websocket `WebSocket`
     * websocket-mq `分布式WebSocket`
     * zookeeper `分布式配置和服务发现`
+    * retry `重试框架`
 
 ### 集成
 * Spring/MyBatis/SpringBoot/SpringCloud
@@ -107,6 +106,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.0.4 `20210203`
+    * 优化springcloud gateway，集成限流、熔断等
+    * 新增工具类HttpManager
 * v6.0.2 `20201027`
     * SSO登陆页面UI更新，新增禁用和锁定
     * API安全新增接口锁定

@@ -1,4 +1,4 @@
-# 需启动jsf-gateway/zookeeper-server注册中心
+# 需启动jsf-registry/zookeeper-server注册中心
 server:
   port: 8070
 spring:

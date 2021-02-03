@@ -1,0 +1,41 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: nc-gateway
+  cloud:
+    nacos:
+      server-addr: dev:8848
+      discovery: # 注册中心 注意：所有注册服务需要在同一个组中，使用默认组
+        group: DEFAULT_GROUP
+      config: # 配置中心
+        group: DEFAULT_GROUP
+    gateway:
+      httpclient:
+        pool:
+          max-connections: 200
+          max-idle-time: 10000
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+hystrix: # see com.netflix.hystrix.HystrixCommandProperties
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # 断路器的超时时间ms
+      circuitBreaker:
+        requestVolumeThreshold: 10 # 时间窗口s
+        errorThresholdPercentage: 50 # 出错百分比阈值%
+        sleepWindowInMilliseconds: 5000 # 尝试恢复ms
+  threadpool:
+    default:
+      maxQueueSize: -1 # 缓冲区大小，-1不设置直接降级
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露监控点，方便查询已配置路由
+# 路由配置、限流等参数见：~/doc/http/gateway.http

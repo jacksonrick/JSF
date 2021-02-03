@@ -13,7 +13,6 @@ import java.util.Map;
  * Date: 2018-02-27
  * Time: 10:27
  */
-// 如果接入网关（目前默认使用nacos），FeignClient设置为nc-gateway
 @FeignClient(value = "ms-provider", fallback = OrderRestServiceHystrix.class)
 public interface OrderRestService {
 

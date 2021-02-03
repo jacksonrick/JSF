@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
  * Time: 13:41
  */
 @Service
-public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
+public class DynamicRouteService implements ApplicationEventPublisherAware {
 
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;
@@ -46,16 +46,14 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
      */
     public String update(RouteDefinition definition) {
         try {
+            // 删除
             this.routeDefinitionWriter.delete(Mono.just(definition.getId()));
-        } catch (Exception e) {
-            return "update fail, can not find route routeId: " + definition.getId();
-        }
-        try {
+            // 再保存
             routeDefinitionWriter.save(Mono.just(definition)).subscribe();
             this.publisher.publishEvent(new RefreshRoutesEvent(this));
             return "success";
         } catch (Exception e) {
-            return "update route fail";
+            return "update route fail: " + definition.getId();
         }
     }
 
@@ -67,11 +65,11 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
      */
     public String delete(String id) {
         try {
-            this.routeDefinitionWriter.delete(Mono.just(id));
-            return "delete success";
+            this.routeDefinitionWriter.delete(Mono.just(id)).subscribe();
+            this.publisher.publishEvent(new RefreshRoutesEvent(this));
+            return "success";
         } catch (Exception e) {
-            e.printStackTrace();
-            return "delete fail";
+            return "delete fail: " + id;
         }
     }
 
