@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        group: MS_GROUP
+        server-addr: dev:8848
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://dev:3306/jframe?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: root
+      password: 12345678
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: MS_GROUP
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: MS_GROUP
+feign:
+  hystrix: # 断路器
+    enabled: true
+hystrix: # see com.netflix.hystrix.HystrixCommandProperties
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # 断路器的超时时间ms
+      circuitBreaker:
+        requestVolumeThreshold: 10 # 时间窗口s
+        errorThresholdPercentage: 50 # 出错百分比阈值%
+        sleepWindowInMilliseconds: 5000 # 尝试恢复ms
+  threadpool:
+    default:
+      maxQueueSize: -1 # 缓冲区大小，-1不设置直接降级
+management:
+  endpoints: # Actuator监控
+    enabled-by-default: true

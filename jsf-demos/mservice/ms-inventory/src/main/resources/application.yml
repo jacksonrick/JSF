@@ -1,0 +1,14 @@
+server:
+  port: 8061
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-inventory
+seata:
+  tx-service-group: tx_group_inventory
+info:
+  app:
+    name: ${spring.application.name}
+    version: "1"
+    description: ${spring.application.name}

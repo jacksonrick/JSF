@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.0.4`
+##### Version `v6.1`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -24,7 +24,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * eureka-server `Eureka注册中心`
     * zookeeper-server `ZK注册中心`
 * jsf-demos `集成案例`
-    * mservice `微服务|注册服务`
+    * mservice `微服务`
     * activiti `工作流`
     * actuator `Springboot监控`
     * dubbo `Dubbo`
@@ -106,6 +106,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.1 `20210208`
+    * 新增完整的微服务案例mservice
+    * 集成分布式事务seata
 * v6.0.4 `20210203`
     * 优化springcloud gateway，集成限流、熔断等
     * 新增工具类HttpManager
@@ -115,6 +118,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * Excel优化导入导出及注释说明
 * v6.0.1 `20201009`
     * 改动优化太多，懒得写
+    * 系统自定义配置移至数据库
 * v5.9.4 `20200904`
     * 5.x最后版本优化
 * v5.9.3 `20200812`

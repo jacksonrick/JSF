@@ -1,6 +1,8 @@
 -- driver-class-name: org.postgresql.Driver
 -- url: jdbc:postgresql://ip:5432/jsf?currentSchema=public
--- 请勿照搬本人数据库设计，应按所在公司规范化设计
+
+-- 1、请勿照搬本人数据库设计，应按所在公司规范化设计
+-- 2、最新数据表结构参考MySQL版本
 
 -- ----------------------------
 -- Table structure for s_admin
@@ -65,14 +67,6 @@ COMMENT ON COLUMN "public"."s_config"."type" IS '字段类型';
 COMMENT ON TABLE "public"."s_config" IS '配置表';
 
 -- ----------------------------
--- Records of s_config
--- ----------------------------
-
-BEGIN;
-
-COMMIT;
-
--- ----------------------------
 -- Table structure for s_log
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."s_log";
@@ -122,46 +116,6 @@ COMMENT ON COLUMN "public"."s_module"."deleted" IS '是否删除';
 COMMENT ON TABLE "public"."s_module" IS '后台模块';
 
 -- ----------------------------
--- Records of s_module
--- ----------------------------
-BEGIN;
-INSERT INTO "public"."s_module" VALUES (1, 0, '用户管理', NULL, 'fa fa-user', 1, 1, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (2, 0, '系统管理', NULL, 'fa fa-gear', 1, 10, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (100, 1, '用户列表', '/admin/user/page', 'fa fa-group', 2, 1, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (101, 100, '用户数据', '/admin/user/list', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (102, 100, '用户编辑', '/admin/user/edit', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (103, 100, '用户启用/禁用', '/admin/user/enable', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (104, 100, '用户详情', '/admin/user/detail', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (105, 100, '导出Excel', '/admin/user/export', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-
-INSERT INTO "public"."s_module" VALUES (106, 2, '管理员列表', '/admin/system/adminList', 'fa fa-user', 2, 1, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (107, 106, '管理员编辑', '/admin/system/adminEdit', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (108, 106, '管理员冻结', '/admin/system/adminEnable', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (109, 2, '权限管理', '/admin/system/rights', 'fa fa-delicious', 2, 2, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (110, 109, '编辑组', '/admin/system/roleEdit', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (111, 109, '禁用/启用组', '/admin/system/roleEnable', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (112, 109, '查看权限', '/admin/system/permits', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (113, 109, '授权组', '/admin/system/permit', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (114, 2, '操作日志', '/admin/system/logList', 'fa fa-keyboard-o', 2, 3, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (115, 114, '日志备份', '/admin/system/backupLog', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (116, 2, '文件管理', '/admin/system/file', 'fa fa-archive', 2, 5, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (117, 116, '获取目录', '/admin/system/getDirectory', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (118, 2, '系统工具', '/admin/system/tools', 'fa fa-crop', 2, 6, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (119, 118, 'SQL编辑', '/admin/system/executeUpdate', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (120, 118, 'SQL查询', '/admin/system/executeQuery', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (121, 2, '地址管理', '/admin/system/address', 'fa fa-map', 2, 8, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (122, 121, '编辑地址', '/admin/system/addrEdit', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (123, 121, '删除地址', '/admin/system/addrDel', NULL, 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (124, 2, '模块管理', '/admin/system/module', 'fa fa-desktop', 2, 7, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (125, 124, '模块编辑', '/admin/system/moduleEdit', '', 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (126, 124, '模块删除', '/admin/system/moduleDel', '', 3, NULL, '2018-07-17 17:39:43', 'f');
-INSERT INTO "public"."s_module" VALUES (127, 2, '系统日志', '/admin/system/syslogList', 'fa fa-laptop', 2, 4, '2018-08-30 17:23:41', 'f');
-INSERT INTO "public"."s_module" VALUES (128, 2, '代码生成', '/admin/system/codeGen', 'fa fa-code', 2, 4, '2020-09-11 10:27:31', 'f');
-INSERT INTO "public"."s_module" VALUES (129, 2, '系统配置', '/admin/system/sysConfig', 'fa fa-cogs', 2, 5, '2020-09-11 10:29:16', 'f');
-INSERT INTO "public"."s_module" VALUES (130, 129, '修改配置', '/admin/system/sysConfigEdit', NULL, 3, NULL, '2020-09-11 10:31:45', 'f');
-COMMIT;
-
--- ----------------------------
 -- Table structure for s_msg
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."s_msg";
@@ -198,14 +152,6 @@ COMMENT ON COLUMN "public"."s_role"."rights" IS '权限';
 COMMENT ON COLUMN "public"."s_role"."create_time" IS '创建时间';
 COMMENT ON COLUMN "public"."s_role"."deleted" IS '是否删除';
 COMMENT ON TABLE "public"."s_role" IS '后台用户组';
-
--- ----------------------------
--- Records of s_role
--- ----------------------------
-BEGIN;
-INSERT INTO "public"."s_role" VALUES (10000, '超级管理组', 0, NULL, '2018-07-17 17:55:11.928909', 'f');
-INSERT INTO "public"."s_role" VALUES (10001, '运维组', 1, '1,106,108,107', '2018-07-17 17:55:11.928909', 'f');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for s_token

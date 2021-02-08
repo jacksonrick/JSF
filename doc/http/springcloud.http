@@ -1,25 +1,8 @@
 ###
-GET http://127.0.0.1:8085/getFoo
-Accept: application/json
+POST http://127.0.0.1:8063/order?userId=1&productId=1&money=10
 
 ###
-GET http://127.0.0.1:8085/getOpen
-Accept: application/json
-
-
-
-### springcloud服务发现
-# 消费端
-GET http://127.0.0.1:8072/order?userId=1&productId=2
+POST http://127.0.0.1:8063/order2
 
 ###
-GET http://127.0.0.1:8072/get?a=1&b=2
-
-###
-POST http://127.0.0.1:8072/post
-Content-Type: application/json
-
-{"id": 1,"nickname": "xxx","money": 99.9}
-
-###
-GET http://127.0.0.1:8072/getUserById/102
+POST http://127.0.0.1:8061/updateInventory?productId=1&amount=1

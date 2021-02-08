@@ -55,7 +55,37 @@ CREATE TABLE `s_config` (
 -- Records of s_config
 -- ----------------------------
 BEGIN;
-
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (1, 'aliyun', 'accessId', 'accessId', '阿里云accessId', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (2, 'aliyun', 'accessSecret', 'accessSecret', '阿里云accessSecret', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (3, 'alipay', 'appid', '2016xxx', '支付宝-APPID', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (4, 'sys', 'appkey', 'appkey', 'APP访问校验码', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (5, 'sys', 'dev', 'true', '是否开发环境', 'boolean');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (6, 'alipay', 'gateway', 'https://openapi.alipaydev.com/gateway.do', '支付宝网关-生产环境/沙箱环境', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (7, 'alipay', 'notifyUrl', 'http://xxx/pay/callback/alipay', '支付宝-接收通知的接口', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (8, 'alipay', 'partner', '2088xxx', '支付宝-合作身份者ID，以2088开头由16位纯数字组成的字符串', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (9, 'alipay', 'publicKey', 'pubkey', '支付宝-公钥，使用支付宝提供工具生成后上传至开发者平台', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (10, 'alipay', 'returnUrl', 'http://xxx/pay/page/success', '支付宝-通知页面跳转', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (11, 'alipay', 'rsaPrivateKey', 'prikey', '支付宝-商户私钥,需要PKCS8格式,使用支付宝提供工具生成', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (12, 'alipay', 'seller', 'xxx@sandbox.com', '支付宝-账号', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (13, 'sys', 'uploadHost', 'http://127.0.0.1:8081', '上传后拼接的服务器地址，可留空；如果配置了FastDFS，此项可以不用配置', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (14, 'sys', 'version', '6.1', '系统版本', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (15, 'wxpay', 'appid', 'wx47xxx', '微信-在开发平台登记的app应用', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (16, 'wxpay', 'partner', '1482xxx', '微信-商户号、MCH_ID', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (17, 'wxpay', 'partnerKey', 'partner_key', '微信-商户在微信平台设置的32位长度的api秘钥、API_KEY', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (18, 'wxpay', 'notifyUrl', 'http://xxx/pay/callback/wxpay', '微信-异步通知地址', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (19, 'wechat', 'mp_id', 'mp_id', '微信公众号id', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (20, 'wechat', 'mp_key', 'mp_key', '微信公众号key', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (21, 'geetest', 'id', 'geetid', 'geet验证-id', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (22, 'geetest', 'key', 'geetkey', 'geet验证-key', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (23, 'jpush', 'name', 'name', '极光推送', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (24, 'jpush', 'appkey', 'appkey', '极光推送', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (25, 'jpush', 'secret', 'secret', '极光推送', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (26, 'jpush', 'ios_product', 'false', 'IOS开发环境-false，生产环境-true', 'boolean');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (27, 'upload', 'fdfs', 'false', '如果为false,则上传到本地upload目录', 'boolean');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (28, 'upload', 'imgSize', '3', '图片大小，单位M', 'int');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (29, 'upload', 'imgType', 'jpg,jpeg,png,gif', '图片类型', 'list');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (30, 'upload', 'fileSize', '10', '文件大小【非图片】', 'int');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (31, 'upload', 'fileType', 'zip,rar', '文件类型', 'list');
 COMMIT;
 
 -- ----------------------------

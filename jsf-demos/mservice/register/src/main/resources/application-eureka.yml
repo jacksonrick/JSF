@@ -20,8 +20,8 @@ eureka: # eureka客户端注册
     enabled: true
     serviceUrl:
       defaultZone: http://eureka:eureka1234@127.0.0.1:10000/eureka/ # eureka服务端地址
-feign: # 断路器
-  hystrix:
+feign:
+  hystrix: # 断路器
     enabled: true
 management:
   endpoints: # Actuator监控

@@ -1,0 +1,14 @@
+server:
+  port: 8063
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-order
+seata:
+  tx-service-group: tx_group_order
+info:
+  app:
+    name: ${spring.application.name}
+    version: "1"
+    description: ${spring.application.name}
