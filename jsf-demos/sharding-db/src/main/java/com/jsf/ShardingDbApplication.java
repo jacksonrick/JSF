@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Date: 2019-11-14
  * Time: 10:12
  */
+// 请直接运行test包下的测试类
 @SpringBootApplication(scanBasePackages = "com.jsf")
 public class ShardingDbApplication {
 

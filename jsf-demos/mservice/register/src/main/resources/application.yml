@@ -1,7 +1,7 @@
 # 需安装Nacos注册中心
 # 启动多个provider或consumer，注意修改port
 server:
-  port: 8070
+  port: 8071
 spring:
   application:
     name: ms-provider

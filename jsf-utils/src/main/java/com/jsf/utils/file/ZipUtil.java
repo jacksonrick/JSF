@@ -4,6 +4,9 @@ import com.jsf.utils.exception.SysException;
 import com.jsf.utils.string.StringUtil;
 
 import java.io.*;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -115,6 +118,7 @@ public class ZipUtil {
 
     /**
      * 压缩文件
+     * <p>使用NIO优化，其他方法参考</p>
      *
      * @param filePaths
      * @param zipFilePath
@@ -123,13 +127,12 @@ public class ZipUtil {
      * @throws IOException
      */
     public static int zip(List<String> filePaths, String zipFilePath, boolean keepDirStructure) throws IOException {
-        byte[] buf = new byte[1024];
         File zipFile = new File(zipFilePath);
         if (!zipFile.exists())
             zipFile.createNewFile();
         int fileCount = 0;
-        try {
-            ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile));
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile));
+             WritableByteChannel wbc = Channels.newChannel(zos)) {
             for (int i = 0; i < filePaths.size(); i++) {
                 String relativePath = filePaths.get(i);
                 if (StringUtil.isBlank(relativePath)) {
@@ -139,23 +142,18 @@ public class ZipUtil {
                 if (sourceFile == null || !sourceFile.exists()) {
                     continue;
                 }
-                FileInputStream fis = new FileInputStream(sourceFile);
-                if (keepDirStructure) {
-                    //保持目录结构
-                    zos.putNextEntry(new java.util.zip.ZipEntry(relativePath));
-                } else {
-                    //直接放到压缩包的根目录
-                    zos.putNextEntry(new java.util.zip.ZipEntry(sourceFile.getName()));
+                try (FileChannel channel = new FileInputStream(sourceFile).getChannel()) {
+                    if (keepDirStructure) {
+                        //保持目录结构
+                        zos.putNextEntry(new java.util.zip.ZipEntry(relativePath));
+                    } else {
+                        //直接放到压缩包的根目录
+                        zos.putNextEntry(new java.util.zip.ZipEntry(sourceFile.getName()));
+                    }
+                    channel.transferTo(0, sourceFile.length(), wbc);
+                    fileCount++;
                 }
-                int len;
-                while ((len = fis.read(buf)) > 0) {
-                    zos.write(buf, 0, len);
-                }
-                zos.closeEntry();
-                fis.close();
-                fileCount++;
             }
-            zos.close();
         } catch (Exception e) {
             throw new SysException(e.getMessage(), e);
         }
@@ -164,43 +162,30 @@ public class ZipUtil {
 
     /**
      * 压缩文件夹
+     * 递归
      *
      * @param dir
+     * @param zipFile
      * @param keepDirStructure
      */
     public static void zipDir(String dir, String zipFile, boolean keepDirStructure) {
-        ZipOutputStream zos = null;
-        try {
-            zos = new ZipOutputStream(new FileOutputStream(zipFile));
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile));
+             WritableByteChannel wbc = Channels.newChannel(zos)) {
             File sourceFile = new File(dir);
-            compress(sourceFile, zos, sourceFile.getName(), keepDirStructure);
+            compress(sourceFile, zos, wbc, sourceFile.getName(), keepDirStructure);
             long end = System.currentTimeMillis();
         } catch (Exception e) {
             throw new RuntimeException("zip dir error", e);
-        } finally {
-            if (zos != null) {
-                try {
-                    zos.close();
-                } catch (IOException e) {
-                }
-            }
         }
     }
 
-    private static void compress(File sourceFile, ZipOutputStream zos, String name, boolean KeepDirStructure) throws Exception {
+    private static void compress(File sourceFile, ZipOutputStream zos, WritableByteChannel wbc, String name, boolean KeepDirStructure) throws Exception {
         byte[] buf = new byte[1024];
         if (sourceFile.isFile()) {
-            // 向zip输出流中添加一个zip实体，构造器中name为zip实体的文件的名字
             zos.putNextEntry(new ZipEntry(name));
-            // copy文件到zip输出流中
-            int len;
-            FileInputStream in = new FileInputStream(sourceFile);
-            while ((len = in.read(buf)) != -1) {
-                zos.write(buf, 0, len);
+            try (FileChannel channel = new FileInputStream(sourceFile).getChannel()) {
+                channel.transferTo(0, sourceFile.length(), wbc);
             }
-            // Complete the entry
-            zos.closeEntry();
-            in.close();
         } else {
             File[] listFiles = sourceFile.listFiles();
             if (listFiles == null || listFiles.length == 0) {
@@ -208,8 +193,6 @@ public class ZipUtil {
                 if (KeepDirStructure) {
                     // 空文件夹的处理
                     zos.putNextEntry(new ZipEntry(name + "/"));
-                    // 没有文件，不需要文件的copy
-                    zos.closeEntry();
                 }
             } else {
                 for (File file : listFiles) {
@@ -217,9 +200,9 @@ public class ZipUtil {
                     if (KeepDirStructure) {
                         // 注意：file.getName()前面需要带上父文件夹的名字加一斜杠,
                         // 不然最后压缩包中就不能保留原来的文件结构,即：所有文件都跑到压缩包根目录下了
-                        compress(file, zos, name + "/" + file.getName(), KeepDirStructure);
+                        compress(file, zos, wbc, name + "/" + file.getName(), KeepDirStructure);
                     } else {
-                        compress(file, zos, file.getName(), KeepDirStructure);
+                        compress(file, zos, wbc, file.getName(), KeepDirStructure);
                     }
                 }
             }
@@ -227,7 +210,7 @@ public class ZipUtil {
     }
 
     /**
-     * 压缩文件
+     * gzip压缩文件
      *
      * @param srcFile
      * @param desFile

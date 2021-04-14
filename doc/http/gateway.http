@@ -1,6 +1,9 @@
 # 路由配置
 
-### 注册中心服务（lb开头）
+# org.springframework.cloud.gateway.handler.predicate
+# org.springframework.cloud.gateway.filter
+
+### 新增/更新服务
 POST http://127.0.0.1:9091/route/update
 Content-Type: application/json
 
@@ -45,37 +48,40 @@ Content-Type: application/json
 ### StripPrefix 去除URI前parts项，如/api/get => /get
 ### Hystrix 熔断降级
 
-### http服务
+# Header类型
+#"predicates": [
+#    {
+#      "name": "Header",
+#      "args": {
+#        "header": "X-VER",
+#        "regexp": "[1]"
+#      }
+#    }
+#  ]
+
+### 新增服务
 POST http://127.0.0.1:9091/route/add
 Content-Type: application/json
 
 {
-  "id": "test",
-  "predicates": [
-    {
-      "name": "Path",
-      "args": {
-        "pattern": "/api/**"
-      }
-    }
-  ],
-  "uri": "https://www.baidu.com/",
-  "filters": []
 }
 
 ### 删除路由
-GET http://127.0.0.1:9091/route/delete/api
+GET http://127.0.0.1:9091/route/delete/api-order-srv
 
 ### 路由表
 GET http://127.0.0.1:9091/actuator/gateway/routes
 
-### 测试
-GET http://127.0.0.1:9091/api/order?userId=1&productId=2
 
-###
+### 测试
+### 测试1
+GET http://127.0.0.1:9091/api/order?userId=1&productId=2
+X-VER: 2
+
+### 测试2
 GET http://127.0.0.1:9091/api/getUserById/1
 
-###
+### 测试3
 POST http://127.0.0.1:9091/api/post
 Content-Type: application/json
 

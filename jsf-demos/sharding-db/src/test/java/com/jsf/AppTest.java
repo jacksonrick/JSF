@@ -25,11 +25,13 @@ public class AppTest {
 
     @Test
     public void test1() {
+        // insert走master库
         userService.insertUser(10, "name", 1);
     }
 
     @Test
     public void test2() {
+        // select走slaver库
         User user = userService.findUserById(10);
         System.out.println(user);
     }

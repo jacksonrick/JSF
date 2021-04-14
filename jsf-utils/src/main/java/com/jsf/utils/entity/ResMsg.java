@@ -22,6 +22,9 @@ public class ResMsg {
      */
     private Object data;
 
+    static ResMsg SUCCESS = new ResMsg(DefaultResCode.SUCCESS.code(), DefaultResCode.SUCCESS.msg());
+    static ResMsg FAIL = new ResMsg(DefaultResCode.FAIL.code(), DefaultResCode.FAIL.msg());
+
     /**
      * 成功
      * code=0
@@ -29,7 +32,7 @@ public class ResMsg {
      * @return
      */
     public static ResMsg success() {
-        return new ResMsg(DefaultResCode.SUCCESS.code(), DefaultResCode.SUCCESS.msg());
+        return SUCCESS;
     }
 
     /**
@@ -73,7 +76,7 @@ public class ResMsg {
      * @return
      */
     public static ResMsg fail() {
-        return new ResMsg(DefaultResCode.FAIL.code(), DefaultResCode.FAIL.msg());
+        return FAIL;
     }
 
     /**

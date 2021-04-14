@@ -135,7 +135,7 @@ spring:
     host: dev
     port: 6379
     password:  # 密码
-    database: 1
+    database: 0
     timeout: 5s
     lettuce: # 使用lettuce或者jedis
       pool:

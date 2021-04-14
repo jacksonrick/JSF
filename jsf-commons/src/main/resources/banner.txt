@@ -8,4 +8,4 @@ _/    _/             _/       _/
 
 ${AnsiColor.BRIGHT_RED}###### JSF® Developed by Jackson Rick @v6
 ${AnsiColor.BRIGHT_RED}###### Spring Boot Version: ${spring-boot.version}
-${AnsiColor.BRIGHT_BLACK}
+${AnsiColor.DEFAULT}

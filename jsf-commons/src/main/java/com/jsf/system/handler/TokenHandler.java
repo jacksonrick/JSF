@@ -82,7 +82,11 @@ public class TokenHandler {
         if (token == null || token.length() < 1) {
             throw new ApiTokenException(ResCode.TOKEN_EXP.msg());
         }
-        Long uid = Long.valueOf(stringRedisTemplate.opsForValue().get(IConstant.TOKEN_PREFIX + token));
+        String s = stringRedisTemplate.opsForValue().get(IConstant.TOKEN_PREFIX + token);
+        if (s == null) {
+            throw new ApiTokenException(ResCode.TOKEN_EXP.msg());
+        }
+        Long uid = Long.valueOf(s);
         if (uid != null) {
             return uid;
         } else {

@@ -16,7 +16,7 @@ spring:
           max-connections: 200
           max-idle-time: 10000
   redis:
-    host: 127.0.0.1
+    host: dev
     port: 6379
     database: 0
 hystrix: # see com.netflix.hystrix.HystrixCommandProperties

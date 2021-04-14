@@ -11,6 +11,7 @@
     <artifactId>register</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
+    <description>服务注册实例</description>
 
     <dependencies>
         <dependency>

@@ -42,6 +42,7 @@ public class DynamicRouteListenerService implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         // 添加监听器
         // 配置格式为JSON
+        // 目前仅支持一个id，若需要多个，将json包裹为数组类型
         String configInfo = nacosConfigManager.getConfigService().getConfigAndSignListener(appName + ".json", configProperties.getGroup(), 5000, new Listener() {
             @Override
             public Executor getExecutor() {

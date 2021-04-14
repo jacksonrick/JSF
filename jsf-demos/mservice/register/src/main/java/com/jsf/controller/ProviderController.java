@@ -28,8 +28,8 @@ public class ProviderController {
 
     @GetMapping("/order")
     public String order(Integer userId, Integer productId) {
-        System.out.println("订单到达，本机端口：" + port + "，userId=" + userId + "，productId=" + productId);
-        return "下单成功，服务端口：" + port;
+        System.out.println("[V1]订单到达，本机端口：" + port + "，userId=" + userId + "，productId=" + productId);
+        return "[V1]下单成功，服务端口：" + port;
     }
 
     @GetMapping("/get")

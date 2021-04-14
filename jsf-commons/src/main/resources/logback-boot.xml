@@ -6,7 +6,9 @@
     <springProperty name="APPLICATION" source="spring.application.name" defaultValue="API" />
     <springProperty name="APPLICATION_SIMPLE" source="spring.application.simple" defaultValue="api" />
     <!-- 日志显示格式 -->
-    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%thread] [%X{server}][%X{rid}] %cyan(%logger{50}:%L) - %msg%n"></property>
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] [%X{server}][%X{rid}] %logger{50}:%L - %msg%n"></property>
+    <!--带颜色显示，但logstash等日志解析不能正常工作-->
+    <!--<property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%thread] [%X{server}][%X{rid}] %cyan(%logger{50}:%L) - %msg%n"></property>-->
     <!-- 日志文件名称 读取环境变量${app.name:-jsf} -->
     <property name="FILE_NAME" value="${APPLICATION}"></property>
     <property name="ERROR_NAME" value="${APPLICATION}.error"></property>
@@ -42,8 +44,10 @@
 
         <!-- 分布式ELK日志 -->
         <!--<appender name="elk" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>dev:9250</destination>
-            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+            <destination>vm:9250</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"logtype":"ext","logsrv":"srv10"}</customFields>
+            </encoder>
         </appender>-->
 
         <appender name="syslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -61,6 +65,8 @@
 
         <root level="info">
             <appender-ref ref="console"/>
+            <!--<appender-ref ref="syslog"/>
+            <appender-ref ref="elk"/>-->
         </root>
 
         <logger name="freemarker.cache" level="OFF"></logger>
