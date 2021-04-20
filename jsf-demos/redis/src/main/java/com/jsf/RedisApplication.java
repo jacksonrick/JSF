@@ -3,6 +3,7 @@ package com.jsf;
 import com.jsf.lock.RedisLocker;
 import com.jsf.model.Admin;
 import com.jsf.model.Product;
+import com.jsf.service.BatchService;
 import com.jsf.service.ProductService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @SpringBootApplication
 @Controller
@@ -131,6 +130,77 @@ public class RedisApplication {
         } else {
             return "FAIL";
         }
+    }
+
+    @Resource
+    private BatchService batchService;
+
+    // 批量插入 178ms
+    @GetMapping("/batch/test1")
+    @ResponseBody
+    public String batchTest1() {
+        long start = System.currentTimeMillis();
+        Map<String, Object> map = new HashMap<>();
+        for (int i = 1; i <= 10000; i++) {
+            Product product = new Product();
+            product.setId(100000l + i);
+            product.setName("apple");
+            product.setCurMoney(new BigDecimal("19.9"));
+            product.setDisabled(false);
+            product.setCreateTime(new Date());
+            map.put("key" + i, product);
+        }
+        batchService.batchSet(map);
+        System.out.println("批量插入耗时：" + (System.currentTimeMillis() - start));
+        return "SUCCESS";
+    }
+
+    // 循环插入 906ms
+    @GetMapping("/batch/test2")
+    @ResponseBody
+    public String batchTest2() {
+        long start = System.currentTimeMillis();
+        for (int i = 1; i <= 10000; i++) {
+            Product product = new Product();
+            product.setId(100000l + i);
+            product.setName("apple");
+            product.setCurMoney(new BigDecimal("19.9"));
+            product.setDisabled(false);
+            product.setCreateTime(new Date());
+            batchService.singleSet("key" + i, product);
+        }
+        System.out.println("循环插入耗时：" + (System.currentTimeMillis() - start));
+        return "SUCCESS";
+    }
+
+    @GetMapping("/batch/test3")
+    @ResponseBody
+    public String batchTest3() {
+        Map<String, Object> map = new HashMap<>();
+        for (int i = 1; i <= 10; i++) {
+            Product product = new Product();
+            product.setId(100l + i);
+            product.setName("apple");
+            product.setCurMoney(new BigDecimal("19.9"));
+            product.setDisabled(false);
+            product.setCreateTime(new Date());
+            map.put("key" + i, product);
+        }
+        batchService.batchSetExpire(map, 60);
+        return "SUCCESS";
+    }
+
+    @GetMapping("/batch/test4")
+    @ResponseBody
+    public String batchTest4() {
+        List<String> keys = new ArrayList<>();
+        keys.add("key1");
+        keys.add("key2");
+        keys.add("key3");
+        List<Object> objects = batchService.batchGet(keys);
+        System.out.println(objects);
+        System.out.println("key1==" + batchService.batchGetMap(keys).get("key2"));
+        return "SUCCESS";
     }
 
     public static void main(String[] args) {

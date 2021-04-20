@@ -12,27 +12,21 @@
     <version>1.0</version>
     <packaging>jar</packaging>
     <name>activiti</name>
+    <description>
+        Activiti7.x实例
+        设计器请从官网下载后，将war包放到tomcat启动
+        activiti-admin + activiti-app + activiti-rest
+        访问http://localhost:9999/activiti-app，账号密码admin/test
+    </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <project.name>activiti</project.name>
+        <activiti.version>7.1.0.M5</activiti.version>
     </properties>
 
     <dependencies>
-        <!-- test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- spring boot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,10 +74,17 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
+        <!-- Activiti -->
         <dependency>
             <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-basic</artifactId>
-            <version>6.0.0</version>
+            <artifactId>activiti-spring-boot-starter</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <!-- Activiti生成流程图 -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-image-generator</artifactId>
+            <version>${activiti.version}</version>
         </dependency>
     </dependencies>
 

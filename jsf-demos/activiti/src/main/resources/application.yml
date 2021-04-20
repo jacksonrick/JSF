@@ -1,13 +1,19 @@
 server:
   port: 8098
 spring:
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+    cache: true
+    charset: UTF-8
   datasource:
     druid: # Druid数据源配置
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://dev:3306/jframe?useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://dev:3306/activiti?useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
       username: root
       password: 12345678
       initial-size: 5
   activiti:
-    database-schema-update: false # 第一次启动改为true
+    database-schema-update: true # 自动生成表(act_re_deployment缺少VERSION_字段)
     history-level: FULL # 保存历史数据级别设置
+    db-history-used: true

@@ -1,8 +1,8 @@
 package com.jsf;
 
-import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,8 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Date: 2019-07-30
  * Time: 11:52
  */
-// `exclude`需要排除`org.activiti.spring.boot.SecurityAutoConfiguration`，否则会报错
-@SpringBootApplication(scanBasePackages = "com.jsf", exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = "com.jsf", exclude = SecurityAutoConfiguration.class) // 移除security验证
 public class ActivitiApplication {
 
     public static void main(String[] args) {

@@ -87,6 +87,8 @@ public class AspectApiSafe {
         MethodSignature signature = (MethodSignature) point.getSignature();
         RepeatSubmit repeatSubmitAnno = signature.getMethod().getAnnotation(RepeatSubmit.class);
         if (repeatSubmitAnno != null) {
+            // 这里根据签名来判断请求是否重复
+            // 通常来说 md5(timestamp+nonce+请求参数) 重复可能性非常低
             Boolean hasKey = stringRedisTemplate.hasKey(signStr);
             if (hasKey) {
                 throw new ApiException("请勿重复提交");

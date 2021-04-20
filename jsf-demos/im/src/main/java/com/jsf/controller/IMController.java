@@ -198,14 +198,16 @@ public class IMController {
     public Map<String, Object> upload(@RequestParam("file") MultipartFile file) throws IOException {
         Map<String, Object> map = new HashMap<>();
         String filename = randomFilename(file.getOriginalFilename());
-        FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/Users/xujunfei/Downloads/tmp/static/upload/202007/", filename));
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(staticPath + uploadImgPath, filename));
         map.put("error", 0);
-        map.put("url", "/static/upload/202007/" + filename);
+        map.put("url", uploadImgPath + filename);
         map.put("message", "SUCCESS");
         return map;
     }
 
-    static String staticPath = "/Users/xujunfei/Downloads/tmp";
+    static String staticPath = "~/Downloads/tmp";
+    static String uploadImgPath = "/static/upload/img/";
+    static String uploadAudioPath = "/static/upload/audio/";
 
     /**
      * 语音上传（示例）
@@ -219,9 +221,9 @@ public class IMController {
     public Map<String, Object> uploadAudio(@RequestParam("file") MultipartFile file) throws IOException {
         Map<String, Object> map = new HashMap<>();
         String filename = System.currentTimeMillis() + "" + (int) (Math.random() * 90000 + 10000) + ".mp3";
-        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(staticPath + "/static/upload/202007/audio/", filename));
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(staticPath + uploadAudioPath, filename));
         map.put("error", 0);
-        map.put("url", "/static/upload/202007/audio/" + filename);
+        map.put("url", uploadAudioPath + filename);
         map.put("message", "SUCCESS");
         return map;
     }
