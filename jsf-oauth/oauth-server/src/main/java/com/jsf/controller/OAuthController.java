@@ -1,5 +1,7 @@
 package com.jsf.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * 认证控制器
@@ -39,8 +42,23 @@ public class OAuthController {
      * @return
      */
     @RequestMapping("/authentication/user")
-    public Principal user(Principal user) {
-        return user;
+    public Principal user(Principal principal) {
+        return principal;
+    }
+
+    @Autowired
+    private JwtAccessTokenConverter converter;
+
+    /**
+     * 获取token_key
+     *
+     * @param principal
+     * @return
+     */
+    @RequestMapping("/authentication/tokenKey")
+    public Map<String, String> tokenKey() {
+        Map<String, String> result = converter.getKey();
+        return result;
     }
 
     // form action "/oauth/authorize"

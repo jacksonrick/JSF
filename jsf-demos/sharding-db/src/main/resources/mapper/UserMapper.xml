@@ -5,7 +5,7 @@
 <mapper namespace="com.jsf.mapper.UserMapper">
 
 	<insert id="insert" parameterType="com.jsf.model.User">
-		INSERT INTO t_user (id, username, address, age) VALUES (#{id}, #{username}, #{address}, #{age})
+		INSERT INTO t_user (id, username, address, age, dt) VALUES (#{id}, #{username}, #{address}, #{age}, #{dt})
 	</insert>
 
 	<select id="findById" parameterType="int" resultType="com.jsf.model.User">
@@ -15,5 +15,23 @@
 	<update id="update" parameterType="com.jsf.model.User">
 		UPDATE t_user SET username = #{username} WHERE id = #{id}
 	</update>
+
+	<select id="findList" resultType="com.jsf.model.User" parameterType="com.jsf.model.User">
+		<!--SELECT * FROM t_user WHERE dt &gt;= #{start} AND dt &lt;= #{end}-->
+		SELECT * FROM t_user WHERE dt BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="findInfoList" resultType="com.jsf.model.User" parameterType="com.jsf.model.User">
+		SELECT a.*, b.detail FROM t_user a LEFT JOIN t_user_info b ON a.id = b.uid
+		WHERE a.dt BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="findByPage" resultType="com.jsf.model.User">
+		SELECT * FROM t_user WHERE dt BETWEEN #{condition.start} AND #{condition.end} AND id &gt; #{lastId} ORDER BY id ASC LIMIT #{limit}
+	</select>
+
+	<select id="findSum" resultType="int" parameterType="com.jsf.model.User">
+		SELECT SUM(age) FROM t_user WHERE dt BETWEEN #{start} AND #{end}
+	</select>
 
 </mapper>

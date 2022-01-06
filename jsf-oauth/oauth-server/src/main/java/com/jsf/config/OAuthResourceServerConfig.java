@@ -23,9 +23,10 @@ public class OAuthResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .antMatcher("/authentication/user")
+                //.antMatcher("/authentication/user")
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/authentication/user", "/authentication/tokenKey")
+                .authenticated()
         ;
     }
 

@@ -2,14 +2,13 @@ package com.jsf.utils.string;
 
 import com.jsf.utils.date.DateUtil;
 import com.jsf.utils.exception.SysException;
+import com.jsf.utils.math.RandomUtil;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,10 +39,9 @@ public class StringUtil {
      */
     public static String getSmsCode(int size) {
         String base = "0123456789";
-        Random random = new Random();
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < size; i++) {
-            int number = random.nextInt(base.length());
+            int number = RandomUtil.SECURE_RANDOM.nextInt(base.length());
             sb.append(base.charAt(number));
         }
         return sb.toString();
@@ -145,10 +143,9 @@ public class StringUtil {
      */
     public static String getRandomCode(int size) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < size; i++) {
-            int number = random.nextInt(base.length());
+            int number = RandomUtil.SECURE_RANDOM.nextInt(base.length());
             sb.append(base.charAt(number));
         }
         return sb.toString();
@@ -254,11 +251,9 @@ public class StringUtil {
      * @return
      */
     public static synchronized String getTokenId() {
-        // 取随机数发生器, 默认是SecureRandom
-        Random random = new SecureRandom();
         byte[] bytes = new byte[SESSION_ID_BYTES];
         // 产生16字节的byte
-        random.nextBytes(bytes);
+        RandomUtil.SECURE_RANDOM.nextBytes(bytes);
         // 取摘要,默认是"MD5"算法
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

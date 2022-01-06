@@ -15,12 +15,6 @@ import java.util.Date;
  */
 public class JFunction {
 
-	public static void main(String[] args) {
-		// System.out.println(JFunction.getRemainDay(DateUtil.dateAddDay(new Date(), 5)));
-		// System.out.println(JFunction.formatIdcard("340123199311012"));
-		// System.out.println(JFunction.formatBankcard("621558130281824"));
-	}
-
 	public static String formatPhone(String phone) {
 		if (phone == null || "".equals(phone)) {
 			return "";

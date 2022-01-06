@@ -13,15 +13,11 @@ Accept: */*
 Cache-Control: no-cache
 
 ###password模式
-# test 77bf499d-62a2-40a6-aadc-8586a0266337
-# fei  ea41981c-9cd2-4e9d-a552-b752950c303b
-POST {{host}}/oauth/token?grant_type=password&scope=all&client_id=pwd&client_secret=123456&username=fei&password=123456
+POST {{host}}/oauth/token?grant_type=password&scope=all&client_id=pwd&client_secret=123456&username=xu&password=123456
 Accept: */*
 Cache-Control: no-cache
 
 ###刷新access_token
-# 12f00969-9f2b-4ebb-937b-407157b80886
-# b634231b-7b8f-454d-a441-fa5c86c21764
 POST {{host}}/oauth/token?grant_type=refresh_token&refresh_token=9ac53b21-662c-4770-810e-cd3729374614&client_id=pwd&client_secret=123456
 Accept: */*
 Cache-Control: no-cache
@@ -40,11 +36,6 @@ Cache-Control: no-cache
 
 ####################################################################################################
 
-###check_token
-POST {{host}}/oauth/check_token?token=786997ef-518b-4945-90e7-daf23009d9a4
-Accept: */*
-Cache-Control: no-cache
-
 ###访问受保护的资源[auth server]
 ###两种传值方式：url param | header
 
@@ -52,14 +43,22 @@ Cache-Control: no-cache
 POST {{host}}/authentication/user
 Accept: */*
 Cache-Control: no-cache
-Authorization: Bearer 786997ef-518b-4945-90e7-daf23009d9a4
+Authorization: Bearer {{token}}
 
-###
-GET {{host}}/oauth/token_key
+###check_token
+POST {{host}}/oauth/check_token?token={{token}}
 Accept: */*
 Cache-Control: no-cache
-Authorization:
 
+###
+#GET {{host}}/oauth/token_key
+GET {{host}}/authentication/tokenKey
+Accept: */*
+Cache-Control: no-cache
+Authorization: Bearer {{token}}
+
+
+### 客户端测试
 ###
 GET http://127.0.0.1:8099/test1
 Accept: */*

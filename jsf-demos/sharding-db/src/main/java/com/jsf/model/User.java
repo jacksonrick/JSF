@@ -1,5 +1,7 @@
 package com.jsf.model;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * Description:
@@ -13,6 +15,10 @@ public class User {
     private String username;
     private String address;
     private Integer age;
+    private Date dt;
+    private Date start;
+    private Date end;
+    private String detail;
 
     public Integer getId() {
         return id;
@@ -46,6 +52,38 @@ public class User {
         this.age = age;
     }
 
+    public Date getDt() {
+        return dt;
+    }
+
+    public void setDt(Date dt) {
+        this.dt = dt;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -53,6 +91,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", address='" + address + '\'' +
                 ", age=" + age +
+                ", dt=" + dt +
                 '}';
     }
 }

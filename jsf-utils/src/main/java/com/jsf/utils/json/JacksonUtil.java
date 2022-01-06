@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: fastxml Jackson
+ * Description: JSON converter [jackson lib]
  * User: xujunfei
  * Date: 2018-06-29
  * Time: 11:28

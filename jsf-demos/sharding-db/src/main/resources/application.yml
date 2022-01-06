@@ -27,12 +27,15 @@ spring:
     sharding:
       tables:
         t_user: # 对应数据库表名
-          actual-data-nodes: ds_0.t_user_$->{0..2} # 表示读取ds_0数据源的t_user_0,t_user_1,t_user_2
+          actual-data-nodes: ds_0.t_user_$->{2019..2021} # 表示读取ds_0数据源的t_user_0,t_user_1,t_user_2
           table-strategy: # 策略
-            inline:
-              sharding-column: id # 根据id来区分(id值必须存在)
-              algorithm-expression: t_user_$->{id % 3} # 使用表达式(inline)
-              # precise-algorithm-class-name: com.jsf.config.MyPreciseShardingAlgorithm # 使用自定义策略(standard)
+            # inline:
+              # sharding-column: id # 根据id来区分(值必须存在)
+              # algorithm-expression: t_user_$->{id % 3} # 使用表达式(inline)
+            standard:
+              sharding-column: dt # 根据创建时间来区分，precise精确值，range范围值
+              precise-algorithm-class-name: com.jsf.config.MyPreciseShardingAlgorithm
+              range-algorithm-class-name: com.jsf.config.MyRangeShardingAlgorithm
       master-slave-rules: # 配置主从库
         ds_0:
           load-balance-algorithm-type: round_robin

@@ -1,0 +1,14 @@
+GET http://localhost:8095/
+Accept: application/json
+
+###
+GET http://localhost:8095/set
+Accept: application/json
+
+### 301
+GET http://localhost:8095/batch/test1
+Accept: application/json
+
+### 334971
+GET http://localhost:8095/batch/test2
+Accept: application/json

@@ -1,11 +1,11 @@
 package com.jsf.utils.encrypt;
 
 import com.jsf.utils.exception.SysException;
+import com.jsf.utils.math.RandomUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,11 +42,10 @@ public class PasswordUtil {
         if (level < 1 || level > 4) {
             throw new SysException("密码策略必须在1～4之间");
         }
-        Random random = new Random();
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {
-            String tmp = RANDOM_ALL[random.nextInt(level)];
-            int number = random.nextInt(tmp.length());
+            String tmp = RANDOM_ALL[RandomUtil.SECURE_RANDOM.nextInt(level)];
+            int number = RandomUtil.SECURE_RANDOM.nextInt(tmp.length());
             sb.append(tmp.charAt(number));
         }
         return sb.toString();

@@ -21,7 +21,7 @@ public class OUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = oUserService.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("00"); // 用户名不存在
+            throw new UsernameNotFoundException("用户名" + username + "不存在"); // 用户名不存在
         }
         return new UserDetail(user);
     }

@@ -11,7 +11,7 @@ import java.security.SecureRandom;
  */
 public class RandomUtil {
 
-    protected static final SecureRandom RANDOM = new SecureRandom();
+    public static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     // 去除了0、O、I、L等容易混淆的字母
     public static final char ALPHA[] = {'2', '3', '4', '5', '6', '7', '8', '9',
@@ -26,7 +26,7 @@ public class RandomUtil {
      * @return 随机数
      */
     public static int num(int min, int max) {
-        return min + RANDOM.nextInt(max - min);
+        return min + SECURE_RANDOM.nextInt(max - min);
     }
 
     /**
@@ -36,7 +36,7 @@ public class RandomUtil {
      * @return 随机数
      */
     public static int num(int num) {
-        return RANDOM.nextInt(num);
+        return SECURE_RANDOM.nextInt(num);
     }
 
     /**

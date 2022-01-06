@@ -17,9 +17,18 @@ spring:
     redis:
       namespace: session:redis
   redis:
-    host: dev
-    port: 6379
-    database: 1
+#    host: dev
+#    port: 6379
+    database: 0
+    timeout: 3s
+    cluster:
+      nodes:
+        - vm1:6380
+        - vm1:6381
+        - vm1:6382
+        - vm2:6380
+        - vm2:6382
+        - vm2:6381
   mvc:
     static-path-pattern: /static/**
   resources:

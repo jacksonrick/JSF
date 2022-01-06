@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.1.2`
+##### Version `v6.1.3`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -106,6 +106,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.1.3 `20220106`
+    * shardingjdbc升级
+    * 工具类优化
 * v6.1.2 `20210420`
     * 升级activiti版本，提供完整DEMO
     * redis demo新增批量插入查询

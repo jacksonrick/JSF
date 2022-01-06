@@ -18,15 +18,17 @@ import java.text.DecimalFormat;
  */
 public class DoubleSerialize extends JsonSerializer<Double> {
 
-    private DecimalFormat df = new DecimalFormat("0.00");
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    static {
+        df.setMaximumFractionDigits(2); // 显示小数点几位
+        df.setGroupingSize(0);
+        df.setRoundingMode(RoundingMode.FLOOR);
+    }
 
     @Override
     public void serialize(Double value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException, JsonProcessingException {
         if (value != null) {
-            df.setMaximumFractionDigits(2); // 显示小数点几位
-            df.setGroupingSize(0);
-            df.setRoundingMode(RoundingMode.FLOOR);
             gen.writeNumber(df.format(value));
         }
     }
