@@ -12,6 +12,14 @@
     <version>3.4</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <spring.core.version>5.2.0.RELEASE</spring.core.version>
+        <servlet.version>3.1.0</servlet.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <jackson.version>2.9.10.1</jackson.version>
+        <freemarker.version>2.3.28</freemarker.version>
+    </properties>
+
     <build>
         <finalName>jsf-utils</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -46,8 +54,7 @@
         </plugins>
     </build>
 
-    <!-- provided | test | compile -->
-    <!-- 以下为外部提供 -->
+    <!-- 以下为外部提供（不会打包） -->
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -71,12 +78,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -198,7 +199,7 @@
         </dependency>
 
 
-        <!-- 以下Jar包非必要 -->
+        <!-- 以下Jar包不打包，但需要时请去掉scope标签，或由父模块引用 -->
         <!-- poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>
