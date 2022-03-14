@@ -1,6 +1,6 @@
 package com.jsf.controller;
 
-import com.jsf.common.BaseController;
+import com.jsf.base.BaseController;
 import com.jsf.database.enums.ResCode;
 import com.jsf.database.model.manage.Admin;
 import com.jsf.database.model.manage.Module;

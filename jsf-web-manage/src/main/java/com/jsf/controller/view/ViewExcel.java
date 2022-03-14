@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 生成Excel视图
+ * 生成Excel视图-通用模板
  * <p>1.map{name:表格名称,list:List类型}</p>
  * <p>2.SpringMvc用法:return new ModelAndView(new ViewExcel<UserModel>(), model);</p>
  *
@@ -49,9 +49,12 @@ public class ViewExcel<T> extends AbstractXlsView {
         }
 
         // 表名
-        String excelName = new StringBuilder(excel.name())
-                .append(new DateTime(System.currentTimeMillis()).toString("yyyy-MM-dd-HH-mm-ss"))
-                .append(".xlsx").toString(); // 文件后缀为xlsx(excel 2010)
+        String excelName = String.valueOf(map.get("name"));
+        if (excel == null || "null".equals(excelName)) {
+            excelName = new StringBuilder(excel.name())
+                    .append(new DateTime(System.currentTimeMillis()).toString("yyyy-MM-dd-HH-mm-ss"))
+                    .append(".xlsx").toString(); // 文件后缀为xlsx(excel 2010)
+        }
         // 设置response方式,使执行此controller时候自动出现下载页面,而非直接使用excel打开
         response.setContentType("APPLICATION/OCTET-STREAM"); // application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
         response.setHeader("Content-Disposition", "attachment; filename=" + BaseExcel.encodeFileName(excelName, request));
@@ -61,15 +64,15 @@ public class ViewExcel<T> extends AbstractXlsView {
         // 产生Excel表头
         Row header = sheet.createRow(0);
 
-        CellStyle style = workbook.createCellStyle();
+        CellStyle headerStyle = workbook.createCellStyle();
         Font font = workbook.createFont();
         font.setBold(true);
-        style.setAlignment(HorizontalAlignment.CENTER);
-        style.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
-        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        style.setBorderBottom(BorderStyle.THIN);
-        style.setBorderRight(BorderStyle.THIN);
-        style.setFont(font);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setFont(font);
 
         Field[] fs = t.getClass().getDeclaredFields(); // 所有字段
         int cell = 0; // 列序号，从0开始
@@ -78,12 +81,15 @@ public class ViewExcel<T> extends AbstractXlsView {
             if (field != null) {
                 Cell c = header.createCell(cell);
                 c.setCellValue(field.value());
-                c.setCellStyle(style); // 样式
+                c.setCellStyle(headerStyle); // 样式
+                if (field.width() != -1) { // 列宽
+                    sheet.setColumnWidth(cell, field.width() * 256);
+                }
                 cell++;
             }
         }
 
-        int total = cell; // 总列
+        int totalRow = cell; // 总列
         int line = 1; // 行序号，第二行开始
         for (T model : list) {
             Row row = sheet.createRow(line++); // 创建行
@@ -97,19 +103,28 @@ public class ViewExcel<T> extends AbstractXlsView {
                 String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
                 Method getMethod = t.getClass().getMethod(getMethodName, new Class[]{});
                 Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
-                String val = String.valueOf(obj);
                 // 写入单元格
-                BaseExcel.writeCell(row, cell, field, val);
+                BaseExcel.writeCell(row, cell, field, obj);
                 cell++;
             }
         }
 
-        LogManager.info(excelName + " 已导出，总计" + (line - 1) + "行，" + total + "列", ViewExcel.class);
-        // 自动列宽
-        sheet.trackAllColumnsForAutoSizing();
-        for (int i = 0; i < total; i++) {
-            sheet.autoSizeColumn(i);
+        LogManager.info(excelName + " 已导出，总计" + (line - 1) + "行，" + totalRow + "列", ViewExcel.class);
+
+        // 单元格样式
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setWrapText(true); // 自动换行
+        cellStyle.setVerticalAlignment(cellStyle.getVerticalAlignmentEnum().CENTER); // 垂直居中
+        for (int i = 0; i < totalRow; i++) {
+            for (int j = 1; j < line; j++) {
+                sheet.getRow(j).getCell(i).setCellStyle(cellStyle);
+            }
         }
+        // 自动列宽
+        //sheet.trackAllColumnsForAutoSizing();
+        //for (int i = 0; i < total; i++) {
+        //    sheet.autoSizeColumn(i);
+        //}
     }
 
 }

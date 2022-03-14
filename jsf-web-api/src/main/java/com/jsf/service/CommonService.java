@@ -1,7 +1,7 @@
 package com.jsf.service;
 
 import com.jsf.database.mapper.SmsMapper;
-import com.jsf.database.model.Sms;
+import com.jsf.database.model.app.Sms;
 import com.jsf.utils.string.IdGen;
 import org.springframework.stereotype.Service;
 

@@ -22,7 +22,7 @@ public class UserTest {
     private String B;
     @Fields(value = "CC")
     private String C;
-    @Fields(value = "DD")
+    @Fields(value = "DD", width = 20)
     private String D;
     @Fields(value = "EE")
     private String E;

@@ -2,7 +2,7 @@ package com.jsf.system.handler;
 
 import com.jsf.database.enums.ResCode;
 import com.jsf.database.mapper.TokenMapper;
-import com.jsf.database.model.Token;
+import com.jsf.database.model.app.Token;
 import com.jsf.system.conf.IConstant;
 import com.jsf.utils.date.DateUtil;
 import com.jsf.utils.exception.ApiTokenException;

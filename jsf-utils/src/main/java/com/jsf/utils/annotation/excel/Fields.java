@@ -23,6 +23,10 @@ public @interface Fields {
 
     TypeValue[] typeValues() default @TypeValue(name = "", value = "");
 
+    String format() default "yyyy-MM-dd HH:mm:ss";
+
+    int width() default -1;
+
     Class<? extends AbstractCellRender> render() default AbstractCellRender.None.class;
 
 }

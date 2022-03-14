@@ -4,17 +4,17 @@
 
 <mapper namespace="com.jsf.database.mapper.TokenMapper">
 
-    <select id="findByUid" resultType="token" parameterType="string">
+    <select id="findByUid" resultType="com.jsf.database.model.app.Token" parameterType="string">
         SELECT uid, token, expired FROM s_token
         WHERE uid = #{uid}
     </select>
 
-    <select id="findByToken" resultType="token" parameterType="string">
+    <select id="findByToken" resultType="com.jsf.database.model.app.Token" parameterType="string">
         SELECT uid, token, expired FROM s_token
         WHERE token = #{token}
     </select>
 
-    <insert id="insert" parameterType="token">
+    <insert id="insert" parameterType="com.jsf.database.model.app.Token">
         INSERT INTO s_token (
 			uid,
 			token,
@@ -27,7 +27,7 @@
 		)
     </insert>
 
-    <update id="update" parameterType="token">
+    <update id="update" parameterType="com.jsf.database.model.app.Token">
         UPDATE s_token
         <set>
             <if test="token != null and token != ''">token = #{token},</if>

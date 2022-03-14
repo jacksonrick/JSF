@@ -28,7 +28,7 @@ public class WxPayService implements WXPayConfig {
 
     public WxPayService() throws Exception {
         // 证书读取 - 撤销、退款申请API中调用
-        ClassPathResource resource = new ClassPathResource("apiclient_cert.p12");
+        ClassPathResource resource = new ClassPathResource("wechatpay.p12");
         this.certData = FileCopyUtils.copyToByteArray(resource.getInputStream());
     }
 

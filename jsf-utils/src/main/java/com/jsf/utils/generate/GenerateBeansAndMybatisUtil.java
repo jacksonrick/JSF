@@ -65,6 +65,7 @@ public class GenerateBeansAndMybatisUtil {
     private final static String mapper_package = "com.jsf.database.mapper";
     // 基类
     private final static String base_vo = "com.jsf.database.model.custom.BaseVo;";
+    private final static String base_vo2 = "com.jsf.database.model.custom.BaseVo";
 
     private Integer dbType = 1; // 1-mysql 2-postgres
     private Boolean removePrefix;
@@ -555,7 +556,7 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("\t</resultMap>\n\n");
 
         // 条件查询
-        bw.write("\t<select id=\"findByCondition\" resultMap=\"baseResultMap\" parameterType=\"baseVo\">\n");
+        bw.write("\t<select id=\"findByCondition\" resultMap=\"baseResultMap\" parameterType=\"" + base_vo2 + "\">\n");
         bw.write("\t\tSELECT <include refid=\"allColumn\"/> \n\t\tFROM " + tableName + "\n");
         bw.write("\t\t<include refid=\"baseCondition\"/>\n");
         bw.write("\t\t<include refid=\"COMMON.ORDER\"/>\n");
@@ -677,7 +678,6 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("\t</update>\n\n");
 
         // 禁用/启用
-        bw.write("\t<!--请根据实际情况修改-->\n");
         bw.write("\t<update id=\"enable\" parameterType=\"" + type + "\">\n");
         bw.write("\t\tUPDATE " + tableName + "\n");
         bw.write("\t\tSET deleted = !deleted\n");
@@ -713,6 +713,7 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("import java.util.List;\n\n");
         bw.write("import " + bean_package + "." + beanName + ";\n");
         bw.write("import " + mapper_package + "." + beanName + "Mapper;\n");
+        bw.write("import com.jsf.utils.string.StringUtil;\n");
         bw.write("import org.springframework.stereotype.Service;\n");
         bw.write("import com.github.pagehelper.PageInfo;\n\n");
 

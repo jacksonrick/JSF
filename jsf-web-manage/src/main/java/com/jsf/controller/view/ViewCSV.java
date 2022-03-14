@@ -78,9 +78,8 @@ public class ViewCSV<T> extends AbstractView {
                 String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1); // 属性的get方法，必须以get开头，is不支持
                 Method getMethod = t.getClass().getMethod(getMethodName, new Class[]{});
                 Object obj = getMethod.invoke(model, new Object[]{}); // 执行get方法
-                String val = String.valueOf(obj);
                 // 写入单元格
-                BaseExcel.writeCSVCell(sb, cell, field, val);
+                BaseExcel.writeCSVCell(sb, cell, field, obj);
             }
             sb.deleteCharAt(sb.length() - 1);
             sb.append('\n');

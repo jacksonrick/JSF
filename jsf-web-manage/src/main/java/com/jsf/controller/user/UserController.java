@@ -1,7 +1,7 @@
 package com.jsf.controller.user;
 
 import com.github.pagehelper.PageInfo;
-import com.jsf.common.BaseController;
+import com.jsf.base.BaseController;
 import com.jsf.controller.view.ViewCSV;
 import com.jsf.controller.view.ViewExcel;
 import com.jsf.controller.view.ViewPDF;

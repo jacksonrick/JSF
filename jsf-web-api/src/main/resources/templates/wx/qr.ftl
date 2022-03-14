@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <script src="/static/theme/js/jquery.min.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
 </head>
 
 <body>

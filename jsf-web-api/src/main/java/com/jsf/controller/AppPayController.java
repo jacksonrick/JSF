@@ -3,7 +3,7 @@ package com.jsf.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.jsf.common.BaseController;
+import com.jsf.base.BaseController;
 import com.jsf.database.enums.ResCode;
 import com.jsf.service.pay.AliPayService;
 import com.jsf.service.pay.WxPayService;

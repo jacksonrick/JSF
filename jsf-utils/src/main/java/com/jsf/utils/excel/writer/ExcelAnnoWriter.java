@@ -56,15 +56,15 @@ public class ExcelAnnoWriter<T> {
         // 产生Excel表头
         Row header = sheet.createRow(0);
 
-        CellStyle style = workbook.createCellStyle();
+        CellStyle headerStyle = workbook.createCellStyle();
         Font font = workbook.createFont();
         font.setBold(true);
-        style.setAlignment(HorizontalAlignment.CENTER);
-        style.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
-        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        style.setBorderBottom(BorderStyle.THIN);
-        style.setBorderRight(BorderStyle.THIN);
-        style.setFont(font);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setFont(font);
 
         fs = clz.getDeclaredFields(); // 所有字段
         int cell = 0; // 列序号，从0开始
@@ -73,7 +73,10 @@ public class ExcelAnnoWriter<T> {
             if (field != null) {
                 Cell c = header.createCell(cell);
                 c.setCellValue(field.value());
-                c.setCellStyle(style); // 样式
+                c.setCellStyle(headerStyle); // 样式
+                if (field.width() != -1) { // 列宽
+                    sheet.setColumnWidth(cell, field.width() * 256);
+                }
                 cell++;
             }
         }
@@ -128,8 +131,15 @@ public class ExcelAnnoWriter<T> {
      * @param path 路径需要以 / 结尾
      */
     public String export(String path) {
-        // 自动列宽
-        sheet.trackAllColumnsForAutoSizing();
+        // 单元格样式
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setWrapText(true); // 自动换行
+        cellStyle.setVerticalAlignment(cellStyle.getVerticalAlignmentEnum().CENTER); // 垂直居中
+        for (int i = 0; i < totalRow; i++) {
+            for (int j = 1; j < rowIndex; j++) {
+                sheet.getRow(j).getCell(i).setCellStyle(cellStyle);
+            }
+        }
         // 输出到文件
         File file = new File(path + excelName);
         FileOutputStream out = null;

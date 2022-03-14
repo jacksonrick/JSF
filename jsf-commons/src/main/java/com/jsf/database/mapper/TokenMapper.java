@@ -1,6 +1,6 @@
 package com.jsf.database.mapper;
 
-import com.jsf.database.model.Token;
+import com.jsf.database.model.app.Token;
 
 /**
  * Test Interface

@@ -5,21 +5,23 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  * 时间工具类
+ * <p>JODA TIME实现</p>
  *
- * @author rick
+ * @author jacksonrick
+ * @version 2
  */
 public class DateUtil {
 
     public final static DateTimeFormatter FMT_YYYY_MM_DD_HH_MM_SS = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
     public final static DateTimeFormatter FMT_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
-    public final static DateTimeFormatter FMT_YYYY_MM = DateTimeFormat.forPattern("yyyy-MM");
     public final static DateTimeFormatter FMT_YYYYMMDD = DateTimeFormat.forPattern("yyyyMMdd");
+    public final static DateTimeFormatter FMT_YYYY_MM = DateTimeFormat.forPattern("yyyy-MM");
+    public final static DateTimeFormatter FMT_YYYYMM = DateTimeFormat.forPattern("yyyyMM");
 
     public final static String YYYY_MM_DD_HH_MM_SS_SS = "yyyy-MM-dd HH:mm:ss.SS";
     public final static String YYYYMMDDHHMMSSSS = "yyyyMMddHHmmssSS";
@@ -30,6 +32,7 @@ public class DateUtil {
     public final static String YYYY_MM = "yyyy-MM";
     public final static String YYYYMM = "yyyyMM";
     public final static String YYYY = "yyyy";
+    public final static String HH_MM_SS = "HH:mm:ss";
     public final static String HHMMSS = "HHmmss";
 
     /**
@@ -44,13 +47,13 @@ public class DateUtil {
     /**
      * 获取当前时间
      *
-     * @param type 1-YYYY_MM_DD_HH_MM_SS
-     *             2-YYYY_MM_DD [Default]
-     *             3-YYYY_MM
-     *             4-YYYY
+     * @param type 1 yyyy-MM-dd HH:mm:ss
+     *             2 yyyy-MM-dd [Default]
+     *             3 yyyy-MM
+     *             4 yyyy
      * @return
      */
-    public static String getCurrentTime(Integer type) {
+    public static String getCurrentTime(int type) {
         DateTime dt = new DateTime(System.currentTimeMillis());
         if (type == 1)
             return dt.toString(YYYY_MM_DD_HH_MM_SS);
@@ -233,12 +236,10 @@ public class DateUtil {
      * @return 201601
      */
     public static String getYearAndMonth(boolean flag) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         if (flag) {
-            sdf = new SimpleDateFormat("yyyy-MM");
+            return getCurrentTime(YYYY_MM);
         }
-        Date date = new Date();
-        return sdf.format(date);
+        return getCurrentTime(YYYYMM);
     }
 
     /**
@@ -247,29 +248,7 @@ public class DateUtil {
      * @return 2016
      */
     public static String getYear() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-        Date date = new Date();
-        return sdf.format(date);
-    }
-
-    /**
-     * 获取两个时间相差秒数
-     *
-     * @param startDate
-     * @param endDate
-     * @param msec      是否显示毫秒
-     * @return
-     */
-    public static long getSeconds(Date startDate, Date endDate, boolean msec) {
-        long times = endDate.getTime() - startDate.getTime();
-        if (times < -1) {
-            return 0;
-        }
-        if (msec) {
-            return times;
-        } else {
-            return times / 1000;
-        }
+        return getCurrentTime(4);
     }
 
     /**
@@ -313,7 +292,7 @@ public class DateUtil {
         f.clear();
         f.set(Calendar.YEAR, cal.get(Calendar.YEAR));
         f.set(Calendar.MONTH, cal.get(Calendar.MONTH));
-        String firstday = new SimpleDateFormat("yyyy-MM-dd").format(f.getTime());
+        String firstday = dateToStrDay(f.getTime());
         firstday = firstday + " 00:00:00";
         return firstday;
 
@@ -331,7 +310,7 @@ public class DateUtil {
         l.set(Calendar.YEAR, cal.get(Calendar.YEAR));
         l.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
         l.set(Calendar.MILLISECOND, -1);
-        String lastday = new SimpleDateFormat("yyyy-MM-dd").format(l.getTime());
+        String lastday = dateToStrDay(l.getTime());
         lastday = lastday + " 23:59:59";
         return lastday;
     }
@@ -350,6 +329,26 @@ public class DateUtil {
         long end = endDate.getTime();
         days = (end - start) / 86400000;
         return days;
+    }
+
+    /**
+     * 获取两个时间相差秒数
+     *
+     * @param startDate
+     * @param endDate
+     * @param msec      是否显示毫秒
+     * @return
+     */
+    public static long diffSeconds(Date startDate, Date endDate, boolean msec) {
+        long times = endDate.getTime() - startDate.getTime();
+        if (times < -1) {
+            return 0;
+        }
+        if (msec) {
+            return times;
+        } else {
+            return times / 1000;
+        }
     }
 
     /**
@@ -415,7 +414,7 @@ public class DateUtil {
     public static boolean checkTime(Date time, int day) {
         Date now = new Date();
         long t = time.getTime();
-        t += day * 86400000;
+        t += day * 86400000l;
         Date d = new Date(t);
         return !d.after(now);
     }
@@ -558,5 +557,81 @@ public class DateUtil {
         if (s > 0)
             sb.append(s + "秒");
         return sb.toString();
+    }
+
+    public static final long ONE_MINUTE = 60000L;
+    public static final long ONE_HOUR = 3600000L;
+    public static final long ONE_DAY = 86400000L;
+    public static final long ONE_WEEK = 604800000L;
+
+    public static final String ONE_SECOND_AGO = "秒前";
+    public static final String ONE_MINUTE_AGO = "分钟前";
+    public static final String ONE_HOUR_AGO = "小时前";
+    public static final String ONE_DAY_AGO = "天前";
+    public static final String ONE_MONTH_AGO = "月前";
+    public static final String ONE_YEAR_AGO = "年前";
+    public static final String ONE_UNKNOWN = "未知";
+
+    /**
+     * 转换为中文相对时间
+     *
+     * @param date
+     * @return
+     */
+    public static String formatRelative(Date date) {
+        if (null == date) {
+            return ONE_UNKNOWN;
+        }
+        long delta = System.currentTimeMillis() - date.getTime();
+        if (delta < 1L * ONE_MINUTE) {
+            long seconds = toSeconds(delta);
+            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;
+        }
+        if (delta < 45L * ONE_MINUTE) {
+            long minutes = toMinutes(delta);
+            return (minutes <= 0 ? 1 : minutes) + ONE_MINUTE_AGO;
+        }
+        if (delta < 24L * ONE_HOUR) {
+            long hours = toHours(delta);
+            return (hours <= 0 ? 1 : hours) + ONE_HOUR_AGO;
+        }
+        if (delta < 48L * ONE_HOUR) {
+            return "昨天";
+        }
+        if (delta < 30L * ONE_DAY) {
+            long days = toDays(delta);
+            return (days <= 0 ? 1 : days) + ONE_DAY_AGO;
+        }
+        if (delta < 12L * 4L * ONE_WEEK) {
+            long months = toMonths(delta);
+            return (months <= 0 ? 1 : months) + ONE_MONTH_AGO;
+        } else {
+            long years = toYears(delta);
+            return (years <= 0 ? 1 : years) + ONE_YEAR_AGO;
+        }
+    }
+
+    private static long toSeconds(long date) {
+        return date / 1000L;
+    }
+
+    private static long toMinutes(long date) {
+        return toSeconds(date) / 60L;
+    }
+
+    private static long toHours(long date) {
+        return toMinutes(date) / 60L;
+    }
+
+    private static long toDays(long date) {
+        return toHours(date) / 24L;
+    }
+
+    private static long toMonths(long date) {
+        return toDays(date) / 30L;
+    }
+
+    private static long toYears(long date) {
+        return toMonths(date) / 365L;
     }
 }

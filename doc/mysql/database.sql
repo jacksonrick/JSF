@@ -28,7 +28,7 @@ CREATE TABLE `s_admin` (
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除 1-是 0-否',
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_admin_username` (`login_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10004 DEFAULT CHARSET=utf8 COMMENT='后台管理员';
+) ENGINE=InnoDB COMMENT='后台管理员';
 
 -- ----------------------------
 -- Records of s_admin
@@ -49,7 +49,7 @@ CREATE TABLE `s_config` (
   `descr` varchar(255) DEFAULT NULL COMMENT '描述',
   `type` char(8) NOT NULL COMMENT '字段类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='配置表';
+) ENGINE=InnoDB COMMENT='配置表';
 
 -- ----------------------------
 -- Records of s_config
@@ -100,7 +100,7 @@ CREATE TABLE `s_log` (
   `params` varchar(255) DEFAULT NULL COMMENT '参数',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COMMENT='日志表';
+) ENGINE=InnoDB COMMENT='日志表';
 
 -- ----------------------------
 -- Table structure for s_module
@@ -118,7 +118,7 @@ CREATE TABLE `s_module` (
   `deleted` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `module_path` (`action`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8 COMMENT='后台模块';
+) ENGINE=InnoDB COMMENT='后台模块';
 
 -- ----------------------------
 -- Records of s_module
@@ -170,7 +170,7 @@ CREATE TABLE `s_msg` (
   `content` text COMMENT '内容',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统消息';
+) ENGINE=InnoDB COMMENT='系统消息';
 
 -- ----------------------------
 -- Records of s_msg
@@ -193,7 +193,7 @@ CREATE TABLE `s_role` (
   `deleted` bit(1) DEFAULT b'0' COMMENT '是否删除 1-是 0-否',
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_role_name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10003 DEFAULT CHARSET=utf8 COMMENT='后台用户组';
+) ENGINE=InnoDB COMMENT='后台用户组';
 
 -- ----------------------------
 -- Records of s_role
@@ -213,7 +213,7 @@ CREATE TABLE `s_token` (
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
   `expired` datetime NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Token';
+) ENGINE=InnoDB COMMENT='Token';
 
 -- ----------------------------
 -- Records of s_token
@@ -236,7 +236,7 @@ CREATE TABLE `t_sms` (
   `update_time` timestamp NULL DEFAULT NULL,
   `valided` bit(1) NOT NULL DEFAULT b'0',
   UNIQUE KEY `t_sms_id_uindex` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='短信记录';
+) ENGINE=InnoDB COMMENT='短信记录';
 
 -- ----------------------------
 -- Records of t_sms
@@ -244,25 +244,6 @@ CREATE TABLE `t_sms` (
 BEGIN;
 INSERT INTO `t_sms` VALUES (1124954930176589824, '17755451874', '044609', 'reg', '2019-05-05 16:32:10', '2019-05-05 16:32:20', b'1');
 INSERT INTO `t_sms` VALUES (1124956090656620544, '17755451875', '377204', 'reg', '2019-05-05 16:36:47', '2019-05-05 16:37:21', b'1');
-COMMIT;
-
--- ----------------------------
--- Table structure for t_test
--- ----------------------------
-DROP TABLE IF EXISTS `t_test`;
-CREATE TABLE `t_test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `crtime` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_test
--- ----------------------------
-BEGIN;
-INSERT INTO `t_test` VALUES (1, 'haha', 20, '2019-07-03 10:35:31');
 COMMIT;
 
 -- ----------------------------
@@ -290,146 +271,6 @@ CREATE TABLE `t_user` (
   `extend` json DEFAULT NULL COMMENT '拓展字段',
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_user_phone` (`phone`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户';
-
--- ----------------------------
--- Records of t_user
--- ----------------------------
-BEGIN;
-INSERT INTO `t_user` VALUES (10113, 'user55451873', '17755451873', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10114, 'user98673915', '17798673915', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10115, 'user47013961', '17747013961', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10116, 'user19048063', '17719048063', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10117, 'user34198435', '17734198435', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10118, 'user13847987', '17713847987', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10119, 'user46644635', '17746644635', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10120, 'user91679214', '17791679214', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10121, 'user38462170', '17738462170', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10122, 'user87273210', '17787273210', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10123, 'user40979542', '17740979542', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10124, 'user23078085', '17723078085', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10125, 'user72451801', '17772451801', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10126, 'user13024752', '17713024752', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10127, 'user17768359', '17717768359', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10128, 'user39767541', '17739767541', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10129, 'user45532633', '17745532633', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10130, 'user98360542', '17798360542', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10131, 'user75204815', '17775204815', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10132, 'user70942451', '17770942451', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10133, 'user29097811', '17729097811', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10134, 'user12661708', '17712661708', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10135, 'user56015110', '17756015110', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10136, 'user52090426', '17752090426', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10137, 'user82406805', '17782406805', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10138, 'user65762749', '17765762749', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10139, 'user71593332', '17771593332', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10140, 'user60678414', '17760678414', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10141, 'user78612080', '17778612080', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10142, 'user21025162', '17721025162', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10143, 'user39289570', '17739289570', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10144, 'user33372366', '17733372366', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10145, 'user38993124', '17738993124', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10146, 'user84848526', '17784848526', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10147, 'user27263261', '17727263261', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10148, 'user51770730', '17751770730', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10149, 'user77063868', '17777063868', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10150, 'user40007152', '17740007152', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10151, 'user48844160', '17748844160', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10152, 'user24199348', '17724199348', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10153, 'user54464261', '17754464261', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10154, 'user99723265', '17799723265', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10155, 'user55223543', '17755223543', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10156, 'user56947922', '17756947922', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10157, 'user19068984', '17719068984', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10158, 'user94501157', '17794501157', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10159, 'user45298834', '17745298834', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10160, 'user22990703', '17722990703', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10161, 'user59057017', '17759057017', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10162, 'user36312977', '17736312977', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10163, 'user84393838', '17784393838', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10164, 'user33030260', '17733030260', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10165, 'user81969791', '17781969791', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10166, 'user30758176', '17730758176', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10167, 'user77881511', '17777881511', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10168, 'user17133030', '17717133030', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10169, 'user22020618', '17722020618', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10170, 'user48704005', '17748704005', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10171, 'user77458174', '17777458174', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10172, 'user51178856', '17751178856', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10173, 'user13519761', '17713519761', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10174, 'user84062242', '17784062242', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10175, 'user99751929', '17799751929', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10176, 'user56572921', '17756572921', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10177, 'user63608820', '17763608820', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10178, 'user48325340', '17748325340', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10179, 'user40800244', '17740800244', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10180, 'user49025203', '17749025203', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10181, 'user22725285', '17722725285', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10182, 'user46550818', '17746550818', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10183, 'user64578240', '17764578240', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10184, 'user83238747', '17783238747', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10185, 'user32459018', '17732459018', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10186, 'user82578853', '17782578853', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10187, 'user35517214', '17735517214', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10188, 'user99849512', '17799849512', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10189, 'user22695923', '17722695923', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10190, 'user73931082', '17773931082', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10191, 'user21567642', '17721567642', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10192, 'user56044966', '17756044966', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10193, 'user25521910', '17725521910', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10194, 'user39474652', '17739474652', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10195, 'user20807534', '17720807534', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10196, 'user65613714', '17765613714', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10197, 'user75645974', '17775645974', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10198, 'user81388730', '17781388730', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10199, 'user80005730', '17780005730', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10200, 'user55862464', '17755862464', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10201, 'user29295131', '17729295131', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10202, 'user58888266', '17758888266', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10203, 'user16555939', '17716555939', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10204, 'user76114901', '17776114901', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10205, 'user50906692', '17750906692', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10206, 'user16188759', '17716188759', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10207, 'user98223722', '17798223722', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10208, 'user72552335', '17772552335', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10209, 'user58090514', '17758090514', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10210, 'user62795567', '17762795567', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10211, 'user39706293', '17739706293', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-INSERT INTO `t_user` VALUES (10212, 'user90144770', '17790144770', 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'0', 0, b'0', NULL);
-COMMIT;
-
--- ----------------------------
--- Function structure for func_dist
--- ----------------------------
-DROP FUNCTION IF EXISTS `func_dist`;
-delimiter ;;
-CREATE FUNCTION `func_dist`(origLng DOUBLE(12,6),origLat DOUBLE(12,6), longitude DOUBLE(12,6), latitude DOUBLE(12,6))
- RETURNS double
-  READS SQL DATA
-  COMMENT '获取经纬度距离'
-BEGIN
-      RETURN round(6378.138*2*asin(sqrt(pow(sin((origLat*pi()/180-latitude*pi()/180)/2),2)+cos(origLat*pi()/180)*cos(latitude*pi()/180)*pow(sin( (origLng*pi()/180-longitude*pi()/180)/2),2)))*1000);
-END
-;;
-delimiter ;
-
--- ----------------------------
--- Procedure structure for insert_batch
--- ----------------------------
-DROP PROCEDURE IF EXISTS `insert_batch`;
-delimiter ;;
-CREATE PROCEDURE `insert_batch`(in l int)
-BEGIN
-	DECLARE i int DEFAULT 1;
-	DECLARE a int DEFAULT 1;
-
-	WHILE i <= l do
-		SET a = ROUND(rand() * 90000000 + 10000000);
-		INSERT INTO `t_user`(`nickname`, `phone`, `email`, `password`, `avatar`, `money`, `create_time`, `last_login_time`, `realname`, `idcard`, `gender`, `address`, `birthday`, `deleted`, `extend`) VALUES (CONCAT('user', a), CONCAT('177', a), 'test@qq.com', '5d24bbbe2fe58aba66827aa870004c79', '/static/theme/images/avatar.jpg', 1000.00, '2016-09-27 17:53:50', '2016-12-21 13:29:21', '1', '340123199311012774', b'0', '安徽省/合肥市/瑶海区', '2016-12-21', b'1', NULL);
-		SET i = i + 1;
-	END WHILE;
-END
-;;
-delimiter ;
+) ENGINE=InnoDB COMMENT='用户';
 
 SET FOREIGN_KEY_CHECKS = 1;

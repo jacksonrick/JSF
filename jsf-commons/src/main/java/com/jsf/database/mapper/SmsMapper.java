@@ -1,6 +1,6 @@
 package com.jsf.database.mapper;
 
-import com.jsf.database.model.Sms;
+import com.jsf.database.model.app.Sms;
 import com.jsf.database.model.custom.BaseVo;
 
 import java.util.List;

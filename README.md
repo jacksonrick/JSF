@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.1.3`
+##### Version `v6.1.4`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -10,7 +10,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 * jsf-web-api `API端`
     * API安全
     * 常用接口
-    * DEMO：微信/支付宝支付、公众号、扫码登陆
+    * 三方对接DEMO：微信/支付宝支付、公众号、扫码登陆
 * jsf-web-manage `后台管理端`
     * 模块：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志(可视化)、系统配置
     * 代码生成：可视化；生成实体类、Mapper接口、MapperSQL、Service、Controller、模板页面、菜单、数据字典
@@ -23,13 +23,13 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 * jsf-registry `注册中心`
     * eureka-server `Eureka注册中心`
     * zookeeper-server `ZK注册中心`
-* jsf-demos `集成案例`
-    * mservice `微服务(注册、Seata)`
+* jsf-samples `集成案例`
+    * mservice `微服务示例、Nacos|Eureka|ZK注册、分布式事务`
     * activiti `工作流`
     * actuator `Springboot监控`
     * dubbo `Dubbo`
     * elasticsearch `全文搜索`
-    * im `即时聊天`
+    * im `即时聊天/UI`
     * influxdb `Influxdb`
     * kafka `Kafka`
     * nacos-config `Nacos分布式配置`
@@ -98,7 +98,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 * 数据库脚本：`doc/mysql/database.sql`
 * 操作手册说明：`doc/框架使用手册.docx`(很久没更新了`-_-`)
 * 默认为MySQL数据库，如使用Postgresql，将数据库脚本替换为`doc/postgresql/public.sql`，并修改相应配置
-* jsf-demos模块代码仅供参考
+* jsf-samples模块代码仅供参考
 
 ### 声明
 本框架不能直接用于生产环境，需要根据业务做一定量调整，如有疑问，请在博客中回复
@@ -106,6 +106,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.1.4 `20220314`
+  * 工具类优化
+  * 各模块补充说明
 * v6.1.3 `20220106`
     * shardingjdbc升级
     * 工具类优化

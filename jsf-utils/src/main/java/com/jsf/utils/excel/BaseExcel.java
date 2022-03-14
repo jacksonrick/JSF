@@ -33,39 +33,45 @@ public class BaseExcel {
      * @param field
      * @param val
      */
-    public static void writeCell(Row row, int cell, Fields field, String val) {
-        if ("null".equals(val) || "".equals(val)) {
+    public static void writeCell(Row row, int cell, Fields field, Object val) {
+        if (val == null) {
             row.createCell(cell).setCellValue(NULL_VALUE); // 默认值
         } else {
             // 转换器(优先)
             Class<? extends AbstractCellRender> render = field.render();
             if (render != AbstractCellRender.None.class) {
                 AbstractCellRender r = ClassUtil.createInstance(render, true);
-                String result = r.render(val);
+                String result = r.render(val); // 这里的类型需要对应
                 row.createCell(cell).setCellValue(result);
             } else {
                 switch (field.type()) {
                     // 其他类型暂定
                     case ENUM: // 枚举
+                        String valStr = String.valueOf(val);
                         TypeValue[] values = field.typeValues();
                         for (int j = 0; j < values.length; j++) {
-                            if (values[j].value().equals(val)) {
+                            if (values[j].value().equals(valStr)) {
                                 row.createCell(cell).setCellValue(values[j].name());
                                 break;
                             }
                         }
                         break;
+                    case DATE:
+                        row.createCell(cell).setCellValue(DateUtil.dateToStr((Date) val, field.format()));
+                        break;
                     case BOOLEAN:
-                        if ("1".equals(val)) {
+                        String valStr2 = String.valueOf(val);
+                        if ("1".equals(valStr2)) {
                             row.createCell(cell).setCellValue("是");
-                        } else if ("0".equals(val)) {
+                        } else if ("0".equals(valStr2)) {
                             row.createCell(cell).setCellValue("否");
                         } else {
                             row.createCell(cell).setCellValue(NULL_VALUE);
                         }
                         break;
                     default: // 字符
-                        row.createCell(cell).setCellValue(val);
+                        String valStr3 = String.valueOf(val);
+                        row.createCell(cell).setCellValue(valStr3);
                         break;
                 }
             }
@@ -80,7 +86,7 @@ public class BaseExcel {
      * @param field
      * @param val
      */
-    public static void writeCSVCell(StringBuilder sb, int cell, Fields field, String val) {
+    public static void writeCSVCell(StringBuilder sb, int cell, Fields field, Object val) {
         if ("null".equals(val) || "".equals(val)) {
             sb.append(NULL_VALUE); // 默认值
         } else {
@@ -94,25 +100,31 @@ public class BaseExcel {
                 switch (field.type()) {
                     // 其他类型暂定
                     case ENUM: // 枚举
+                        String valStr = String.valueOf(val);
                         TypeValue[] values = field.typeValues();
                         for (int j = 0; j < values.length; j++) {
-                            if (values[j].value().equals(val)) {
+                            if (values[j].value().equals(valStr)) {
                                 sb.append(values[j].name());
                                 break;
                             }
                         }
                         break;
+                    case DATE:
+                        sb.append(DateUtil.dateToStr((Date) val, field.format()));
+                        break;
                     case BOOLEAN:
-                        if ("1".equals(val)) {
+                        String valStr2 = String.valueOf(val);
+                        if ("1".equals(valStr2)) {
                             sb.append("是");
-                        } else if ("0".equals(val)) {
+                        } else if ("0".equals(valStr2)) {
                             sb.append("否");
                         } else {
-                            sb.append("NULL");
+                            sb.append(NULL_VALUE);
                         }
                         break;
                     default: // 字符
-                        sb.append(val);
+                        String valStr3 = String.valueOf(val);
+                        sb.append(valStr3);
                         break;
                 }
             }
