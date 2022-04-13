@@ -10,10 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableHystrix
-public class MServiceApplication {
+public class MSRegisterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MServiceApplication.class, args);
+        SpringApplication.run(MSRegisterApplication.class, args);
     }
 
 }

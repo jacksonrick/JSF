@@ -89,7 +89,7 @@ public class GenAddr {
         String end = start + "};if(typeof window!=='undefined'){window.ChineseDistricts=ChineseDistricts}return ChineseDistricts});";
 
         try {
-            Writer wr = new FileWriter("/Users/xujunfei/Downloads/city-picker.data.js");
+            Writer wr = new FileWriter("city-picker.data.js");
             wr.write(end);
             wr.flush();
         } catch (IOException e) {

@@ -130,25 +130,6 @@ public class ValidUtil {
         return number >= 0 && number <= 1;
     }
 
-    static Pattern pattern = Pattern.compile("<[^>]+>");
-
-    /**
-     * 去除HTML标签
-     *
-     * @param str
-     * @return
-     */
-    public static String delHTMLTag(String str) {
-        if (StringUtil.isBlank(str)) {
-            return "";
-        }
-        Matcher matcher = pattern.matcher(str);
-        if (matcher.find()) {
-            return matcher.replaceAll("");
-        }
-        return "";
-    }
-
     private static boolean regexp(String str, boolean need, String reg) {
         if (need) {
             if (StringUtil.isBlank(str)) {

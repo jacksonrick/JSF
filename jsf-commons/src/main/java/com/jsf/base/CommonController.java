@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,6 +127,48 @@ public class CommonController {
             StorePath storePath = storageClient.uploadFile(file.getBytes(), suffix);
             String filePath = fdfsNginx + storePath.getFullPath();
             return new UploadRet(0, filePath, "SUCCESS");
+        }
+    }
+
+    /**
+     * kindEditor从剪切板上传
+     *
+     * @param editor
+     * @return
+     */
+    @PostMapping("/uploadClipboardwithKE")
+    @ResponseBody
+    public String uploadClipboardwithKE(String editor) throws Exception {
+        if (StringUtil.isBlank(editor)) {
+            return "";
+        }
+        editor = editor.replace("<img src=\"data:image/png;base64,", "").replace("\" alt=\"\" />", "");
+
+        BASE64Decoder decoder = new BASE64Decoder();
+        // Base64解码
+        byte[] bytes = decoder.decodeBuffer(editor);
+        for (int i = 0; i < bytes.length; ++i) {
+            if (bytes[i] < 0) {
+                bytes[i] += 256;
+            }
+        }
+        if (!SysConfig.getBoolean("upload.fdfs")) {
+            String basePathFormat = DateUtil.getYearAndMonth(false);
+            String filename = StringUtil.randomFilename() + ".png";
+            File filePath = new File("upload/" + basePathFormat);
+            if (!filePath.exists()) {
+                filePath.mkdirs();
+            }
+            OutputStream out = new FileOutputStream(new File(filePath, filename));
+            out.write(bytes);
+            out.flush();
+            out.close();
+            String fullname = SysConfig.get("sys.uploadHost") + "/upload/" + basePathFormat + "/" + filename;
+            return "<img src=\"" + fullname + "\" alt=\"\" />";
+        } else {
+            StorePath storePath = storageClient.uploadFile(bytes, "png");
+            String filePath = fdfsNginx + storePath.getFullPath();
+            return "<img src=\"" + filePath + "\" alt=\"\" />";
         }
     }
 

@@ -41,7 +41,7 @@ COMMENT ON TABLE "public"."s_admin" IS '后台管理员';
 -- Records of s_admin
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."s_admin" VALUES (10000, 10000, 'admin', '超管', 'e10adc3949ba59abbe56e057f20f883e', '17730215422', NULL, NOW(), NULL, NULL, 'f');
+INSERT INTO "public"."s_admin" VALUES (10000, 10000, 'admin', '超管', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NOW(), NULL, NULL, 'f');
 COMMIT;
 
 -- ----------------------------

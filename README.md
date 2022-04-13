@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.1.4`
+##### Version `v6.1.5`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -8,11 +8,11 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 * jsf-commons `系统配置/数据库配置/处理器/拦截器等`
 * jsf-utils `工具类`
 * jsf-web-api `API端`
-    * API安全
-    * 常用接口
+    * API安全：Token、签名、防重
+    * 常用接口：短信验证、登陆注册
     * 三方对接DEMO：微信/支付宝支付、公众号、扫码登陆
 * jsf-web-manage `后台管理端`
-    * 模块：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志(可视化)、系统配置
+    * 模块：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志可视化、系统配置
     * 代码生成：可视化；生成实体类、Mapper接口、MapperSQL、Service、Controller、模板页面、菜单、数据字典
 * jsf-oauth `OAuth模块`
     * oauth-server `授权服务器`
@@ -75,14 +75,14 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * 根目录-> clean install
     * cd jsf-utils -> clean install -e
     * cd jsf-commons -> clean install -e
-* 在各个端下运行 
+* 在各web模块下运行 
     * cd   jsf-web-manage
     * clean package -Dmaven.test.skip=true -e
 * 将target目录下的打包文件上传到服务器目录
 * 运行`doc/scripts/start.sh`命令
 * 注意：运行脚本前，请先查看注释
 * 目录说明
-    * upload: 文件上传
+    * upload: 本地文件上传目录
     * logs: 日志目录
 
 #### Docker
@@ -106,6 +106,10 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.1.5 `20220413`
+  * 工具类优化、新增方法
+  * 新增钉钉对接方法
+  * 多个问题修复
 * v6.1.4 `20220314`
   * 工具类优化
   * 各模块补充说明

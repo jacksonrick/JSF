@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 订单服务 - 单点事务
  * User: xujunfei
  * Date: 2021-02-05
  * Time: 14:49

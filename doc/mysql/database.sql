@@ -34,7 +34,7 @@ CREATE TABLE `s_admin` (
 -- Records of s_admin
 -- ----------------------------
 BEGIN;
-INSERT INTO `s_admin` VALUES (10000, 10000, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '超管', '17730215422', NULL, '2016-04-23 15:36:55', NULL, '2019-04-03 16:00:03', '127.0.0.1', 0, b'0');
+INSERT INTO `s_admin` VALUES (10000, 10000, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '超管', '', NULL, '2016-04-23 15:36:55', NULL, '2019-04-03 16:00:03', '127.0.0.1', 0, b'0');
 COMMIT;
 
 -- ----------------------------
@@ -67,7 +67,7 @@ INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (9, '
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (10, 'alipay', 'returnUrl', 'http://xxx/pay/page/success', '支付宝-通知页面跳转', 'string');
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (11, 'alipay', 'rsaPrivateKey', 'prikey', '支付宝-商户私钥,需要PKCS8格式,使用支付宝提供工具生成', 'string');
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (12, 'alipay', 'seller', 'xxx@sandbox.com', '支付宝-账号', 'string');
-INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (13, 'sys', 'uploadHost', 'http://127.0.0.1:8081', '上传后拼接的服务器地址，可留空；如果配置了FastDFS，此项可以不用配置', 'string');
+INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (13, 'sys', 'uploadHost', '', '上传后拼接的服务器地址，可留空；如果配置了FastDFS，此项可以不用配置', 'string');
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (14, 'sys', 'version', '6.1', '系统版本', 'string');
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (15, 'wxpay', 'appid', 'wx47xxx', '微信-在开发平台登记的app应用', 'string');
 INSERT INTO `s_config` (`id`, `grp`, `key`, `val`, `descr`, `type`) VALUES (16, 'wxpay', 'partner', '1482xxx', '微信-商户号、MCH_ID', 'string');
@@ -216,14 +216,6 @@ CREATE TABLE `s_token` (
 ) ENGINE=InnoDB COMMENT='Token';
 
 -- ----------------------------
--- Records of s_token
--- ----------------------------
-BEGIN;
-INSERT INTO `s_token` VALUES ('1124954973340172288', '7AC264B3576BCBF830BC9F221FC85A4D', '2019-05-05 16:32:20', '2019-05-12 16:36:23');
-INSERT INTO `s_token` VALUES ('1124956235494326272', '5011BC50E97D2E62421F23C011E69213', '2019-05-05 16:37:21', '2019-05-12 16:37:22');
-COMMIT;
-
--- ----------------------------
 -- Table structure for t_sms
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sms`;
@@ -237,14 +229,6 @@ CREATE TABLE `t_sms` (
   `valided` bit(1) NOT NULL DEFAULT b'0',
   UNIQUE KEY `t_sms_id_uindex` (`id`)
 ) ENGINE=InnoDB COMMENT='短信记录';
-
--- ----------------------------
--- Records of t_sms
--- ----------------------------
-BEGIN;
-INSERT INTO `t_sms` VALUES (1124954930176589824, '17755451874', '044609', 'reg', '2019-05-05 16:32:10', '2019-05-05 16:32:20', b'1');
-INSERT INTO `t_sms` VALUES (1124956090656620544, '17755451875', '377204', 'reg', '2019-05-05 16:36:47', '2019-05-05 16:37:21', b'1');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user

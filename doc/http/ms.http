@@ -2,6 +2,9 @@
 POST http://127.0.0.1:8063/order?userId=1&productId=1&money=10
 
 ###
+POST http://127.0.0.1:8063/order/seata?userId=1&productId=1&money=10
+
+###
 POST http://127.0.0.1:8063/order2
 
 ###

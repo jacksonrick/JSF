@@ -30,7 +30,7 @@ public class ViewExcel<T> extends AbstractXlsView {
 
     @Override
     protected Workbook createWorkbook(Map<String, Object> model, HttpServletRequest request) {
-        return new SXSSFWorkbook();
+        return new SXSSFWorkbook(-1);
     }
 
     @Override

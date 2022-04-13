@@ -10,12 +10,12 @@
 
 	<select id="findByKey" resultType="string" parameterType="string">
 		SELECT val FROM s_config
-		WHERE "key" = #{key}
+		WHERE `key` = #{key}
 	</select>
 
 	<select id="findByKeys" resultType="config">
-		SELECT "key", val, descr FROM s_config
-		WHERE "key" IN
+		SELECT `key`, val, descr FROM s_config
+		WHERE `key` IN
 		<foreach item="idx" collection="keys" open="(" separator="," close=")"> #{idx} </foreach>
 	</select>
 

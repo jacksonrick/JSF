@@ -1,11 +1,19 @@
 package com.jsf.utils.file;
 
 import com.jsf.utils.exception.SysException;
+import com.jsf.utils.string.StringUtil;
+import com.jsf.utils.system.LogManager;
+import org.w3c.dom.Document;
+import org.xhtmlrenderer.swing.Java2DRenderer;
 
 import javax.imageio.ImageIO;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -14,17 +22,37 @@ import java.io.InputStream;
  */
 public class ImageUtil {
 
-    /*public static void main(String[] args) {
-        File file = new File("/Users/xujunfei/Downloads/static/test/2.png");
-        File out = new File("/Users/xujunfei/Downloads/static/test/2-1.png");
-        InputStream is = null;
-        try {
-            is = new FileInputStream(file);
-            FileUtils.copyInputStreamToFile(new ByteArrayInputStream(ImageUtil.waterMark(is, "xxx", "png")), out);
-        } catch (Exception e) {
-
+    /**
+     * HTML转图片
+     * <p>可以由freemarker等模版引擎输出</p>
+     * <p>格式为png</p>
+     *
+     * @param html
+     * @param output 输出路径，以/结尾
+     * @param width  图片宽
+     * @param height 图片高
+     * @return
+     */
+    public static String htmlToImage(String html, String output, int width, int height) {
+        if (StringUtil.isBlank(html)) {
+            return "";
         }
-    }*/
+        try {
+            byte[] bytes = html.getBytes();
+            ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(bin);
+            Java2DRenderer renderer = new Java2DRenderer(document, width, height);
+            BufferedImage img = renderer.getImage();
+            String filepath = output + StringUtil.randomFilename() + ".png";
+            ImageIO.write(img, "png", new File(filepath));
+            return filepath;
+        } catch (Exception e) {
+            LogManager.error(e.getMessage(), e);
+            return "";
+        }
+    }
 
     /**
      * 添加图片水印

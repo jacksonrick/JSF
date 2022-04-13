@@ -135,6 +135,26 @@ public class StringUtil {
         return strToLongArray(str, ",");
     }
 
+
+    static Pattern PATTERN_HTML = Pattern.compile("<[^>]+>");
+
+    /**
+     * 去除HTML标签
+     *
+     * @param str
+     * @return
+     */
+    public static String delHTMLTag(String str) {
+        if (StringUtil.isBlank(str)) {
+            return "";
+        }
+        Matcher matcher = PATTERN_HTML.matcher(str);
+        if (matcher.find()) {
+            return matcher.replaceAll("");
+        }
+        return str;
+    }
+
     /**
      * 获取随机代码
      *
@@ -279,7 +299,7 @@ public class StringUtil {
         return (result.toString());
     }
 
-    static Pattern pattern = Pattern.compile("[A-Z]");
+    static Pattern PATTERN_LETTER = Pattern.compile("[A-Z]");
 
     /**
      * 将驼峰命名改为下划线
@@ -289,7 +309,7 @@ public class StringUtil {
      * @return
      */
     public static StringBuffer underline(String str) {
-        Matcher matcher = pattern.matcher(str);
+        Matcher matcher = PATTERN_LETTER.matcher(str);
         StringBuffer sb = new StringBuffer(str);
         if (matcher.find()) {
             sb = new StringBuffer();
