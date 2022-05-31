@@ -10,4 +10,4 @@
 * 依赖包：`/data/wwwroot/test/lib/`
 
 **服务相关**  
-参阅：`docker-app/docker-compose.yml`
+参阅：`docker/docker-compose.yml`

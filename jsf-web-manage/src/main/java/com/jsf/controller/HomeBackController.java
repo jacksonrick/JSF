@@ -9,7 +9,8 @@ import com.jsf.service.system.AdminService;
 import com.jsf.service.system.ModuleService;
 import com.jsf.service.system.SystemService;
 import com.jsf.system.conf.IConstant;
-import com.jsf.system.conf.SysConfig;
+import com.jsf.system.conf.AppConfig;
+import com.jsf.system.conf.SysConfigStatic;
 import com.jsf.system.third.GeetestLib;
 import com.jsf.utils.annotation.AuthPassport;
 import com.jsf.utils.entity.ResMsg;
@@ -18,6 +19,7 @@ import com.jsf.utils.system.SystemUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -51,7 +53,7 @@ public class HomeBackController extends BaseController {
     @RequestMapping("/startCaptcha")
     @ResponseBody
     public Map<String, Object> startCaptcha(HttpServletRequest request) {
-        GeetestLib gtSdk = new GeetestLib(SysConfig.get("geetest.id"), SysConfig.get("geetest.key"), true);
+        GeetestLib gtSdk = new GeetestLib(AppConfig.get("geetest.id"), AppConfig.get("geetest.key"), true);
         int gtServerStatus = gtSdk.preProcess();
         request.getSession().setAttribute(gtSdk.gtServerStatusSessionKey, gtServerStatus);
         return gtSdk.getResponse();
@@ -84,7 +86,7 @@ public class HomeBackController extends BaseController {
         if (admin != null) {
             return "redirect:index";
         }
-        map.put("version", SysConfig.get("sys.version"));
+        map.put("version", SysConfigStatic.version);
         return "login";
     }
 
@@ -98,19 +100,19 @@ public class HomeBackController extends BaseController {
      * @param request
      * @return
      */
-    @RequestMapping("/dologin")
+    @RequestMapping(value = "/dologin", method = RequestMethod.POST)
     @ResponseBody
     public ResMsg dologin(String validNum, String username, String password, HttpSession session,
                           HttpServletRequest request) {
         if (StringUtil.isBlank(validNum)) {
             return new ResMsg(1, "请输入验证码");
         }
-        if (SysConfig.getBoolean("sys.dev") && "admin".equals(username)) { // dev
+        if (SysConfigStatic.dev && "admin".equals(username)) { // dev
             password = "123456";
         } else {
             // 验证码验证
             String sessionCode = (String) session.getAttribute(IConstant.SESSION_RAND);
-            if (sessionCode == null || !sessionCode.equals(validNum)) {
+            if (sessionCode == null || !sessionCode.equalsIgnoreCase(validNum)) {
                 return new ResMsg(2, "验证码错误");
             }
         }
@@ -165,8 +167,19 @@ public class HomeBackController extends BaseController {
         List<Msg> msgs = adminService.findByTodayMsg(admin.getId());
         map.addAttribute("msgs", msgs);
         map.addAttribute("size", msgs.size());
-        map.put("version", SysConfig.get("sys.version"));
+        map.put("version", SysConfigStatic.version);
         return "index";
+    }
+
+    /**
+     * 更多消息
+     *
+     * @return
+     */
+    @RequestMapping("/msgList")
+    @AuthPassport(right = false)
+    public String msgList() {
+        return "home/msg_list";
     }
 
     /**
@@ -179,7 +192,7 @@ public class HomeBackController extends BaseController {
     public String home(ModelMap map, HttpServletRequest request) {
         map.put("date", System.currentTimeMillis());
         map.put("arr", new SystemUtil().getSpace());
-        map.put("version", SysConfig.get("sys.version"));
+        map.put("version", SysConfigStatic.version);
         map.put("info", request.getSession().getServletContext().getServerInfo());
         return "home/home";
     }

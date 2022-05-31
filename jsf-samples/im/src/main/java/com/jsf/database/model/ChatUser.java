@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @date 2020年07月30日 上午 10:42:59
  * @author jfxu
  */
-public class User extends BaseVo implements Serializable {
+public class ChatUser extends BaseVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,10 +18,10 @@ public class User extends BaseVo implements Serializable {
 	/** 昵称 */
 	private String nickname;
 
-	public User() {
+	public ChatUser() {
 	}
 
-	public User(Long id) {
+	public ChatUser(Long id) {
 		super();
 		this.id = id;
 	}

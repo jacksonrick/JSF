@@ -2,7 +2,7 @@ package com.jsf.controller;
 
 import com.alibaba.nacos.api.config.annotation.NacosConfigListener;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
+//import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import com.jsf.model.Foo;
 import com.jsf.model.Foo2;
 import com.jsf.model.FooNacosConfigConverter;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Date: 2019-03-04
  * Time: 15:25
  */
-@RestController
-@NacosPropertySource(dataId = "user3", groupId = "MYGROUP", autoRefreshed = true) // 配合NacosValue注解使用
+//@RestController
+//@NacosPropertySource(dataId = "user3", groupId = "MYGROUP", autoRefreshed = true) // 配合NacosValue注解使用
 public class SpringBootController {
 
     /**

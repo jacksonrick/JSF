@@ -132,7 +132,11 @@
             phone,
             email,
             password,
-            avatar
+            avatar,
+            realname,
+            idcard,
+            address,
+            birthday
         )
 		VALUE (
             #{id},
@@ -140,7 +144,11 @@
             #{phone},
             #{email},
             #{password},
-            #{avatar}
+            #{avatar},
+            #{realname},
+            #{idcard},
+            #{address},
+            #{birthday}
 		)
     </insert>
 

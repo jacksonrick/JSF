@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.1.5`
+##### Version `v6.2`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -11,7 +11,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * API安全：Token、签名、防重
     * 常用接口：短信验证、登陆注册
     * 三方对接DEMO：微信/支付宝支付、公众号、扫码登陆
-* jsf-web-manage `后台管理端`
+* jsf-web-manage `后台管理端` [演示站](http://liu-nian.cn:8903/) 
     * 模块：权限管理、模块管理、地址、文件管理、常用工具、日志管理、系统日志可视化、系统配置
     * 代码生成：可视化；生成实体类、Mapper接口、MapperSQL、Service、Controller、模板页面、菜单、数据字典
 * jsf-oauth `OAuth模块`
@@ -29,7 +29,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * actuator `Springboot监控`
     * dubbo `Dubbo`
     * elasticsearch `全文搜索`
-    * im `即时聊天/UI`
+    * im `即时聊天/UI` [演示站](http://liu-nian.cn:8904/)
     * influxdb `Influxdb`
     * kafka `Kafka`
     * nacos-config `Nacos分布式配置`
@@ -57,7 +57,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 * JS插件：Ajax/DataTables/CityPicker/Layer/DatePicker/Ztree/Select2/Dropzone等
 
 ### 环境与配置
-* Jdk 1.8
+* JDK 1.8
 * MySQL 5.7 +
 * Postgresql 10 +
 * Maven 3.3.9
@@ -106,6 +106,11 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.2 `20220531`
+  * manage、im模块代码优化BUG修复
+  * 现配置类划分为系统和应用配置
+  * 工具类优化
+  * nacos分布式配置示例补充
 * v6.1.5 `20220413`
   * 工具类优化、新增方法
   * 新增钉钉对接方法

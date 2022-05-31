@@ -68,144 +68,19 @@
     {
       "name": "system.appkey",
       "type": "java.lang.String",
-      "description": "APP请求验证串.",
+      "description": "应用访问校验码.",
       "sourceType": "com.jsf.system.conf.SysConfig"
     },
     {
-      "name": "system.static_host",
+      "name": "system.upload.file_path",
       "type": "java.lang.String",
-      "description": "静态服务器地址[:端口号].",
-      "sourceType": "com.jsf.system.conf.SysConfig"
-    },
-    {
-      "name": "system.static_path",
-      "type": "java.lang.String",
-      "description": "静态文件目录.",
-      "sourceType": "com.jsf.system.conf.SysConfig"
-    },
-    {
-      "name": "system.log_path",
-      "type": "java.lang.String",
-      "description": "日志存放目录.",
-      "sourceType": "com.jsf.system.conf.SysConfig"
-    },
-    {
-      "name": "system.server_id",
-      "type": "java.lang.String",
-      "sourceType": "com.jsf.system.conf.SysConfig"
-    },
-    {
-      "name": "system.fdfs_nginx",
-      "type": "java.lang.String",
-      "description": "DFS Nginx代理服务器地址.",
-      "sourceType": "com.jsf.system.conf.SysConfig"
-    },
-    {
-      "name": "system.alipay.partner",
-      "type": "java.lang.String",
-      "description": "支付宝-合作身份者ID，以2088开头由16位纯数字组成的字符串.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.seller",
-      "type": "java.lang.String",
-      "description": "支付宝-账号.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.app_id",
-      "type": "java.lang.String",
-      "description": "支付宝-APPID.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.rsa_private_key",
-      "type": "java.lang.String",
-      "description": "支付宝-商户私钥,需要PKCS8格式,使用支付宝提供工具生成.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.public_key",
-      "type": "java.lang.String",
-      "description": "支付宝-公钥，使用支付宝提供工具生成后上传至开发者平台=>点击查看支付宝公钥=>复制.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.notify_url",
-      "type": "java.lang.String",
-      "description": "支付宝-接收通知的接口.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.return_url",
-      "type": "java.lang.String",
-      "description": "支付宝-通知页面跳转.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.alipay.gateway",
-      "type": "java.lang.String",
-      "description": "支付宝网关-生产环境 | 沙箱环境.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Alipay"
-    },
-    {
-      "name": "system.wechat.appid",
-      "type": "java.lang.String",
-      "description": "微信-在开发平台登记的app应用.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Wechat"
-    },
-    {
-      "name": "system.wechat.partner",
-      "type": "java.lang.String",
-      "description": "微信-商户号、MCH_ID.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Wechat"
-    },
-    {
-      "name": "system.wechat.partner_key",
-      "type": "java.lang.String",
-      "description": "微信-商户在微信平台设置的32位长度的api秘钥、API_KEY.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Wechat"
-    },
-    {
-      "name": "system.wechat.notify_url",
-      "type": "java.lang.String",
-      "description": "微信-异步通知地址.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Wechat"
-    },
-    {
-      "name": "system.geetest.id",
-      "type": "java.lang.String",
-      "description": "geet验证-id.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Geetest"
-    },
-    {
-      "name": "system.geetest.key",
-      "type": "java.lang.String",
-      "description": "geet验证-key.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Geetest"
-    },
-    {
-      "name": "system.jpush.appkey",
-      "type": "java.lang.String",
-      "description": "appkey.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Jpush"
-    },
-    {
-      "name": "system.jpush.secret",
-      "type": "java.lang.String",
-      "description": "secret.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Jpush"
-    },
-    {
-      "name": "system.jpush.ios_product",
-      "type": "java.lang.Boolean",
-      "description": "IOS开发环境-false，生产环境-true.",
-      "sourceType": "com.jsf.system.conf.SysConfig$Jpush"
+      "description": "上传目录.",
+      "sourceType": "com.jsf.system.conf.SysConfig$Upload"
     },
     {
       "name": "system.upload.fdfs",
       "type": "java.lang.Boolean",
-      "description": "fdfs enable，如果为false,则启用spring上传到本地指定目录.",
+      "description": "fdfs enable，如果为false, 则上传到filePath配置目录.",
       "sourceType": "com.jsf.system.conf.SysConfig$Upload"
     },
     {

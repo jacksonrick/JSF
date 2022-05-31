@@ -67,8 +67,8 @@
     <div id="tables"></div>
 </div>
 <div id="btns">
-    <button type="button" class="btn btn-success btn-rounded btn-gen" data-action="root">生成到项目根目录</button>
-    <button type="button" class="btn btn-success btn-rounded btn-gen" data-action="zip">打包生成</button>
+    <button type="button" class="btn btn-success btn-rounded btn-gen" data-action="root">生成到上传目录</button>
+    <button type="button" class="btn btn-success btn-rounded btn-gen" data-action="zip">生成并打包下载</button>
     <button type="button" class="btn btn-warning btn-rounded btn-gen" data-action="dict">生成数据字典</button>
 </div>
 </body>

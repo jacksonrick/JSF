@@ -7,7 +7,7 @@ package com.jsf.database.model;
  * Date: 2018-10-31
  * Time: 15:36
  */
-public class User {
+public class OAuthUser {
 
     private String username;
     private String password;
@@ -15,10 +15,10 @@ public class User {
     private Boolean disabled;
     private Integer locks;
 
-    public User() {
+    public OAuthUser() {
     }
 
-    public User(User user) {
+    public OAuthUser(OAuthUser user) {
         this.username = user.username;
         this.password = user.password;
         this.roles = user.roles;

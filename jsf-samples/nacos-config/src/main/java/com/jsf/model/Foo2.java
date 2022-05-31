@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  * Date: 2019-03-04
  * Time: 17:08
  */
-@Component
-@NacosConfigurationProperties(dataId = "user2", groupId = "MYGROUP", autoRefreshed = true)
+//@Component
+//@NacosConfigurationProperties(dataId = "user2", groupId = "MYGROUP", autoRefreshed = true)
 public class Foo2 {
 
     /**

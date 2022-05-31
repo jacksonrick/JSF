@@ -67,6 +67,7 @@ public class ViewExcel<T> extends AbstractXlsView {
         CellStyle headerStyle = workbook.createCellStyle();
         Font font = workbook.createFont();
         font.setBold(true);
+        font.setFontHeightInPoints((short) 12);
         headerStyle.setAlignment(HorizontalAlignment.CENTER);
         headerStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_25_PERCENT.getIndex());
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);

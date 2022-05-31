@@ -57,11 +57,11 @@
             <label class="col-sm-2 control-label">账号：</label>
             <div class="col-sm-9">
                 <div class="radio radio-info radio-inline">
-                    <input type="radio" name="deleted" id="state1" value="0" ${(user.deleted)!false?string('','checked') }>
+                    <input type="radio" name="deleted" id="state1" value="0" ${((user.deleted)!false)?string('','checked') }>
                     <label for="state1">正常</label>
                 </div>
                 <div class="radio radio-info radio-inline">
-                    <input type="radio" name="deleted" id="state2" value="1" ${(user.deleted)!false?string('checked','') }>
+                    <input type="radio" name="deleted" id="state2" value="1" ${((user.deleted)!false)?string('checked','') }>
                     <label for="state2">禁用</label>
                 </div>
             </div>
@@ -70,11 +70,11 @@
             <label class="col-sm-2 control-label">性别：</label>
             <div class="col-sm-9">
                 <div class="radio radio-info radio-inline">
-                    <input type="radio" name="gender" id="gender1" value="1" ${(user.gender)!true?string('checked','') }>
+                    <input type="radio" name="gender" id="gender1" value="1" ${((user.gender)!true)?string('checked','') }>
                     <label for="gender1">男</label>
                 </div>
                 <div class="radio radio-info radio-inline">
-                    <input type="radio" name="gender" id="gender2" value="0" ${(user.gender)!true?string('','checked') }>
+                    <input type="radio" name="gender" id="gender2" value="0" ${((user.gender)!true)?string('','checked') }>
                     <label for="gender2">女</label>
                 </div>
             </div>

@@ -62,11 +62,11 @@ public class ConfigService {
      */
     public void updateConfig(List<IdText> configs) {
         configMapper.updateBatch(configs);
-        runners.getSysConfig();
+        runners.getAppConfig();
     }
 
     public void refreshConfig() {
-        runners.getSysConfig();
+        runners.getAppConfig();
     }
 
 }

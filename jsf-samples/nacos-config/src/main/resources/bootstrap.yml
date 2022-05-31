@@ -1,13 +1,38 @@
 # springcloud使用此配置文件
 
-#spring:
-#  application:
-#    name: nacos-configuer
-#  cloud:
-#    nacos:
-#      config:
-#        server-addr: dev:8848
-#        group: MYGROUP
-#        file-extension: yaml
+spring:
+  application:
+    name: nacos-config
+  cloud:
+    nacos:
+      config:
+        server-addr: 172.168.250.77:8848
+        group: MYGROUP
+        namespace: 792b7b6c-ac07-49da-a4f1-0f230af63232
+        file-extension: yaml
+        shared-configs[0]:
+          data-id: shared-service.yaml
+          group: MYGROUP
+        shared-configs[1]:
+          data-id: shared-config.yaml
+          group: MYGROUP
+          refresh: true
+  profiles:
+    active: dev
 
 # dataId格式：${spring.application.name}-${spring.profiles.active}.${file-extension}
+
+# nacos-config-dev.yaml
+    #config:
+    #  appName: app-dev
+# shared-config.yaml
+    #config:
+    #  url: http://127.0.0.1:9999/api
+# shared-service.yaml
+    #spring:
+    #  datasource:
+    #    druid:
+    #      driver-class-name: com.mysql.jdbc.Driver
+    #      url: jdbc:mysql://dev:3306/test?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+    #      username: root
+    #      password: 12345678

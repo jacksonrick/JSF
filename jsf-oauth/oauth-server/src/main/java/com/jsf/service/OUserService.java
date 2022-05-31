@@ -1,6 +1,6 @@
 package com.jsf.service;
 
-import com.jsf.database.model.User;
+import com.jsf.database.model.OAuthUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -30,11 +30,11 @@ public class OUserService {
      * @param username
      * @return
      */
-    public User findByUsername(String username) {
-        List<User> list = jdbcTemplate.query("SELECT role, name, pwd, disabled, locks FROM oauth_user WHERE name = ?", new RowMapper<User>() {
+    public OAuthUser findByUsername(String username) {
+        List<OAuthUser> list = jdbcTemplate.query("SELECT role, name, pwd, disabled, locks FROM oauth_user WHERE name = ?", new RowMapper<OAuthUser>() {
             @Override
-            public User mapRow(ResultSet rs, int i) throws SQLException {
-                User user = new User();
+            public OAuthUser mapRow(ResultSet rs, int i) throws SQLException {
+                OAuthUser user = new OAuthUser();
                 user.setRoles(rs.getString(1));
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));

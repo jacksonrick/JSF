@@ -1,6 +1,6 @@
 package com.jsf.system.component;
 
-import com.jsf.system.conf.SysConfig;
+import com.jsf.system.conf.SysConfigStatic;
 import com.jsf.utils.entity.ResMsg;
 import com.jsf.utils.json.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -128,7 +128,7 @@ public class AspectLog {
             time = timeEnd - timeStart;
             if (ret != null) {
                 // 开发环境下打印具体信息
-                if (SysConfig.getBoolean("sys.dev")) {
+                if (SysConfigStatic.dev) {
                     log.info("Returns: {}, Time: {}", ret, time);
                 } else {
                     if (ret instanceof ResMsg) {

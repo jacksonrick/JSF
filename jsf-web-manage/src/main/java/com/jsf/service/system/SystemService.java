@@ -5,6 +5,7 @@ import com.jsf.database.model.manage.Admin;
 import com.jsf.database.model.manage.Log;
 import com.jsf.mapper.LogMapper;
 import com.jsf.system.conf.IConstant;
+import com.jsf.system.conf.SysConfig;
 import com.jsf.system.db.DbSQLExecutor;
 import com.jsf.utils.date.DateUtil;
 import com.jsf.utils.entity.ResMsg;
@@ -38,6 +39,9 @@ public class SystemService {
 
     @Resource
     private DbSQLExecutor dbSQLExecutor;
+
+    @Resource
+    private SysConfig sysConfig;
 
     /**
      * 管理操作日志
@@ -247,7 +251,7 @@ public class SystemService {
     public ResMsg genFromTable(String action, String tbls, String dbType, String jdbc, String extra) {
         GenInfo info = new GenInfo();
         String time = DateUtil.getCurrentTime(DateUtil.HHMMSS);
-        String output = "./generate/" + time;
+        String output = sysConfig.getUpload().getFilePath() + "/generate/" + time;
         String author = "jsf";
 
         // 如果连接串为空，使用本地库
@@ -291,7 +295,7 @@ public class SystemService {
             return ResMsg.success("已生成到项目根目录");
         } else if ("zip".equals(action)) {
             // 压缩到下载路径
-            String parentDir = "./upload/generate/";
+            String parentDir = sysConfig.getUpload().getFilePath() + "/upload/generate/";
             File parentDirFile = new File(parentDir);
             if (!parentDirFile.exists()) {
                 parentDirFile.mkdirs();
@@ -302,7 +306,7 @@ public class SystemService {
             } catch (Exception e) {
                 throw new RuntimeException("压缩失败", e);
             }
-            return ResMsg.success("生成成功，请稍后", outputZip.substring(1, outputZip.length()));
+            return ResMsg.success("生成成功，请稍后", "/upload/generate/" + time + ".zip");
         } else {
             return ResMsg.fail();
         }
@@ -319,7 +323,7 @@ public class SystemService {
     public ResMsg genDict(String dbType, String jdbc, String extra) {
         GenInfo info = new GenInfo();
         String time = DateUtil.getCurrentTime(DateUtil.HHMMSS);
-        String output = "./upload/generate/dict/" + time;
+        String output = sysConfig.getUpload().getFilePath() + "/upload/generate/dict/" + time;
         String author = "jsf";
 
         // 如果连接串为空，使用本地库
@@ -354,7 +358,7 @@ public class SystemService {
 
         // start
         new GenerateDict().generate(info);
-        return ResMsg.success("生成成功，请稍后", output.substring(1, output.length()) + "/dict.html");
+        return ResMsg.success("生成成功，请稍后", "/upload/generate/dict/" + time + "/dict.html");
     }
 
     private String getDriver(String dbType) {

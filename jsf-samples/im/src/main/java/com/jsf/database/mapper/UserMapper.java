@@ -1,6 +1,6 @@
 package com.jsf.database.mapper;
 
-import com.jsf.database.model.User;
+import com.jsf.database.model.ChatUser;
 
 /**
  * UserMapper Interface
@@ -12,5 +12,5 @@ public interface UserMapper {
 
 	String findNameById(Long id);
 
-    User findById(Long id);
+    ChatUser findById(Long id);
 }

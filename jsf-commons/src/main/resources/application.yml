@@ -205,12 +205,23 @@ fdfs: # fastDFS配置
   tracker-list: # 可设置多个
     - dev:22122
   nginx: http://192.168.1.1/ # DFS Nginx代理服务器地址
+system: # 系统配置
+  dev: true # 是否开发环境
+  version: 6 # 系统版本
+  appkey: "" # 应用访问校验码
+  upload: # 上传配置
+    file_path: "~/Downloads/TMP/attachment"
+    fdfs: false
+    img_size: 3
+    img_type: jpg,jpeg,png,gif
+    file_size: 10
+    file_type: zip,rar
 
 # 环境配置说明：
 # 1、spring.profiles.active必须严格按照注释命名
 # 2、spring.application.simple为应用简称，必须指定，否则日志不生效
 # 3、生产环境务必配置好静态文件路径和URL前缀、日志路径、数据库等，开发环境可以使用`默认`不配置
-# 4、可复写以上公共配置
+# 4、可复写以上公共配置，如system.update.file_path
 # 5、环境指定：spring.profiles.active=api-dev
 
 

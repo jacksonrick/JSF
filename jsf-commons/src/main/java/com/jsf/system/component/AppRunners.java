@@ -2,7 +2,7 @@ package com.jsf.system.component;
 
 import com.jsf.database.mapper.ConfigMapper;
 import com.jsf.database.model.manage.Config;
-import com.jsf.system.conf.SysConfig;
+import com.jsf.system.conf.AppConfig;
 import com.jsf.utils.json.JacksonUtil;
 import com.jsf.utils.system.LogManager;
 import org.springframework.boot.ApplicationArguments;
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: 应用启动后执行方法
+ * Description: **应用启动后**执行
  * User: xujunfei
  * Date: 2018-04-17
  * Time: 10:35
@@ -26,7 +26,7 @@ public class AppRunners implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        getSysConfig();
+        getAppConfig();
     }
 
 
@@ -37,32 +37,32 @@ public class AppRunners implements ApplicationRunner {
      * 获取系统配置
      * From DB
      */
-    public void getSysConfig() {
-        LogManager.info("[AppRunner] getSysConfig");
+    public void getAppConfig() {
+        LogManager.info("[AppRunner] getAppConfig");
         List<Config> configs = configMapper.findAll();
         for (Config config : configs) {
             switch (config.getType()) {
                 case "string":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), config.getVal());
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), config.getVal());
                     break;
                 case "boolean":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Boolean.valueOf(config.getVal()));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Boolean.valueOf(config.getVal()));
                     break;
                 case "int":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Integer.valueOf(config.getVal()));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Integer.valueOf(config.getVal()));
                     break;
                 case "long":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Long.valueOf(config.getVal()));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Long.valueOf(config.getVal()));
                     break;
                 case "json":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), JacksonUtil.jsonToMap(config.getVal()));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), JacksonUtil.jsonToMap(config.getVal()));
                     break;
                 case "list":
                     String[] strs = config.getVal().split(",");
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Arrays.asList(strs));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), Arrays.asList(strs));
                     break;
                 case "array":
-                    SysConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), config.getVal().split(","));
+                    AppConfig.CONFIGS.put(config.getGrp() + "." + config.getKey(), config.getVal().split(","));
                     break;
             }
         }

@@ -13,9 +13,9 @@ import java.util.Collection;
  * Date: 2018-10-31
  * Time: 15:37
  */
-public class UserDetail extends User implements UserDetails {
+public class UserDetail extends OAuthUser implements UserDetails {
 
-    public UserDetail(User user) {
+    public UserDetail(OAuthUser user) {
         super(user);
     }
 

@@ -2,6 +2,7 @@ package com.jsf.system.conf;
 
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import java.util.Map;
  * Date: 2018-05-25
  * Time: 13:29
  */
-//@Component
+@Component
 public class ErrorConfig implements ErrorViewResolver {
 
     @Override

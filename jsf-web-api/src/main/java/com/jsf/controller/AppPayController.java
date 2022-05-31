@@ -7,7 +7,7 @@ import com.jsf.base.BaseController;
 import com.jsf.database.enums.ResCode;
 import com.jsf.service.pay.AliPayService;
 import com.jsf.service.pay.WxPayService;
-import com.jsf.system.conf.SysConfig;
+import com.jsf.system.conf.AppConfig;
 import com.jsf.utils.entity.ResMsg;
 import com.jsf.utils.file.Qrcode;
 import com.jsf.utils.sdk.wxpay.WXPay;
@@ -142,7 +142,7 @@ public class AppPayController extends BaseController {
             valueStr = new String(valueStr.getBytes(), "utf-8");
             params.put(name, valueStr);
         }
-        boolean flag = AlipaySignature.rsaCheckV1(params, SysConfig.get("alipay.publicKey"), "utf-8", "RSA2");
+        boolean flag = AlipaySignature.rsaCheckV1(params, AppConfig.get("alipay.publicKey"), "utf-8", "RSA2");
         log.info("flag:" + flag + ", param:" + params);
         if (flag) {
             String biz = request.getParameter("passback_params"); // 自定义业务码

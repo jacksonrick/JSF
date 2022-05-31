@@ -6,7 +6,7 @@ import com.jsf.database.mapper.MessageMapper;
 import com.jsf.database.mapper.UserMapper;
 import com.jsf.database.model.Chat;
 import com.jsf.database.model.Message;
-import com.jsf.database.model.User;
+import com.jsf.database.model.ChatUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -45,7 +45,7 @@ public class IMService {
      * @param id
      * @return
      */
-    public User findUserById(Long id) {
+    public ChatUser findUserById(Long id) {
         return userMapper.findById(id);
     }
 

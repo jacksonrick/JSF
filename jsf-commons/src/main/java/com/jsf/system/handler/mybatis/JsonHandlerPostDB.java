@@ -14,8 +14,8 @@ import java.sql.SQLException;
  * Created with IntelliJ IDEA.
  * Description: mybatis处理JSON类型[Postgresql]
  * <pre>
- *     Insert/Update: #{extend, typeHandler=com.jsf.system.handler.mybatis.JsonTypeHandler, javaType=extend}
- *     ResultMap: property="extend" column="extend" typeHandler="com.jsf.system.handler.mybatis.JsonHandler" javaType="extend"
+ *     Insert/Update: #{extend, typeHandler=com.jsf.system.handler.mybatis.JsonHandlerPostDB, javaType=extend}
+ *     ResultMap: property="extend" column="extend" typeHandler="com.jsf.system.handler.mybatis.JsonHandlerPostDB" javaType="extend"
  * </pre>
  * User: xujunfei
  * Date: 2018-06-26

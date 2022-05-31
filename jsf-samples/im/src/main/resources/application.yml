@@ -20,7 +20,7 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   resources:
-    static-locations: classpath:/static,file:/Users/xujunfei/Downloads/tmp/static/
+    static-locations: classpath:/static
   freemarker:
     template-loader-path: classpath:/templates # 模板文件目录
     suffix: .ftl
@@ -53,3 +53,5 @@ spring:
 logging:
   level:
     com.jsf.database: DEBUG
+system:
+  upload_path: "~/Downloads/TMP/attachment/"

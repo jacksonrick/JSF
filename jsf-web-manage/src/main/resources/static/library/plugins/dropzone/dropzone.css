@@ -70,7 +70,7 @@ body{overflow-x:hidden;}
 /*custom*/
 body{margin: 0px;}
 .drop-main{padding: 20px 20px 60px 20px;}
-.btn-con {text-align: center; padding: 10px 0px; background-color: #ffffff; position: fixed; width: 100%; bottom: 0px;z-index: 99999;}
+.btn-con {text-align: center; padding: 10px 0px; background-color: #ffffff; position: absolute; width: 100%; bottom: 0px;z-index: 99999;}
 .btn-con .btn {display: inline-block;margin-bottom: 0; font-weight: normal; text-align: center;vertical-align: middle;-ms-touch-action: manipulation;touch-action: manipulation; cursor: pointer;background-image: none; border: 1px solid transparent;white-space: nowrap; padding: 6px 20px;font-size: 14px;line-height: 1.42857143;color: #fff;background-color: #46B8D9;border-color: #46b8da;}
 .btn-con .btn:hover {background-color: #31b0d5;border-color: #269abc;}
 .btn-con .btn-close {color: #333;background-color: #ffffff;border-color: #d2d2d2;}

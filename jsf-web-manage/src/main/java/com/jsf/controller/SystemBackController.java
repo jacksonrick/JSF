@@ -10,6 +10,7 @@ import com.jsf.database.model.custom.IdText;
 import com.jsf.database.model.manage.*;
 import com.jsf.service.system.*;
 import com.jsf.system.conf.IConstant;
+import com.jsf.system.conf.SysConfigStatic;
 import com.jsf.utils.annotation.AuthPassport;
 import com.jsf.utils.bean.BeanUtil;
 import com.jsf.utils.date.DateUtil;
@@ -739,11 +740,12 @@ public class SystemBackController extends BaseController {
             return new ResMsg(1, "未指定路径");
         }
         if (!path.startsWith("/")) {
-            return new ResMsg(2, "路径必须以斜杠/开头");
+            path = "/" + path;
         }
-        List<Directory> list = FileUtil.getDirectory(path, "./upload/");
+        // 文件管理只查看站点上传目录
+        List<Directory> list = FileUtil.getDirectory(path, SysConfigStatic.upload.getFilePath() + "/upload/");
         if (list == null) {
-            return new ResMsg(3, "路径不存在");
+            return new ResMsg(2, "路径不存在");
         }
         return new ResMsg(ResCode.SUCCESS.code(), ResCode.SUCCESS.msg(), list);
     }

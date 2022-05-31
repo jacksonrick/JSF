@@ -15,7 +15,8 @@ import java.util.zip.*;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: zip解压缩
+ * Description: zip/gzip/7z解压缩
+ * <p>解压tar.gz使用commons-compress</p>
  * User: xujunfei
  * Date: 2020-01-02
  * Time: 14:22

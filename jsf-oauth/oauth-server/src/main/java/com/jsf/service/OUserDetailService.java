@@ -1,6 +1,6 @@
 package com.jsf.service;
 
-import com.jsf.database.model.User;
+import com.jsf.database.model.OAuthUser;
 import com.jsf.database.model.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class OUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = oUserService.findByUsername(username);
+        OAuthUser user = oUserService.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("用户名" + username + "不存在"); // 用户名不存在
         }

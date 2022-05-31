@@ -66,11 +66,11 @@
         <div class="ibox-title">
             <h5>文件管理</h5>
             <ol class="breadcrumb">
-                <li><a title="/" href="javascript:;" onclick="openDirectory(this.title,1)">upload</a></li>
+                <li><a title="/" href="javascript:;" onclick="openDirectory(this.title,1)">root</a></li>
             </ol>
         </div>
         <div class="alert alert-warning mb0">
-            <i class="fa fa-exclamation-circle"></i>文件管理只查看站点上传目录(/upload/)，双击文件夹进入，双击文件预览。
+            <i class="fa fa-exclamation-circle"></i>文件管理只查看站点上传目录，双击文件夹进入，双击文件预览。
         </div>
         <div class="ibox-content">
             <div class="row">
@@ -143,7 +143,7 @@
 
     function createBread(path) {
         var arr = path.split("/");
-        var str = '<li><a title="/" href="javascript:;" onclick="openDirectory(this.title,1)">upload</a></li>';
+        var str = '<li><a title="/" href="javascript:;" onclick="openDirectory(this.title,1)">root</a></li>';
         for (var i = 0; i < arr.length; i++) {
             if (arr[i] != "") { //path
                 str += '<li><a title="' + arr[i] + '" href="javascript:;" onclick="openSingleDirectory(this)">' + arr[i] + '</a></li>';

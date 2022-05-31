@@ -1,6 +1,6 @@
 package com.jsf.service.pay;
 
-import com.jsf.system.conf.SysConfig;
+import com.jsf.system.conf.AppConfig;
 import com.jsf.utils.sdk.wxpay.WXPay;
 import com.jsf.utils.sdk.wxpay.WXPayConfig;
 import com.jsf.utils.sdk.wxpay.WXPayUtil;
@@ -35,17 +35,17 @@ public class WxPayService implements WXPayConfig {
     // 以下读取application.yml配置
     @Override
     public String getAppID() {
-        return SysConfig.get("wxpay.appid");
+        return AppConfig.get("wxpay.appid");
     }
 
     @Override
     public String getMchID() {
-        return SysConfig.get("wxpay.partner");
+        return AppConfig.get("wxpay.partner");
     }
 
     @Override
     public String getKey() {
-        return SysConfig.get("wxpay.partnerKey");
+        return AppConfig.get("wxpay.partnerKey");
     }
 
     @Override
@@ -81,7 +81,7 @@ public class WxPayService implements WXPayConfig {
         data.put("fee_type", "CNY");
         data.put("total_fee", (int) (orderPrice * 100) + "");
         data.put("spbill_create_ip", ip);
-        data.put("notify_url", SysConfig.get("wxpay.notifyUrl"));
+        data.put("notify_url", AppConfig.get("wxpay.notifyUrl"));
         data.put("trade_type", "APP");
         // data.put("device_info", "");
         // data.put("product_id", "1");
@@ -98,7 +98,7 @@ public class WxPayService implements WXPayConfig {
             params.put("partnerid", resp.get("mch_id"));
             params.put("package", "Sign=WXPay");
             params.put("prepayid", resp.get("prepay_id"));
-            params.put("sign", WXPayUtil.generateSignature(params, SysConfig.get("wxpay.partnerKey")));
+            params.put("sign", WXPayUtil.generateSignature(params, AppConfig.get("wxpay.partnerKey")));
             params.remove("package"); // 安卓解析问题
             LogManager.info(params.toString(), WxPayService.class);
             return params;
@@ -123,7 +123,7 @@ public class WxPayService implements WXPayConfig {
         data.put("fee_type", "CNY");
         data.put("total_fee", (int) (orderPrice * 100) + "");
         data.put("spbill_create_ip", ip);
-        data.put("notify_url", SysConfig.get("wxpay.notifyUrl"));
+        data.put("notify_url", AppConfig.get("wxpay.notifyUrl"));
         data.put("trade_type", "NATIVE");
         // data.put("attach", String.valueOf(type)); // 额外参数
 
@@ -154,7 +154,7 @@ public class WxPayService implements WXPayConfig {
         data.put("fee_type", "CNY");
         data.put("total_fee", (int) (orderPrice * 100) + "");
         data.put("spbill_create_ip", ip);
-        data.put("notify_url", SysConfig.get("wxpay.notifyUrl"));
+        data.put("notify_url", AppConfig.get("wxpay.notifyUrl"));
         data.put("openid", openid);
         data.put("trade_type", "JSAPI");
         // data.put("attach", String.valueOf(type)); // 额外参数
@@ -169,7 +169,7 @@ public class WxPayService implements WXPayConfig {
             params.put("nonceStr", resp.get("nonce_str"));
             params.put("package", "prepay_id=" + resp.get("prepay_id"));
             params.put("signType", "MD5");
-            params.put("paySign", WXPayUtil.generateSignature(params, SysConfig.get("wxpay.partnerKey")));
+            params.put("paySign", WXPayUtil.generateSignature(params, AppConfig.get("wxpay.partnerKey")));
             LogManager.info(params.toString(), WxPayService.class);
             return params;
         }

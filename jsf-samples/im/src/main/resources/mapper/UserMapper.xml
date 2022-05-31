@@ -4,7 +4,7 @@
 
 <mapper namespace="com.jsf.database.mapper.UserMapper">
 
-	<select id="findById" resultType="com.jsf.database.model.User" parameterType="long">
+	<select id="findById" resultType="com.jsf.database.model.ChatUser" parameterType="long">
 		SELECT id, nickname
 		FROM t_user
 		WHERE id = #{id}

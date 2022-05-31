@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * Created with IntelliJ IDEA.
  * Description: mybatis处理JSON类型
  * <pre>
- *     Insert/Update: #{extend, typeHandler=com.jsf.system.handler.mybatis.JsonTypeHandler, javaType=extend}
+ *     Insert/Update: #{extend, typeHandler=com.jsf.system.handler.mybatis.JsonHandler, javaType=extend}
  *     ResultMap: property="extend" column="extend" typeHandler="com.jsf.system.handler.mybatis.JsonHandler" javaType="extend"
  * </pre>
  * User: xujunfei

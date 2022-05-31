@@ -4,11 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.jsf.config.ResMsg;
 import com.jsf.config.wsm.ReadMessage;
 import com.jsf.database.model.Chat;
+import com.jsf.database.model.ChatUser;
 import com.jsf.database.model.Message;
-import com.jsf.database.model.User;
 import com.jsf.service.IMService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
@@ -65,7 +66,7 @@ public class IMController {
             map.put("err", "登陆ID为空");
             return "err";
         }
-        User user = imService.findUserById(loginId);
+        ChatUser user = imService.findUserById(loginId);
         if (user == null) {
             map.put("err", "用户不存在");
             return "err";
@@ -186,6 +187,10 @@ public class IMController {
         return ResMsg.successdata(imService.findUnReadMsgCount(loginId));
     }
 
+
+    @Value("${system.upload_path}")
+    private String filePath;
+
     /**
      * 图片上传（示例）
      *
@@ -198,16 +203,16 @@ public class IMController {
     public Map<String, Object> upload(@RequestParam("file") MultipartFile file) throws IOException {
         Map<String, Object> map = new HashMap<>();
         String filename = randomFilename(file.getOriginalFilename());
-        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(staticPath + uploadImgPath, filename));
+        File parent = new File(filePath + "img");
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(parent, filename));
         map.put("error", 0);
-        map.put("url", uploadImgPath + filename);
+        map.put("url", "/upload/img/" + filename);
         map.put("message", "SUCCESS");
         return map;
     }
-
-    static String staticPath = "~/Downloads/tmp";
-    static String uploadImgPath = "/static/upload/img/";
-    static String uploadAudioPath = "/static/upload/audio/";
 
     /**
      * 语音上传（示例）
@@ -221,9 +226,13 @@ public class IMController {
     public Map<String, Object> uploadAudio(@RequestParam("file") MultipartFile file) throws IOException {
         Map<String, Object> map = new HashMap<>();
         String filename = System.currentTimeMillis() + "" + (int) (Math.random() * 90000 + 10000) + ".mp3";
-        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(staticPath + uploadAudioPath, filename));
+        File parent = new File(filePath + "audio");
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(parent, filename));
         map.put("error", 0);
-        map.put("url", uploadAudioPath + filename);
+        map.put("url", "/upload/audio/" + filename);
         map.put("message", "SUCCESS");
         return map;
     }
