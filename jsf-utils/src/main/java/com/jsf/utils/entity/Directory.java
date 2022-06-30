@@ -1,4 +1,4 @@
-package com.jsf.utils.file;
+package com.jsf.utils.entity;
 
 /**
  * 目录实体类

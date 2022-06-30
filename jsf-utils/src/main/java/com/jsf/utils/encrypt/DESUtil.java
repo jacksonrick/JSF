@@ -10,26 +10,26 @@ import java.security.Key;
 import java.security.SecureRandom;
 
 /**
- * 字符串加密解密
+ * 字符串DES加密解密
+ *
  * @author rick
- * @version
  */
 public class DESUtil {
-	//算法名称 
+    //算法名称
     public static final String KEY_ALGORITHM = "DES";
-    
+
     //算法名称/加密模式/填充方式 [DES共有四种工作模式-->>ECB：电子密码本模式、CBC：加密分组链接模式、CFB：加密反馈模式、OFB：输出反馈模式]
     public static final String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
-    
-    //自定义key
-    public static final String key="A1B3C5D7E2F4G6H8";
+
+    //加密秘钥
+    public static final String ENCRYPT_KEY = "A1B3C5D7E2F4G6H8";
 
     /**
-     *   
      * 生成密钥key对象
+     *
      * @param keyStr 密钥字符串
-     * @return 密钥对象 
-     * @throws Exception 
+     * @return 密钥对象
+     * @throws Exception
      */
     private static SecretKey keyGenerator(String keyStr) throws Exception {
         byte[] input = HexString2Bytes(keyStr);
@@ -58,22 +58,23 @@ public class DESUtil {
         return b;
     }
 
-    /** 
+    /**
      * 加密数据
+     *
      * @param data 待加密数据
-     * @return 加密后的数据 
+     * @return 加密后的数据
      */
     public static String encrypt(String data) throws Exception {
-    	if(data.length()%8 != 0){
-    		int i = data.length() % 8;
-    		int j = 8-i;
-    		String a = "";
-    		for(int x=0;x<j;x++){
-    			a += " ";
-    		}
-    		data += a;
-    	}
-        Key deskey = keyGenerator(key);
+        if (data.length() % 8 != 0) {
+            int i = data.length() % 8;
+            int j = 8 - i;
+            String a = "";
+            for (int x = 0; x < j; x++) {
+                a += " ";
+            }
+            data += a;
+        }
+        Key deskey = keyGenerator(ENCRYPT_KEY);
         // 实例化Cipher对象，它用于完成实际的加密操作
         Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         SecureRandom random = new SecureRandom();
@@ -86,18 +87,19 @@ public class DESUtil {
          * for (int i = 0; i < results.length; i++) {
             System.out.print(results[i] + " ");
         }*/
-        
+
         // 执行加密操作。加密后的结果通常都会用Base64编码进行传输 
         return Base64.encodeBase64String(results);
     }
 
-    /** 
-     * 解密数据 
+    /**
+     * 解密数据
+     *
      * @param data 待解密数据
-     * @return 解密后的数据 
+     * @return 解密后的数据
      */
     public static String decrypt(String data) throws Exception {
-        Key deskey = keyGenerator(key);
+        Key deskey = keyGenerator(ENCRYPT_KEY);
         Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         //初始化Cipher对象，设置为解密模式
         cipher.init(Cipher.DECRYPT_MODE, deskey);

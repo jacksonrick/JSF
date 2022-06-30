@@ -65,7 +65,7 @@ public class ResMsg {
      * @param data 返回数据
      * @return
      */
-    public static ResMsg success(String msg, Object data) {
+    public static ResMsg successdata(String msg, Object data) {
         return new ResMsg(DefaultResCode.SUCCESS.code(), msg, data);
     }
 

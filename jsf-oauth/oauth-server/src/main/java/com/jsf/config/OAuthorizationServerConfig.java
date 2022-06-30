@@ -45,8 +45,8 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
     /*
      * 注意问题
      * 1.数据库的authorized_grant_types不能设置全部
-     * 2.sso客户端的context-path不能为空，否则需要修改Cookie名
-     * */
+     * 2.同域名/IP下，每个sso客户端的Cookie名不能相同
+     */
 
     /**
      * 客户端配置

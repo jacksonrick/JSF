@@ -23,7 +23,8 @@
                         </div>
                     </div>
 
-                    <div class="sys-name"><a href="http://www.baidu.com" target="_self">A系统</a></div>
+                    <div class="sys-name"><a href="http://a.com" target="_self">A系统</a></div>
+                    <div class="sys-name"><a href="http://b.com" target="_self">B系统</a></div>
 
                     <#if logout??>
                         <div style="margin-top: 50px;text-align: center;font-weight: bold;"><font color="red">您已安全退出系统！</font></div>

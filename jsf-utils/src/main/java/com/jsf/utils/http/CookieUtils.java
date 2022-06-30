@@ -1,4 +1,4 @@
-package com.jsf.system.utils;
+package com.jsf.utils.http;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: http cookie获取/生成/删除
  * User: xujunfei
  * Date: 2018-09-19
  * Time: 13:37
@@ -40,9 +40,21 @@ public class CookieUtils {
      * @param value
      */
     public static void setCookie(HttpServletResponse response, String cookieName, String value) {
+        setCookie(response, cookieName, value, 3600);
+    }
+
+    /**
+     * 设置cookie
+     *
+     * @param response
+     * @param cookieName
+     * @param value
+     * @param expire
+     */
+    public static void setCookie(HttpServletResponse response, String cookieName, String value, int expire) {
         Cookie cookie = new Cookie(cookieName, value);
         cookie.setPath("/");
-        cookie.setMaxAge(3600);
+        cookie.setMaxAge(expire);
         response.addCookie(cookie);
     }
 

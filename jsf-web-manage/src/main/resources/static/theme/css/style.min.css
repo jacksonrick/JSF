@@ -611,12 +611,12 @@ h1, h2, h3, h4, h5 {
 
 .nav-header {
     padding: 35px 25px 25px;
-    background: url(patterns/header-profile.png) no-repeat
+    background: url(../images/patterns/header-profile.png) no-repeat
 }
 
 /* skin - default-skin | blue-skin | yellow-skin */
 .blue-skin .nav-header {
-    background: url(patterns/header-profile-skin-1.png) no-repeat
+    background: url(../images/patterns/header-profile-skin-1.png) no-repeat
 }
 
 .blue-skin .minimalize-styl-2 {
@@ -635,7 +635,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .yellow-skin .nav-header {
-    background: url(patterns/header-profile-skin-3.png) no-repeat
+    background: url(../images/patterns/header-profile-skin-3.png) no-repeat
 }
 
 .yellow-skin .minimalize-styl-2 {
@@ -3064,7 +3064,7 @@ body, body.full-height-layout #page-wrapper, body.full-height-layout #wrapper, h
 }
 
 body.boxed-layout {
-    background: url(patterns/shattered.png)
+    background: url(../images/patterns/shattered.png)
 }
 
 body.boxed-layout #wrapper {
@@ -6257,7 +6257,7 @@ body.rtls .top-navigation #page-wrapper, body.rtls .top-navigation .footer.fixed
 
 .default-skin {
     font-weight: 600;
-    background: url(patterns/header-profile.png) repeat scroll 0 0
+    background: url(../images/patterns/header-profile.png) repeat scroll 0 0
 }
 
 .default-skin:hover {
@@ -6266,7 +6266,7 @@ body.rtls .top-navigation #page-wrapper, body.rtls .top-navigation .footer.fixed
 
 .blue-skin {
     font-weight: 600;
-    background: url(patterns/header-profile-skin-1.png) repeat scroll 0 0
+    background: url(../images/patterns/header-profile-skin-1.png) repeat scroll 0 0
 }
 
 .blue-skin:hover {
@@ -6275,7 +6275,7 @@ body.rtls .top-navigation #page-wrapper, body.rtls .top-navigation .footer.fixed
 
 .yellow-skin {
     font-weight: 600;
-    background: url(patterns/header-profile-skin-3.png) repeat scroll 0 100%
+    background: url(../images/patterns/header-profile-skin-3.png) repeat scroll 0 100%
 }
 
 .yellow-skin:hover {

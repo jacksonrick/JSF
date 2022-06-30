@@ -184,9 +184,9 @@
         });
 
         // 行点击事件
-        $('#table tbody').on('click', 'tr', function () {
-            $(this).closest('tr').toggleClass("red");
-        });
+        // $('#table tbody').on('click', 'tr', function () {
+        //     $(this).closest('tr').toggleClass("red");
+        // });
 
         datePicker('#startDate,#endDate', "yyyy-mm-dd");
     });
@@ -197,6 +197,13 @@
     }
 
     function dealUser(data) {
+        if (data.length > 0) {
+            var s = [];
+            for (var d of data) {
+                s.push(d.nickname)
+            }
+            layer.alert('您选择了：' + s.join(","));
+        }
         console.log(data);
     }
 </script>

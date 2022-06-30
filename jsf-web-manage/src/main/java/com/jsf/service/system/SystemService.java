@@ -306,7 +306,7 @@ public class SystemService {
             } catch (Exception e) {
                 throw new RuntimeException("压缩失败", e);
             }
-            return ResMsg.success("生成成功，请稍后", "/upload/generate/" + time + ".zip");
+            return ResMsg.successdata("生成成功，请稍后", "/upload/generate/" + time + ".zip");
         } else {
             return ResMsg.fail();
         }
@@ -358,7 +358,7 @@ public class SystemService {
 
         // start
         new GenerateDict().generate(info);
-        return ResMsg.success("生成成功，请稍后", "/upload/generate/dict/" + time + "/dict.html");
+        return ResMsg.successdata("生成成功，请稍后", "/upload/generate/dict/" + time + "/dict.html");
     }
 
     private String getDriver(String dbType) {

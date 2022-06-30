@@ -1,6 +1,6 @@
 logging:
   config: classpath:logback-boot.xml # 日志配置文件
-  path: ./logs/ # 日志存放目录
+  path: ./logs # 日志存放目录（这里默认项目根目录）
 server:
   port: 8080 # 默认端口号
   connection-timeout: 5000
@@ -210,7 +210,7 @@ system: # 系统配置
   version: 6 # 系统版本
   appkey: "" # 应用访问校验码
   upload: # 上传配置
-    file_path: "~/Downloads/TMP/attachment"
+    file_path: "./files" # 包含upload、generate等
     fdfs: false
     img_size: 3
     img_type: jpg,jpeg,png,gif
@@ -220,9 +220,9 @@ system: # 系统配置
 # 环境配置说明：
 # 1、spring.profiles.active必须严格按照注释命名
 # 2、spring.application.simple为应用简称，必须指定，否则日志不生效
-# 3、生产环境务必配置好静态文件路径和URL前缀、日志路径、数据库等，开发环境可以使用`默认`不配置
-# 4、可复写以上公共配置，如system.update.file_path
-# 5、环境指定：spring.profiles.active=api-dev
+# 3、生产环境务必配置好静态文件路径和URL前缀、日志路径、数据库等
+# 4、可复写以上公共配置，如system.upload.file_path
+# 5、启动脚本指定运行环境：java -jar app.jar --spring.profiles.active=api-dev
 
 
 ##################### 后台管理端 开发 #####################

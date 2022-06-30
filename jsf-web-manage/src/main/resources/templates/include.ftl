@@ -14,5 +14,5 @@
 <script type="text/javascript" src="/static/library/plugins/dataTables/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/static/library/plugins/dataTables/js/dataTables.bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/static/theme/js/main.js"></script>
+<script type="text/javascript" src="/static/common/js/ui.js"></script>
 <script type="text/javascript" src="/static/common/js/global.js"></script>

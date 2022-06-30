@@ -1,4 +1,4 @@
-package com.jsf.system.utils;
+package com.jsf.system;
 
 import java.util.ArrayList;
 import java.util.List;

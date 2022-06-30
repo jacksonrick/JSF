@@ -116,7 +116,7 @@ public class UserService {
 
         user.setPassword(null);
         user.setToken(tokenHandler.bindToken(user.getId()));
-        return ResMsg.success("登陆成功", user);
+        return ResMsg.successdata("登陆成功", user);
     }
 
     /**

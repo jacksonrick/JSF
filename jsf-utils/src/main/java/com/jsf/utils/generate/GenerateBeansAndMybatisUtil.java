@@ -1070,6 +1070,11 @@ public class GenerateBeansAndMybatisUtil {
                 "            columnDefs: [CONSTANT.BUTTON.CHECKBOXS],\n" +
                 "            drawCallback: function (settings) {\n" +
                 "                $(\":checkbox[name='check-all']\").prop(\"checked\", false);\n" +
+                "                /* 自增序列\n" +
+                "                    this.api().column(0).nodes().each(function (cell, i) {\n" +
+                "                        cell.innerHTML = i + 1;\n" +
+                "                    });\n" +
+                "                */\n" +
                 "            }\n" +
                 "        }));\n" +
                 "\n" +
@@ -1114,21 +1119,21 @@ public class GenerateBeansAndMybatisUtil {
                 "                var checkbox = $(\"tbody :checkbox\", $table);\n" +
                 "                $(\":checkbox[name='check-all']\", $table).prop('checked', checkbox.length == checkbox.filter(':checked').length);\n" +
                 "            }\n" +
-                "        }).on(\"click\", \".btn-edit\", function () {\n" +
-                "            //var item = tables.row($(this).closest('tr')).data();\n" +
                 "        }).on(\"click\", \".btn-enable\", function () {\n" +
                 "            var item = tables.row($(this).closest('tr')).data();\n" +
-                "            //$(this).closest('tr').remove();\n" +
                 "            layerConfirm('确定要禁用或启用该条数据吗', \"/admin/" + bean + "/enable?id=\" + item.id, function () {\n" +
                 "                reload();\n" +
                 "            });\n" +
                 "        }).on(\"click\", \".btn-del\", function () {\n" +
                 "            var item = tables.row($(this).closest('tr')).data();\n" +
-                "            //$(this).closest('tr').remove();\n" +
                 "            layerConfirm('确定要删除该条数据吗', \"/admin/" + bean + "/delete?id=\" + item.id, function () {\n" +
                 "                reload();\n" +
                 "            });\n" +
                 "        });\n" +
+                "        // 行点击事件\n" +
+                "        // $('#table tbody').on('click', 'tr', function () {\n" +
+                "        //     $(this).closest('tr').toggleClass(\"red\");\n" +
+                "        // });\n" +
                 "\n" +
                 "        datePicker('#startDate,#endDate', \"yyyy-mm-dd\");\n" +
                 "    });\n" +
@@ -1140,7 +1145,7 @@ public class GenerateBeansAndMybatisUtil {
                 "\n" +
                 "    // 选择框的回调方法\n" +
                 "    function dealData(data) {\n" +
-                "        console.log(data);\n" +
+                "        // 处理data\n" +
                 "    }\n" +
                 "</script>\n" +
                 "</body>\n" +
@@ -1171,14 +1176,14 @@ public class GenerateBeansAndMybatisUtil {
             processTable(table);
             String bean = processBeanName(beanName);
             bw.write("\n-- menu for " + table + "\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '" + tableComments.get(table) + "管理', NULL, 'fa fa-xx', 1, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '列表管理', '/admin/" + bean + "/page', 'fa fa-xx', 2, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '列表数据', '/admin/" + bean + "/list', 'fa fa-xx', 3, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '编辑', '/admin/" + bean + "/edit', 'fa fa-xx', 3, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '详情', '/admin/" + bean + "/detail', 'fa fa-xx', 3, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '启用/禁用', '/admin/" + bean + "/enable', 'fa fa-xx', 3, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '导出', '/admin/" + bean + "/export', 'fa fa-xx', 3, 0, now(), 0);\n");
-            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '删除', '/admin/" + bean + "/delete', 'fa fa-xx', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '" + tableComments.get(table) + "管理', NULL, 'fa fa-gear', 1, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '列表管理', '/admin/" + bean + "/page', 'fa fa-gear', 2, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '列表数据', '/admin/" + bean + "/list', 'fa fa-gear', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '编辑', '/admin/" + bean + "/edit', 'fa fa-gear', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '详情', '/admin/" + bean + "/detail', 'fa fa-gear', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '启用/禁用', '/admin/" + bean + "/enable', 'fa fa-gear', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '导出', '/admin/" + bean + "/export', 'fa fa-gear', 3, 0, now(), 0);\n");
+            bw.write("INSERT INTO s_module (parent_id, name, action, icon_name, flag, sort, create_time, deleted) VALUES (0, '删除', '/admin/" + bean + "/delete', 'fa fa-gear', 3, 0, now(), 0);\n");
         }
 
         bw.flush();

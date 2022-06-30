@@ -76,7 +76,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * cd jsf-utils -> clean install -e
     * cd jsf-commons -> clean install -e
 * 在各web模块下运行 
-    * cd   jsf-web-manage
+    * cd jsf-web-manage
     * clean package -Dmaven.test.skip=true -e
 * 将target目录下的打包文件上传到服务器目录
 * 运行`doc/scripts/start.sh`命令
@@ -96,7 +96,6 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ### 其他
 * 使用maven下载Jar包时，请先在Maven中添加阿里的镜像源
 * 数据库脚本：`doc/mysql/database.sql`
-* 操作手册说明：`doc/框架使用手册.docx`(很久没更新了`-_-`)
 * 默认为MySQL数据库，如使用Postgresql，将数据库脚本替换为`doc/postgresql/public.sql`，并修改相应配置
 * jsf-samples模块代码仅供参考
 
@@ -106,6 +105,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.2.1 `2022`
+  * gateway模块使用sentinel限流熔断
+  * sample新增sentinel限流熔断示例
 * v6.2 `20220531`
   * manage、im模块代码优化BUG修复
   * 现配置类划分为系统和应用配置

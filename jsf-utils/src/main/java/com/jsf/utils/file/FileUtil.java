@@ -1,5 +1,6 @@
 package com.jsf.utils.file;
 
+import com.jsf.utils.entity.Directory;
 import com.jsf.utils.math.Convert;
 import com.jsf.utils.date.DateUtil;
 import com.jsf.utils.exception.SysException;
@@ -22,13 +23,13 @@ public class FileUtil {
      * @param filepath
      * @return
      */
-    public static String getContent(String filepath) {
+    public static String fileRead(String filepath) {
         File f = new File(filepath);
-        if (!f.isFile()) {
+        if (!f.exists() || !f.isFile()) {
             return "";
         }
         Reader reader = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
             reader = new FileReader(f);
             char[] flush = new char[10];
@@ -38,24 +39,50 @@ public class FileUtil {
             }
         } catch (Exception e) {
             return e.getMessage();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+            }
         }
         return sb.toString();
     }
 
     /**
+     * 写入文件内容
+     *
+     * @param text
+     * @param filepath
+     */
+    public static void fileSave(String text, String filepath) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filepath));
+            bw.write(text);
+            bw.flush();
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 获取文件目录
      *
-     * @param path
-     * @param parent
+     * @param path   基于主目录下的子目录
+     * @param parent 主目录
      * @return
      */
     public static List<Directory> getDirectory(String path, String parent) {
         List<Directory> list = new ArrayList<Directory>();
+        if (!parent.endsWith("/")) {
+            parent = parent + "/";
+        }
         File f = new File(parent + path);
         File[] files = f.listFiles();
         if (files == null) {
-            return null;
+            return list;
         }
+        // 根据名称排序
         Arrays.sort(files, new CompratorByName());
 
         for (File file : files) {
@@ -140,7 +167,7 @@ public class FileUtil {
                 return -1;
             if (f1.isFile() && f2.isDirectory())
                 return 1;
-            return f2.getName().compareTo(f1.getName());
+            return f1.getName().compareTo(f2.getName());
         }
 
         public boolean equals(Object obj) {

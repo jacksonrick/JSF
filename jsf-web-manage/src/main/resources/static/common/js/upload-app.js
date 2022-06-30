@@ -1,5 +1,5 @@
 /**
- * webUploader for web/wenxin
+ * webUploader for web/weixin
  * @version 1.0
  */
 !(function ($) {

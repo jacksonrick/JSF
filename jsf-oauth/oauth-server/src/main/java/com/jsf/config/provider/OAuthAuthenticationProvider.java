@@ -51,7 +51,7 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
             // 验证码等校验
             OUserExtDetail detail = (OUserExtDetail) authentication.getDetails();
             if (!detail.getVerify().equalsIgnoreCase(detail.getVerifySession())) {
-                throw new BadCredentialsException("04");
+                throw new BadCredentialsException("04"); //验证码错误
             }
         } else if (details instanceof LinkedHashMap) { // password
             //LinkedHashMap detailMap = (LinkedHashMap) authentication.getDetails();
@@ -78,7 +78,7 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
         }
 
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
-        // 这里的pricipal可以换成userid
+        // 这里的pricipal也可以是用户id等等
         return new UsernamePasswordAuthenticationToken(userDetail.getUsername(), userDetail.getPassword(), authorities);
     }
 

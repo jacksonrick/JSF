@@ -11,13 +11,14 @@ import com.jsf.database.model.manage.*;
 import com.jsf.service.system.*;
 import com.jsf.system.conf.IConstant;
 import com.jsf.system.conf.SysConfigStatic;
+import com.jsf.system.db.DataConfig;
 import com.jsf.utils.annotation.AuthPassport;
 import com.jsf.utils.bean.BeanUtil;
 import com.jsf.utils.date.DateUtil;
 import com.jsf.utils.entity.ResMsg;
 import com.jsf.utils.entity.Tree;
 import com.jsf.utils.exception.SysException;
-import com.jsf.utils.file.Directory;
+import com.jsf.utils.entity.Directory;
 import com.jsf.utils.file.FileUtil;
 import com.jsf.utils.http.HttpUtil;
 import com.jsf.utils.json.JacksonUtil;
@@ -611,9 +612,6 @@ public class SystemBackController extends BaseController {
         if (StringUtil.isBlank(path)) {
             return new ResMsg(1, "未指定路径", null);
         }
-        if (!path.startsWith("/")) {
-            return new ResMsg(2, "路径必须以斜杠/开头", null);
-        }
         List<Directory> list = FileUtil.getDirectory(path, logPath);
         if (list == null) {
             return new ResMsg(3, "路径不存在", null);
@@ -680,8 +678,8 @@ public class SystemBackController extends BaseController {
         }
 
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-        loggerContext.getLogger("com.jsf.database.mapper").setLevel(Level.valueOf(level));
-        loggerContext.getLogger("com.jsf.mapper").setLevel(Level.valueOf(level));
+        loggerContext.getLogger(DataConfig.mapperPackage).setLevel(Level.valueOf(level));
+        loggerContext.getLogger(DataConfig.mapperOtherPackage).setLevel(Level.valueOf(level));
 
         return new ResMsg(ResCode.SUCCESS.code(), ResCode.SUCCESS.msg());
     }
@@ -738,9 +736,6 @@ public class SystemBackController extends BaseController {
     public ResMsg getDirectory(String path) {
         if (StringUtil.isBlank(path)) {
             return new ResMsg(1, "未指定路径");
-        }
-        if (!path.startsWith("/")) {
-            path = "/" + path;
         }
         // 文件管理只查看站点上传目录
         List<Directory> list = FileUtil.getDirectory(path, SysConfigStatic.upload.getFilePath() + "/upload/");

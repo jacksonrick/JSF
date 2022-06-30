@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Cookie处理
+ * Cookie对象操作
  */
 public class HttpCookie {
 

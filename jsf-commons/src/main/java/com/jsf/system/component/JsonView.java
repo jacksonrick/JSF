@@ -7,7 +7,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 适用于可能需要同时支持页面和数据的接口
  * User: xujunfei
  * Date: 2020-09-11
  * Time: 11:12

@@ -95,8 +95,16 @@
                 if (res.code == 0) {
                     var str = "";
                     $.each(res.data, function (key, val) {
-                        str += '<li title="' + val["path"] + '" type="' + val["type"] + '" ondblclick="openDirectory(this.title,1)"><div class="ft '
+                        if (val["type"] == "folder") {
+                            str += '<li title="' + val["path"] + '" type="' + val["type"] + '" ondblclick="openDirectory(this.title,1)"><div class="ft '
                                 + val["type"] + '"></div><div class="fn">' + val["name"] + '</div></li>';
+                        } else if (val["type"] == "picture") {
+                            str += '<li title="' + val["path"] + '" type="' + val["type"] + '" ondblclick="openPicture(this.title)"><div class="ft '
+                                + val["type"] + '"></div><div class="fn">' + val["name"] + '</div></li>';
+                        } else {
+                            str += '<li title="' + val["path"] + '" type="' + val["type"] + '" ondblclick="downLoad(this.title)"><div class="ft '
+                                + val["type"] + '"></div><div class="fn">' + val["name"] + '</div></li>';
+                        }
                     });
                     $(".dataList").html(str);
                 } else {

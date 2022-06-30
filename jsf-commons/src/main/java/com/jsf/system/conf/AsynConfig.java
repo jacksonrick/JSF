@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created with IntelliJ IDEA.
- * Description: 异步任务 @EnableAsync
+ * Description: 异步任务配置 需要启用注解@EnableAsync
  * User: xujunfei
  * Date: 2017-11-28
  * Time: 11:03
