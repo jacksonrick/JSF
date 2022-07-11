@@ -42,22 +42,23 @@ Content-Type: application/json
     }
   ]
 }
-### RequestRateLimiter 限流，需要定义key-resolver的bean
-  # burstCapacity 令牌桶总容量
-  # replenishRate 令牌桶每秒填充平均速率
-### StripPrefix 去除URI前parts项，如/api/get => /get
-### Hystrix 熔断降级
 
-# Header类型
-#"predicates": [
-#    {
-#      "name": "Header",
-#      "args": {
-#        "header": "X-VER",
-#        "regexp": "[1]"
-#      }
-#    }
-#  ]
+// RequestRateLimiter 限流，需要定义key-resolver的bean
+//    burstCapacity 令牌桶总容量
+//    replenishRate 令牌桶每秒填充平均速率
+// StripPrefix 去除URI前parts项，如/api/get => /get
+// Hystrix 熔断降级
+
+// Header类型
+//"predicates": [
+//    {
+//      "name": "Header",
+//      "args": {
+//        "header": "X-VER",
+//        "regexp": "[1]"
+//      }
+//    }
+//  ]
 
 ### 新增服务
 POST http://127.0.0.1:9091/route/add
@@ -73,7 +74,6 @@ GET http://127.0.0.1:9091/route/delete/api-order-srv
 GET http://127.0.0.1:9091/actuator/gateway/routes
 
 
-### 测试
 ### 测试1
 GET http://127.0.0.1:9091/api/order?userId=1&productId=2
 X-VER: 2

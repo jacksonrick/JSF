@@ -1,11 +1,12 @@
 package com.jsf.config.provider;
 
-import org.springframework.security.OUserExtDetail;
-import com.jsf.database.model.UserDetail;
+import com.jsf.config.handler.PasswordEncoders;
+import com.jsf.model.OUserDetail;
 import com.jsf.service.OUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.OUserExtDetail;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,8 +33,6 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private OUserDetailService oUserDetailService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     /**
      * 自定义验证方式
@@ -61,13 +60,14 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
         }
 
         // 用户名密码校验
-        UserDetail userDetail = (UserDetail) oUserDetailService.loadUserByUsername(authentication.getName());
+        OUserDetail userDetail = (OUserDetail) oUserDetailService.loadUserByUsername(authentication.getName());
         if (userDetail.getDisabled()) {
             throw new BadCredentialsException("01"); //账户禁用
         }
         if (userDetail.getLocks() >= 5) {
             throw new BadCredentialsException("02"); //账户已锁定
         }
+        PasswordEncoder passwordEncoder = PasswordEncoders.getEncoder("bc");
         if (!userDetail.getUsername().equals(authentication.getName()) ||
                 !passwordEncoder.matches(String.valueOf(authentication.getCredentials()), userDetail.getPassword())) {
             oUserDetailService.updateLocks(userDetail.getUsername());
@@ -78,7 +78,7 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
         }
 
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
-        // 这里的pricipal也可以是用户id等等
+        // 这里的pricipal也可以是用户id、或对象userDetail 等
         return new UsernamePasswordAuthenticationToken(userDetail.getUsername(), userDetail.getPassword(), authorities);
     }
 

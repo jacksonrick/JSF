@@ -10,7 +10,7 @@ security:
       user-authorization-uri: ${auth-server}/oauth/authorize
       access-token-uri: ${auth-server}/oauth/token
     resource:
-      user-info-uri: ${auth-server}/authentication/user
+      user-info-uri: ${auth-server}/api/user
 spring:
   main:
     allow-bean-definition-overriding: true

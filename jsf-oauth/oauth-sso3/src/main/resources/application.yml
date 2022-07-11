@@ -1,0 +1,35 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        name: OAUTH2SESSION3
+  use-forward-headers: true # 解决配置https代理还是跳转http的问题，客户端都需要配置，Nginx代理配置请求头
+  # forward-headers-strategy: native
+spring:
+  security: # OAuth2认证配置
+    auth-server: http://127.0.0.1:8090 # 授权服务器
+    oauth2:
+      client:
+        registration:
+          web: # 客户端注册信息，名称自定义
+            provider: my-auth
+            client-id: sso03
+            client-secret: 123456
+            authorization-grant-type: authorization_code # 授权模式：授权码
+            redirect-uri: '{baseUrl}/sso/login' # 若要使用baseUrl，在反向代理环境下，主要需要配置头属性，否则填写完整地址
+          rest:
+            provider: my-auth
+            client-id: client
+            client-secret: 123456
+            authorization-grant-type: client_credentials  # 授权模式：客户端
+        provider:
+          my-auth:
+            authorization-uri: ${spring.security.auth-server}/oauth/authorize
+            token-uri: ${spring.security.auth-server}/oauth/token
+            user-info-uri: ${spring.security.auth-server}/api/user
+            user-name-attribute: name
+logging:
+  level:
+    org.springframework: info

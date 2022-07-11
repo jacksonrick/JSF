@@ -1,6 +1,7 @@
 package com.jsf.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +54,8 @@ public class SsoController {
     @RequestMapping("/token")
     @ResponseBody
     public Map<String, String> token(Authentication user) {
-        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) user.getDetails();
+        OAuth2Authentication authentication = (OAuth2Authentication) user;
+        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
         Map<String, String> map = new HashMap<String, String>();
         map.put("token", details.getTokenValue());
         return map;

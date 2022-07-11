@@ -1,8 +1,11 @@
 package com.jsf.controller;
 
-import com.jsf.database.model.ICONSTANT;
+import com.jsf.model.ICONSTANT;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,19 @@ public class MainController {
     public String index() {
         //return "Welcome to OAuth2.0";
         return "index";
+    }
+
+    /**
+     * 认证页面
+     *
+     * @return
+     */
+    @GetMapping("/authentication/require")
+    public ModelAndView require(@RequestParam(value = "error", required = false) String error, ModelMap map) {
+        if (error != null) {
+            map.addAttribute("msg", error);
+        }
+        return new ModelAndView("login", map);
     }
 
     @GetMapping("/logoutPage")

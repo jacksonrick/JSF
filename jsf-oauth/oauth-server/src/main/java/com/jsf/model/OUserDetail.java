@@ -1,4 +1,4 @@
-package com.jsf.database.model;
+package com.jsf.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -13,10 +13,14 @@ import java.util.Collection;
  * Date: 2018-10-31
  * Time: 15:37
  */
-public class UserDetail extends OAuthUser implements UserDetails {
+public class OUserDetail extends OAuthUser implements UserDetails {
 
-    public UserDetail(OAuthUser user) {
+    public OUserDetail(OAuthUser user) {
         super(user);
+    }
+
+    public OUserInfo getUserInfo() {
+        return new OUserInfo(super.getId(), super.getUsername(), super.getDisabled());
     }
 
     @Override
@@ -53,4 +57,19 @@ public class UserDetail extends OAuthUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    // 限制用户重复登录
+    // 重写equals()和hashCode()，使用username属性作为唯一凭据
+    /*@Override
+    public boolean equals(Object obj) {
+        if (obj instanceof UserDetail) {
+            return getUsername().equals(((UserDetail) obj).getUsername());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getUsername().hashCode();
+    }*/
 }

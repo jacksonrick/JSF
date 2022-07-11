@@ -5,7 +5,7 @@ server:
     context-path: /
     session:
       cookie:
-        name: OAUTH2SESSION
+        name: OAUTH2SESSION2
   use-forward-headers: true # 解决配置https代理还是跳转http的问题，客户端都需要配置，Nginx代理配置请求头
   # forward-headers-strategy: native
 security:
@@ -18,7 +18,7 @@ security:
       user-authorization-uri: ${auth-server}/oauth/authorize
       access-token-uri: ${auth-server}/oauth/token
     resource:
-      user-info-uri: ${auth-server}/authentication/user
+      user-info-uri: ${auth-server}/api/user
 logging:
   level:
     org.springframework: info

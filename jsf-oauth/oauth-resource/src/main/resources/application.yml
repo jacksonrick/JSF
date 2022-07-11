@@ -5,7 +5,7 @@ security:
   oauth2:
     resource:
       token-info-uri: ${auth-server}/oauth/check_token
-      user-info-uri: ${auth-server}/authentication/user
+      user-info-uri: ${auth-server}/api/user
     client:
       client-id: client
       client-secret: 123456
@@ -13,4 +13,4 @@ security:
 #      user-authorization-uri: ${auth-server}/oauth/authorize
 #      access-token-uri: ${auth-server}/oauth/token
 #      resource:
-#        user-info-uri: ${auth-server}/authentication/user
+#        user-info-uri: ${auth-server}/api/user

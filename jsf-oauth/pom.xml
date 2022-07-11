@@ -20,6 +20,7 @@
         <module>oauth-client</module>
         <module>oauth-sso1</module>
         <module>oauth-sso2</module>
+        <module>oauth-sso3</module>
     </modules>
 
 </project>

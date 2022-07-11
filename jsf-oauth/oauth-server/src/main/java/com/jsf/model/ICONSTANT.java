@@ -1,4 +1,4 @@
-package com.jsf.database.model;
+package com.jsf.model;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,29 +1,58 @@
-package com.jsf.database.model;
+package com.jsf.model;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 数据库用户
  * User: xujunfei
  * Date: 2018-10-31
  * Time: 15:36
  */
 public class OAuthUser {
 
+    /**
+     * 用户id
+     * 这里使用整型自增
+     */
+    private Integer id;
+    /**
+     * 用户名，具有唯一性
+     */
     private String username;
+    /**
+     * 密码（已加密）
+     */
     private String password;
+    /**
+     * 自定义的角色名
+     */
     private String roles;
+    /**
+     * 是否禁用
+     */
     private Boolean disabled;
+    /**
+     * 锁定次数（超过5次无法登陆）
+     */
     private Integer locks;
 
     public OAuthUser() {
     }
 
     public OAuthUser(OAuthUser user) {
+        this.id = user.id;
         this.username = user.username;
         this.password = user.password;
         this.roles = user.roles;
         this.disabled = user.disabled;
         this.locks = user.locks;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {

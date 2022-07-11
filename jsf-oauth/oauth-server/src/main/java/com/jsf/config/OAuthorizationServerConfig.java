@@ -1,5 +1,7 @@
 package com.jsf.config;
 
+import com.jsf.config.exception.OAuthServerExceptionTranslator;
+import com.jsf.config.handler.OAuthUserAuthenticationConverter;
 import com.jsf.service.OUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -16,8 +20,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
@@ -40,12 +44,17 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
     private AuthenticationManager authenticationManager;
     @Autowired
     private OUserDetailService oUserDetailService;
+    @Autowired
+    private OAuthServerExceptionTranslator oAuthServerExceptionTranslator;
+    @Autowired
+    private OAuthUserAuthenticationConverter oAuthUserAuthenticationConverter;
 
 
     /*
      * 注意问题
-     * 1.数据库的authorized_grant_types不能设置全部
-     * 2.同域名/IP下，每个sso客户端的Cookie名不能相同
+     * 1.数据库的authorized_grant_types不能设置全部，可组合，如client_credentials,authorization_code
+     * 2.client_credentials没有refresh_token，故设置无效
+     * 3.同域名/IP下，每个sso客户端的Cookie名不能相同
      */
 
     /**
@@ -61,17 +70,16 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
 
     /**
      * TokenStore
-     * <p>Jdbc</p>
+     * <p>两种存储方式</p>
+     * <p>1. JDBC</p>
+     * <p>2. JWT（Header、Payload、Signature）</p>
      *
      * @return
      */
     @Bean
     public TokenStore tokenStore() {
-        // 1. JWT
-        // 2. JDBC
-
-        return new JwtTokenStore(jwtAccessTokenConverter());
-        //return new JdbcTokenStore(dataSource);
+        //return new JwtTokenStore(jwtAccessTokenConverter());
+        return new JdbcTokenStore(dataSource);
     }
 
     /**
@@ -91,6 +99,7 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
                 .tokenEnhancer(enhancers)
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+                .exceptionTranslator(oAuthServerExceptionTranslator)
         ;
     }
 
@@ -126,6 +135,11 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
         KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray())
                 .getKeyPair("jwt", "123456".toCharArray());
         converter.setKeyPair(keyPair);
+
+        // userinfo接口自定义字段(additionalInformation同tokenEnhancer + principal自定义)
+        //DefaultAccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
+        //tokenConverter.setUserTokenConverter(oAuthUserAuthenticationConverter);
+        //converter.setAccessTokenConverter(tokenConverter);
         return converter;
     }
 
@@ -143,4 +157,13 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
             return accessToken;
         };
     }
+
+    /**
+     * 默认密码加密方式
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

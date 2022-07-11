@@ -1,6 +1,6 @@
 package org.springframework.security;
 
-import com.jsf.database.model.ICONSTANT;
+import com.jsf.model.ICONSTANT;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;

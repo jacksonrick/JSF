@@ -1,19 +1,16 @@
-#
-# 本模块是基于Springcloud oauth2开发，支持client、password、sso
-#
-
-########## OAuth2.0 ##########
+# 本模块是基于spring oauth2开发，支持client、password、sso
 # grant_type
 # client_credentials | password | refresh_token
 # auth_code
 
 ###client模式
-POST {{host}}/oauth/token?grant_type=client_credentials&scope=all&client_id=client&client_secret=123456
+#POST {{host}}/oauth/token?grant_type=client_credentials&scope=all&client_id=client&client_secret=123456
+POST {{host}}/oauth/token?grant_type=client_credentials&client_id=client&client_secret=123456
 Accept: */*
 Cache-Control: no-cache
 
 ###password模式
-POST {{host}}/oauth/token?grant_type=password&scope=all&client_id=pwd&client_secret=123456&username=xu&password=123456
+POST {{host}}/oauth/token?grant_type=password&scope=all&client_id=pwd&client_secret=123456&username=admin&password=123456
 Accept: */*
 Cache-Control: no-cache
 
@@ -34,37 +31,36 @@ Accept: */*
 Cache-Control: no-cache
 
 
-####################################################################################################
+# 访问受保护的资源[auth server]
+# 两种传值方式：url param | header
+# url param方式
+#   POST {{host}}/api/user?access_token=ea41981c-9cd2-4e9d-a552-b752950c303b
 
-###访问受保护的资源[auth server]
-###两种传值方式：url param | header
-
-#POST {{host}}/authentication/user?access_token=ea41981c-9cd2-4e9d-a552-b752950c303b
-POST {{host}}/authentication/user
+### header方式
+POST {{host}}/api/user
 Accept: */*
 Cache-Control: no-cache
 Authorization: Bearer {{token}}
 
-###check_token
+### check_token
 POST {{host}}/oauth/check_token?token={{token}}
 Accept: */*
 Cache-Control: no-cache
 
-###
-#GET {{host}}/oauth/token_key
-GET {{host}}/authentication/tokenKey
+# GET {{host}}/oauth/token_key
+### jwtTokenKey
+GET {{host}}/api/tokenKey
 Accept: */*
 Cache-Control: no-cache
 Authorization: Bearer {{token}}
 
 
-### 客户端测试
-###
+### 客户端测试1
 GET http://127.0.0.1:8099/test1
 Accept: */*
 Cache-Control: no-cache
 
-###
+### 客户端测试2
 GET http://127.0.0.1:8099/test3
 Accept: */*
 Cache-Control: no-cache

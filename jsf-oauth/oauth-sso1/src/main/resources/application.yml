@@ -5,14 +5,14 @@ server:
     context-path: /
     session:
       cookie:
-        name: OAUTH2SESSION
+        name: OAUTH2SESSION1
   use-forward-headers: true # 解决配置https代理还是跳转http的问题，客户端都需要配置，Nginx代理配置请求头
   # forward-headers-strategy: native
 spring:
 #  session:
 #    store-type: redis
 #    timeout: 5m
-#    redis:  # SSO环境下使用jackson或fastjson序列化有BUG，使用默认序列化方式即可
+#    redis:  # SSO环境下使用jackson或fastjson序列化有BUG，使用默认序列化方式(JDK)即可
 #      namespace: session:sso
 #  redis:
 #    host: dev
@@ -31,7 +31,7 @@ security:
       user-authorization-uri: ${auth-server}/oauth/authorize
       access-token-uri: ${auth-server}/oauth/token
     resource:
-      user-info-uri: ${auth-server}/authentication/user
+      user-info-uri: ${auth-server}/api/user
 logging:
   level:
     org.springframework: info

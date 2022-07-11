@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * 重写Spring Security的退出逻辑，在跳转页加上自定义参数，如不需要请删除
+ * 重写Spring Security的退出逻辑，在跳转页加上自定义参数，如不需要请删除此类
  */
 public abstract class AbstractAuthenticationTargetUrlRequestHandler {
 
@@ -35,11 +35,13 @@ public abstract class AbstractAuthenticationTargetUrlRequestHandler {
                           Authentication authentication) throws IOException {
         // 此处改写
         String param = "";
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        if (!authorities.isEmpty()) {
-            for (GrantedAuthority authority : authorities) {
-                param = authority.getAuthority();
-                break;
+        if (authentication != null) {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            if (!authorities.isEmpty()) {
+                for (GrantedAuthority authority : authorities) {
+                    param = authority.getAuthority();
+                    break;
+                }
             }
         }
 

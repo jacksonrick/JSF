@@ -45,8 +45,9 @@
             // 先获取token
             $.get("/token", {}, function (data) {
                 console.log(data);
-                $.get("http://192.168.1.129:8010/monitor/a?access_token=" + data.token, {}, function (data) {
+                $.get("http://127.0.0.1:8010/monitor/a?access_token=" + data.token, {}, function (data) {
                     console.log(data);
+                    alert(data);
                 }, "text");
             }, "json").error(function (e) {
                 if (e.status == 401) {
