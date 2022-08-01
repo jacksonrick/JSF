@@ -19,9 +19,6 @@ public class OAuthServerException extends OAuth2Exception {
 
     private static final Logger log = LoggerFactory.getLogger(OAuthServerException.class);
 
-    public static final String ERROR = "error";
-    public static final String DESCRIPTION = "error_description";
-    public static final String URI = "error_uri";
     public static final String INVALID_REQUEST = "invalid_request";
     public static final String INVALID_CLIENT = "invalid_client";
     public static final String INVALID_GRANT = "invalid_grant";
@@ -33,9 +30,7 @@ public class OAuthServerException extends OAuth2Exception {
     public static final String REDIRECT_URI_MISMATCH = "redirect_uri_mismatch";
     public static final String UNSUPPORTED_RESPONSE_TYPE = "unsupported_response_type";
     public static final String ACCESS_DENIED = "access_denied";
-    /**
-     * 其他异常
-     */
+    // 其他异常
     public static final String METHOD_NOT_ALLOWED = "method_not_allowed";
     public static final String SERVER_ERROR = "server_error";
     public static final String UNAUTHORIZED = "unauthorized";
@@ -46,12 +41,17 @@ public class OAuthServerException extends OAuth2Exception {
      * 映射异常
      */
     static {
+        oAuth2ErrorMap.put(INVALID_REQUEST, "不合法请求");
         oAuth2ErrorMap.put(INVALID_CLIENT, "无效的客户端");
-        oAuth2ErrorMap.put(INVALID_GRANT, "无效的授权模式");
-        oAuth2ErrorMap.put(INVALID_SCOPE, "权限不足");
+        oAuth2ErrorMap.put(INVALID_GRANT, "授权失败");
+        oAuth2ErrorMap.put(UNAUTHORIZED_CLIENT, "未授权客户端");
         oAuth2ErrorMap.put(UNSUPPORTED_GRANT_TYPE, "不支持的授权模式类型");
+        oAuth2ErrorMap.put(INVALID_SCOPE, "权限不足");
+        oAuth2ErrorMap.put(INSUFFICIENT_SCOPE, "授权范围不足");
+        oAuth2ErrorMap.put(INVALID_TOKEN, "不合法TOKEN");
+        oAuth2ErrorMap.put(REDIRECT_URI_MISMATCH, "重定向地址不匹配");
+        oAuth2ErrorMap.put(UNSUPPORTED_RESPONSE_TYPE, "不支持的响应类型");
         oAuth2ErrorMap.put(ACCESS_DENIED, "拒绝访问");
-
         oAuth2ErrorMap.put(METHOD_NOT_ALLOWED, "方法不允许访问");
         oAuth2ErrorMap.put(SERVER_ERROR, "服务器内部异常");
         oAuth2ErrorMap.put(UNAUTHORIZED, "未授权");
@@ -71,7 +71,7 @@ public class OAuthServerException extends OAuth2Exception {
         log.error("OAuthServer异常 -> msg={}，errorCode={}", msg, oAuth2ErrorCode);
         String oAuth2ErrorMessage = oAuth2ErrorMap.get(oAuth2ErrorCode);
         if (oAuth2ErrorMessage == null) {
-            this.extendMessage = t.getCause().getMessage();
+            this.extendMessage = t.getMessage();
         } else {
             this.extendMessage = oAuth2ErrorMessage;
         }

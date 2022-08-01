@@ -44,8 +44,8 @@ public class ProviderController {
         return "post";
     }
 
-    @GetMapping("/getUserById/{id}")
-    public User getUserById(@PathVariable Integer id) {
+    @GetMapping("/user/{id}")
+    public User user(@PathVariable Integer id) {
         System.out.println(id);
         return userService.findUserById(id);
     }

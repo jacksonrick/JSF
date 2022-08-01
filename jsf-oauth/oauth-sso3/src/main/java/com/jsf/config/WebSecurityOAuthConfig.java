@@ -1,6 +1,7 @@
 package com.jsf.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,14 +20,8 @@ public class WebSecurityOAuthConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuthUserService oAuthUserService;
 
-    @Autowired
-    private OAuthLoginSuccessHandler oAuthLoginSuccessHandler;
-
-    @Autowired
-    private OAuthLoginFailureHandler oAuthLoginFailureHandler;
-
-    @Autowired
-    private OAuthLogoutSuccessHandler oAuthLogoutSuccessHandler;
+    @Value("${spring.security.auth-server}")
+    private String authServer;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,15 +35,15 @@ public class WebSecurityOAuthConfig extends WebSecurityConfigurerAdapter {
                 // /**需要登录
                 .antMatchers("/**").authenticated().and()
                 // 退出系统
-                .logout().logoutUrl("/logout").logoutSuccessHandler(oAuthLogoutSuccessHandler).permitAll();
+                .logout().logoutUrl("/logout").logoutSuccessHandler(new OAuthLogoutSuccessHandler(authServer)).permitAll();
         http.headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable();
         // 无权限处理
-        http.exceptionHandling().accessDeniedHandler(new OAuthLoginDeineHandler());
+        http.exceptionHandling().accessDeniedHandler(new OAuthLoginDeineHandler("/unauth"));
         // OAuth2认证配置
         http.oauth2Login().loginProcessingUrl("/sso/login")
-                //.successHandler(oAuthLoginSuccessHandler) // 自定义登陆成功处理
-                .failureHandler(oAuthLoginFailureHandler) // 自定义登陆失败处理
-                .userInfoEndpoint().userService(oAuthUserService); // 自定义用户服务
+                .successHandler(new OAuthLoginSuccessHandler()) // 登陆成功处理，可初始化权限、重定向等，若不需要请去除
+                .failureHandler(new OAuthLoginFailureHandler("/failure")) // 登陆失败处理
+                .userInfoEndpoint().userService(oAuthUserService); // 用户服务
         // OAuth2 rest client
         http.oauth2Client();
         // 重复登录(重新登陆生效)

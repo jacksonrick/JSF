@@ -11,31 +11,55 @@ spring:
       config: # 配置中心
         group: DEFAULT_GROUP
     gateway:
+      enabled: true
       httpclient:
         pool:
-          max-connections: 200
+          max-connections: 1000
           max-idle-time: 10000
-  redis:
-    host: dev
-    port: 6379
-    database: 0
-hystrix: # see com.netflix.hystrix.HystrixCommandProperties
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000 # 断路器的超时时间ms
-      circuitBreaker:
-        requestVolumeThreshold: 10 # 时间窗口s
-        errorThresholdPercentage: 50 # 出错百分比阈值%
-        sleepWindowInMilliseconds: 5000 # 尝试恢复ms
-  threadpool:
-    default:
-      maxQueueSize: -1 # 缓冲区大小，-1不设置直接降级
+      discovery:
+        locator:
+          enabled: true
+    sentinel: # 限流熔断配置
+      eager: true
+      dashboard: ''
+      datasource:
+        ds1: # 支持多个
+          nacos: # 使用nacos数据源
+            server-addr: dev:8848
+            dataId: nc-gateway-sentinel-flow #限流规则
+            namespace: public
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow # flow,degrade,system...
+        ds2:
+          nacos:
+            server-addr: dev:8848
+            dataId: nc-gateway-sentinel-degrade #降级规则
+            namespace: public
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: degrade # flow,degrade,system...
+
+# 使用alibaba csp限流熔断，这里废弃
+#hystrix: # see com.netflix.hystrix.HystrixCommandProperties
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000 # 断路器的超时时间ms
+#      circuitBreaker:
+#        requestVolumeThreshold: 10 # 时间窗口s
+#        errorThresholdPercentage: 50 # 出错百分比阈值%
+#        sleepWindowInMilliseconds: 5000 # 尝试恢复ms
+#  threadpool:
+#    default:
+#      maxQueueSize: -1 # 缓冲区大小，-1不设置直接降级
 management:
   endpoints:
     web:
       exposure:
         include: '*' # 暴露监控点，方便查询已配置路由
-# 路由配置、限流等参数见：~/doc/http/gateway.http
+logging:
+  level:
+    com.alibaba.nacos.client.config.impl: WARN

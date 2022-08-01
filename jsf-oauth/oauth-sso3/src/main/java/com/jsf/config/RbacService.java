@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * RABC认证(role-Based-access control)
+ * RBAC认证(role-Based-access control)
  */
 @Service("rbacService")
 public class RbacService {

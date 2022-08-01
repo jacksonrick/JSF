@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
@@ -22,9 +23,9 @@ import java.util.concurrent.Executor;
  * Time: 13:48
  */
 @Configuration
-public class DynamicRouteListenerService implements InitializingBean {
+public class DynamicRouteListener implements InitializingBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(DynamicRouteListenerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(DynamicRouteListener.class);
 
     @Value("${spring.application.name}")
     private String appName;
@@ -41,26 +42,29 @@ public class DynamicRouteListenerService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         // 添加监听器
-        // 配置格式为JSON
-        // 目前仅支持一个id，若需要多个，将json包裹为数组类型
-        String configInfo = nacosConfigManager.getConfigService().getConfigAndSignListener(appName + ".json", configProperties.getGroup(), 5000, new Listener() {
-            @Override
-            public Executor getExecutor() {
-                return null;
-            }
+        // 配置格式为JSON，dataId为[appName].json
+        String configInfo = nacosConfigManager.getConfigService().getConfigAndSignListener(
+                appName + ".json", configProperties.getGroup(), 5000, new Listener() {
+                    @Override
+                    public Executor getExecutor() {
+                        return null;
+                    }
 
-            @Override
-            public void receiveConfigInfo(String configInfo) {
-                update(configInfo);
-            }
-        });
+                    @Override
+                    public void receiveConfigInfo(String configInfo) {
+                        update(configInfo);
+                    }
+                });
         update(configInfo);
     }
 
     private void update(String configInfo) {
-        logger.info("获取到配置：\n" + configInfo);
-        RouteDefinition definition = JSON.parseObject(configInfo, RouteDefinition.class);
-        dynamicRouteService.update(definition);
+        logger.info("读取Nacos动态路由配置：\n" + configInfo);
+        List<RouteDefinition> definitions = JSON.parseArray(configInfo, RouteDefinition.class);
+        logger.info("共读取到" + definitions.size() + "项配置");
+        for (RouteDefinition definition : definitions) {
+            dynamicRouteService.update(definition);
+        }
     }
 
 }

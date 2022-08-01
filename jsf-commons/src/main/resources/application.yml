@@ -17,7 +17,7 @@ server:
     direct-buffers: true # 是否分配的直接内存(NIO直接分配的堆外内存)
   servlet:
     session:
-      timeout: 30m # session过期时间
+      timeout: 30m # session过期时间（若使用了redis-session，会设置为redis-key的过期时间）
 #      cookie:
 #        name: SESSIONID
 #    context-path:

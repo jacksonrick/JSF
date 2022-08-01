@@ -1,6 +1,6 @@
 package com.jsf.config.handler;
 
-import com.jsf.model.OUserDetail;
+import com.jsf.model.OAuthUser;
 import com.jsf.service.OUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,27 +32,42 @@ public class OAuthUserAuthenticationConverter extends DefaultUserAuthenticationC
         setUserDetailsService(oUserDetailService);
     }*/
 
+    /**
+     * Extract information about the user to be used in an access token (i.e. for resource servers).
+     *
+     * @param authentication an authentication representing a user
+     * @return
+     */
     @Override
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         Map<String, Object> response = new LinkedHashMap<String, Object>();
         response.put(USERNAME, authentication.getName());
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof OUserDetail) {
-            OUserDetail user = (OUserDetail) principal;
+        /*Object principal = authentication.getPrincipal();
+        if (principal instanceof OAuthUser) {
+            OAuthUser user = (OAuthUser) principal;
             response.put("user_id", user.getId());
-        }
+        }*/
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
         }
         return response;
     }
 
+    /**
+     * Extracts an Authentication from a map.
+     *
+     * @param map a map of user information
+     * @return
+     */
     @Override
     public Authentication extractAuthentication(Map<String, ?> map) {
         if (map.containsKey(USERNAME)) {
-            OUserDetail user = (OUserDetail) oUserDetailService.loadUserByUsername((String) map.get(USERNAME));
-            Collection<? extends GrantedAuthority> authorities = getAuthorities(map);
-            authorities = user.getAuthorities();
+            // map -> AccessTokenConverter.CLIENT_ID AccessTokenConverter.SCOPE
+            // ArrayList scopes = (ArrayList) map.get(AccessTokenConverter.SCOPE);
+
+            OAuthUser user = (OAuthUser) oUserDetailService.loadUserByUsername((String) map.get(USERNAME));
+            //Collection<? extends GrantedAuthority> authorities = getAuthorities(map);
+            Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
             return new UsernamePasswordAuthenticationToken(user.getUserInfo(), "N/A", authorities);
         }
         return null;

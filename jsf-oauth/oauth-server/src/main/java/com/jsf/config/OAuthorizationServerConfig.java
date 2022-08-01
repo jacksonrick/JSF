@@ -1,6 +1,7 @@
 package com.jsf.config;
 
 import com.jsf.config.exception.OAuthServerExceptionTranslator;
+import com.jsf.config.handler.AuthCodeService;
 import com.jsf.config.handler.OAuthUserAuthenticationConverter;
 import com.jsf.service.OUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
     private OAuthServerExceptionTranslator oAuthServerExceptionTranslator;
     @Autowired
     private OAuthUserAuthenticationConverter oAuthUserAuthenticationConverter;
+    @Autowired
+    private AuthCodeService authCodeService;
 
 
     /*
@@ -100,6 +103,7 @@ public class OAuthorizationServerConfig extends AuthorizationServerConfigurerAda
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 .exceptionTranslator(oAuthServerExceptionTranslator)
+                .authorizationCodeServices(authCodeService)
         ;
     }
 

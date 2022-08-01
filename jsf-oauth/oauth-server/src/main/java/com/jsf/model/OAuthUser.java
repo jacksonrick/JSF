@@ -1,5 +1,11 @@
 package com.jsf.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
 /**
  * Created with IntelliJ IDEA.
  * Description: 数据库用户
@@ -7,7 +13,7 @@ package com.jsf.model;
  * Date: 2018-10-31
  * Time: 15:36
  */
-public class OAuthUser {
+public class OAuthUser implements UserDetails {
 
     /**
      * 用户id
@@ -38,13 +44,8 @@ public class OAuthUser {
     public OAuthUser() {
     }
 
-    public OAuthUser(OAuthUser user) {
-        this.id = user.id;
-        this.username = user.username;
-        this.password = user.password;
-        this.roles = user.roles;
-        this.disabled = user.disabled;
-        this.locks = user.locks;
+    public OUserInfo getUserInfo() {
+        return new OUserInfo(this.id, this.username, this.disabled);
     }
 
     public Integer getId() {
@@ -93,5 +94,30 @@ public class OAuthUser {
 
     public void setLocks(Integer locks) {
         this.locks = locks;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(this.roles);
     }
 }

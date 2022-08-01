@@ -1,9 +1,7 @@
 package com.jsf.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +11,13 @@ import java.io.IOException;
 /**
  * 退出登录
  **/
-@Component
 public class OAuthLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    @Value("${spring.security.auth-server}")
     private String authServer;
+
+    public OAuthLogoutSuccessHandler(String authServer) {
+        this.authServer = authServer;
+    }
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

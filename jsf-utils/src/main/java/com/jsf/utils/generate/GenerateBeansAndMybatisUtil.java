@@ -724,7 +724,7 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("/**\n");
         bw.write(" * Created By AutoGenerate.\n");
         bw.write(" * Description: " + tableComment + " 服务类\n");
-        bw.write(" * User: \n");
+        bw.write(" * User: " + author + " \n");
         bw.write(" * Date: " + simpleDateFormat.format(new Date()) + "\n");
         bw.write(" */\n");
 
@@ -814,7 +814,7 @@ public class GenerateBeansAndMybatisUtil {
         bw.write("/**\n");
         bw.write(" * Created By AutoGenerate.\n");
         bw.write(" * Description: " + tableComment + " 接口类\n");
-        bw.write(" * User: \n");
+        bw.write(" * User: " + author + " \n");
         bw.write(" * Date: " + simpleDateFormat.format(new Date()) + "\n");
         bw.write(" */\n");
 

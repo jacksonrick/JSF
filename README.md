@@ -1,5 +1,5 @@
 # JSF - An Integrated Java Springboot/Cloud Framework
-##### Version `v6.2`
+##### Version `v6.3`
 Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian.cn) 
 
 
@@ -35,7 +35,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * nacos-config `Nacos分布式配置`
     * quartz `任务调度/UI`
     * rabbitmq `消息队列`
-    * redis `缓存`
+    * redis `缓存+序列化`
     * sharding-db `分表分库`
     * spring-security `SpringSecurity`
     * storm `Storm`
@@ -43,6 +43,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * websocket-mq `分布式WebSocket`
     * zookeeper `分布式配置和服务发现`
     * retry `重试框架`
+    * sentinel `限流熔断`
 
 ### 集成
 * Spring/MyBatis/SpringBoot/SpringCloud
@@ -105,9 +106,11 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
-* v6.2.1 `2022`
+* v6.3 `20220801`
   * gateway模块使用sentinel限流熔断
   * sample新增sentinel限流熔断示例
+  * 优化OAuth服务
+  * 新增SpringSecurity5 OAuth2 SSO示例
 * v6.2 `20220531`
   * manage、im模块代码优化BUG修复
   * 现配置类划分为系统和应用配置

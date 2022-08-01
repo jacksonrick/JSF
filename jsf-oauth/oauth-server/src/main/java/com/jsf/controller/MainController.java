@@ -1,6 +1,6 @@
 package com.jsf.controller;
 
-import com.jsf.model.ICONSTANT;
+import com.jsf.config.ICONSTANT;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;

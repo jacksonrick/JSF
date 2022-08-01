@@ -45,6 +45,6 @@ public interface OrderRestService {
     String post(@RequestBody User user);
 
 
-    @GetMapping("/getUserById/{id}")
+    @GetMapping("/user/{id}")
     User getUserById(@PathVariable("id") Integer id);
 }

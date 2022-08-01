@@ -1,6 +1,6 @@
 package org.springframework.security;
 
-import com.jsf.model.ICONSTANT;
+import com.jsf.config.ICONSTANT;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +19,8 @@ public class OUserExtDetail extends WebAuthenticationDetails {
     private final String verify;
     // SESSION获取的验证码值
     private final String verifySession;
+    // 客户端ID
+    private String clientId;
 
     public OUserExtDetail(HttpServletRequest request) {
         super(request);
@@ -34,4 +36,11 @@ public class OUserExtDetail extends WebAuthenticationDetails {
         return verifySession;
     }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 }

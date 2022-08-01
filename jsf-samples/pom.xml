@@ -34,6 +34,7 @@
         <module>websocket-mq</module>
         <module>zookeeper</module>
         <module>retry</module>
+        <module>sentinel</module>
     </modules>
 
 </project>

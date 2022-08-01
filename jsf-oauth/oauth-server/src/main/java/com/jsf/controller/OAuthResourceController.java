@@ -73,7 +73,15 @@ public class OAuthResourceController {
      */
     @RequestMapping("/user")
     public Principal user(Principal principal) {
-        // OAuth2Authentication
+        //OAuth2Authentication
+        //if (principal instanceof OAuth2Authentication) {
+        //    OAuth2Authentication authentication = (OAuth2Authentication) principal;
+        //    if (authentication.getUserAuthentication() == null) {
+        //        return principal;
+        //    }
+        //    return authentication.getUserAuthentication();
+        //}
+        //return principal;
         return principal;
     }
 

@@ -1,4 +1,4 @@
-package com.jsf.config;
+package com.jsf.model;
 
 /**
  * Created with IntelliJ IDEA.

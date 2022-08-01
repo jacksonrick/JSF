@@ -1,4 +1,4 @@
-package com.jsf.config;
+package com.jsf.filter;
 
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
@@ -7,11 +7,9 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.InetSocketAddress;
@@ -26,9 +24,9 @@ import java.util.Map;
  * Time: 14:18
  */
 @Configuration
-public class GlobalLogFilter implements GlobalFilter, Ordered {
+public class RequestLogFilter implements GlobalFilter, Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(GlobalLogFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestLogFilter.class);
     private static final String REQUEST_LINE = "\n-----------------------------------------------------------------------------";
 
     /**

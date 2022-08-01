@@ -37,7 +37,7 @@ public class ConsumerController {
         return orderRestService.post(user);
     }
 
-    @GetMapping("/getUserById/{id}")
+    @GetMapping("/user/{id}")
     public User getUserById(@PathVariable Integer id) {
         return orderRestService.getUserById(id);
     }

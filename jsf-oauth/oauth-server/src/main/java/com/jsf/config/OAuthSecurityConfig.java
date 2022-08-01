@@ -79,31 +79,27 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/authentication/require").loginProcessingUrl("/authentication/form")
-                .failureHandler(authFailureHandler)
-                .authenticationDetailsSource(authenticationDetailsSource)
+                .formLogin().loginPage("/authentication/require").loginProcessingUrl("/authentication/form") //表单验证，自定义登陆页和登陆请求url
+                .failureHandler(authFailureHandler) //登陆失败处理
+                .authenticationDetailsSource(authenticationDetailsSource) //自定义DetailsSource
                 .and()
-                .logout().logoutSuccessUrl("/logoutPage")
+                .logout().logoutSuccessUrl("/logoutPage") //退出，若配置logoutSuccessHandler，则logoutSuccessUrl无效
                 .and()
                 .csrf().disable()
         ;
     }
     //.antMatcher("/**").authorizeRequests().antMatchers("/oauth/**").permitAll()
 
-    /**
-     * 记住我
-    http
-        .rememberMe()
-			.rememberMeServices(rememberMeServices());
+    /* 记住我
+        http
+            .rememberMe().rememberMeServices(rememberMeServices());
 
     @Bean
     public SpringSessionRememberMeServices rememberMeServices() {
-        SpringSessionRememberMeServices rememberMeServices =
-                new SpringSessionRememberMeServices();
-        // optionally customize
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
         rememberMeServices.setAlwaysRemember(true);
         return rememberMeServices;
     }
-    * */
+    */
 
 }

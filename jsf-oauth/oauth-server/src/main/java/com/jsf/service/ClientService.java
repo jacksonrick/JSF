@@ -23,22 +23,16 @@ public class ClientService {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * 不同的客户端可能加密方式不同，按需启用
+     * 按clientId查询
      *
      * @param clientId
      * @return
      */
-    public String findEncryptWayById(String clientId) {
+    public String findById(String clientId) {
         if (!StringUtils.hasText(clientId)) {
             return null;
         }
-        String s = jdbcTemplate.queryForObject("SELECT encrypt_way FROM oauth_client_details WHERE client_id = ?", new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int i) throws SQLException {
-                return rs.getString(1);
-            }
-        }, clientId);
-        return s;
+        return "";
     }
 
 }

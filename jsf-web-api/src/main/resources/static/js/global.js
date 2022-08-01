@@ -103,7 +103,7 @@ Ajax = {
                     });
                 }
 
-                var json = new Array;
+                var json = new Array();
                 $("body").on("click", ".sel-btn-l", function () {
                     layer.close(index);
                 });

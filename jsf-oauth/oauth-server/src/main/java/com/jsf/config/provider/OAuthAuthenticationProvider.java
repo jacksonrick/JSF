@@ -1,7 +1,7 @@
 package com.jsf.config.provider;
 
 import com.jsf.config.handler.PasswordEncoders;
-import com.jsf.model.OUserDetail;
+import com.jsf.model.OAuthUser;
 import com.jsf.service.OUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
@@ -52,15 +57,27 @@ public class OAuthAuthenticationProvider implements AuthenticationProvider {
             if (!detail.getVerify().equalsIgnoreCase(detail.getVerifySession())) {
                 throw new BadCredentialsException("04"); //验证码错误
             }
+            // 从SavedRequest中获取clientId
+            //HttpServletRequest currentRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            //HttpSession session = currentRequest.getSession(false);
+            //SavedRequest savedRequest = (SavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+            //if (savedRequest != null) {
+            //    String[] clientIds = savedRequest.getParameterMap().get("client_id");
+            //    if (clientIds != null && clientIds.length > 0) {
+            //        // 设置clientId
+            //        detail.setClientId(clientIds[0]);
+            //    }
+            //}
         } else if (details instanceof LinkedHashMap) { // password
             //LinkedHashMap detailMap = (LinkedHashMap) authentication.getDetails();
+            //String clientId = (String) detailMap.get("client_id");
             log.info("password login detail: " + authentication.getDetails());
         } else {
             throw new RuntimeException("未做处理的认证方式");
         }
 
         // 用户名密码校验
-        OUserDetail userDetail = (OUserDetail) oUserDetailService.loadUserByUsername(authentication.getName());
+        OAuthUser userDetail = (OAuthUser) oUserDetailService.loadUserByUsername(authentication.getName());
         if (userDetail.getDisabled()) {
             throw new BadCredentialsException("01"); //账户禁用
         }
