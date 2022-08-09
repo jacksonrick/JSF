@@ -6,11 +6,11 @@
 </head>
 <body>
 <form action="/dologin" method="post">
-    <input type="text" name="username">
-    <input type="password" name="password">
+    <input type="text" name="username" value="admin">
+    <input type="password" name="password" value="123456">
 
     <br>
-    <label><input name="remember-me" type="checkbox" value="true">下次自动登录</label>
+    <label><input name="remember-me" type="checkbox" value="true">记住我</label>
     <br>
     <button type="submit">登陆</button>
     <br>

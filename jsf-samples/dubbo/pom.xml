@@ -16,6 +16,7 @@
     <modules>
         <module>dubbo-consumer</module>
         <module>dubbo-producer</module>
+        <module>dubbo-service</module>
     </modules>
 
 </project>

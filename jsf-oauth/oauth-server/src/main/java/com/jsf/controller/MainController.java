@@ -25,9 +25,8 @@ import java.util.Random;
 public class MainController {
 
     @GetMapping("/")
-    //@ResponseBody
-    public String index() {
-        //return "Welcome to OAuth2.0";
+    public String index(String logout, ModelMap map) {
+        map.addAttribute("logout", logout);
         return "index";
     }
 
@@ -42,11 +41,6 @@ public class MainController {
             map.addAttribute("msg", error);
         }
         return new ModelAndView("login", map);
-    }
-
-    @GetMapping("/logoutPage")
-    public String logout() {
-        return "index";
     }
 
     @GetMapping("/valid")

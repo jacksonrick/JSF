@@ -18,11 +18,6 @@ spring:
     suffix: .ftl
     cache: true
     charset: UTF-8
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jframe?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
-    username: root
-    password: 12345678
 logging:
   level:
     org.springframework: info

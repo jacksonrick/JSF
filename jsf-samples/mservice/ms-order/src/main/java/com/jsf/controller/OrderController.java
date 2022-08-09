@@ -1,7 +1,7 @@
 package com.jsf.controller;
 
 import com.jsf.database.model.ResMsg;
-import com.jsf.service.Order2Service;
+import com.jsf.service.OrderSingleService;
 import com.jsf.service.OrderSeataService;
 import com.jsf.service.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +25,17 @@ public class OrderController {
     @Resource
     private OrderSeataService orderSeataService;
     @Resource
-    private Order2Service orderService2;
+    private OrderSingleService orderSingleService;
 
+    /**
+     * OrderService 分布式事务
+     *
+     * @param userId
+     * @param productId
+     * @param money
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/order")
     public ResMsg order(Integer userId, Integer productId, Integer money) throws Exception {
         System.out.println(new Date() + "开始下单，userId=" + userId + ",productId=" + productId + ",money" + money);
@@ -35,6 +44,14 @@ public class OrderController {
         return ResMsg.success();
     }
 
+    /**
+     * OrderSeataService seata分布式事务
+     *
+     * @param userId
+     * @param productId
+     * @param money
+     * @return
+     */
     @PostMapping("/order/seata")
     public ResMsg orderSeata(Integer userId, Integer productId, Integer money) {
         System.out.println(new Date() + "开始下单，userId=" + userId + ",productId=" + productId + ",money" + money);
@@ -42,10 +59,15 @@ public class OrderController {
         return ResMsg.success();
     }
 
-    @PostMapping("/order2")
-    public ResMsg order2() {
+    /**
+     * OrderSingleService 单点事务
+     *
+     * @return
+     */
+    @PostMapping("/order/single")
+    public ResMsg orderSingle() {
         System.out.println(new Date() + "开始下单");
-        orderService2.order();
+        orderSingleService.order();
         return ResMsg.success();
     }
 

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * RBAC认证(role-Based-access control)
+ * 自定义认证
  */
-@Service("rbacService")
-public class RbacService {
+@Service("accessPermission")
+public class AccessPermission {
 
     //private AntPathMatcher antPathMatcher = new AntPathMatcher();
 

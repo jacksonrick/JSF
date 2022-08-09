@@ -1,4 +1,4 @@
-package com.jsf;
+package com.jsf.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 无需登陆
  * User: xujunfei
  * Date: 2020-06-11
  * Time: 12:07
  */
 @Controller
-public class PageController {
+public class IndexController {
 
     @GetMapping("/")
     public String index() {
@@ -20,10 +20,7 @@ public class PageController {
     }
 
     @GetMapping("/login")
-    public String login(String error, String logout, ModelMap map) {
-        if (error != null) {
-            map.addAttribute("msg", "用户名和密码错误");
-        }
+    public String login(String logout, ModelMap map) {
         if (logout != null) {
             map.addAttribute("msg", "你已经成功退出");
         }
@@ -35,8 +32,9 @@ public class PageController {
         return "bye";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
+    @GetMapping("/forgot")
+    public String forgot() {
+        return "forgot";
     }
+
 }

@@ -9,7 +9,7 @@ package com.jsf.service;
  */
 public interface IHelloService {
 
-    public String hello(String name);
+    String hello(String name);
 
-    public String hello2();
+    String hello2();
 }

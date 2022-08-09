@@ -31,6 +31,11 @@ public class OrderSeataService {
     private MemberService memberService;
 
     /**
+     * 注意：如果有其他包含事务的方法，不需要seata代理，请另外新建一个类，
+     * 即使使用@Transactional也会被seata代理
+     */
+
+    /**
      * 订单服务
      * <ul>
      *     <li>新增订单</li>
@@ -74,10 +79,5 @@ public class OrderSeataService {
         LocalDateTime dt = LocalDateTime.now();
         return dt.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
     }
-
-    /**
-     * 注意：如果有其他包含事务的方法，不需要seata代理，请另外新建一个类，
-     * 即使使用@Transactional也会被seata代理
-     */
 
 }

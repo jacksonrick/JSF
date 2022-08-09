@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: dubbo-cloud-producer
+  cloud:
+    nacos:
+      discovery: # 注册中心
+        server-addr: dev:8848
+        group: DUBBO_GROUP
+        namespace: 9ce22821-9e68-49e7-a111-d094a2217af9
+        metadata:
+          myaddr: 172.168.1.100:8081
+      config: # 配置中心
+        server-addr: dev:8848
+        group: DUBBO_GROUP
+        namespace: 9ce22821-9e68-49e7-a111-d094a2217af9
+dubbo:
+  protocol: # 服务暴露的协议配置，其中子属性 name 为协议名称，port 为协议端口（ -1 表示自增端口，从 20880 开始）
+    name: dubbo
+    port: -1
+  registry:
+    # dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
+    # 其中前缀spring-cloud说明：挂载到 SpringCloud注册中心
+    address: spring-cloud://dev:8848
+    # check: false  # 关闭注册中心是否启动的相关检查,false表示不检查注册中心是否启动，就不会报错
+  provider:
+    threads: 10
+  consumer:
+    check: false # 关闭订阅服务是否启动的检查【检查时，没有服务提供者会报错】
+  cloud: # 指定调用服务名，多个用逗号分隔
+    subscribed-services: dubbo-cloud-producer
+  scan: # 扫描service所在包
+    base-packages: com.jsf.service

@@ -24,10 +24,11 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * eureka-server `Eureka注册中心`
     * zookeeper-server `ZK注册中心`
 * jsf-samples `集成案例`
-    * mservice `微服务示例、Nacos|Eureka|ZK注册、分布式事务`
+    * **mservice** `微服务示例、Nacos|Eureka|ZK注册、分布式事务seata`
     * activiti `工作流`
     * actuator `Springboot监控`
     * dubbo `Dubbo`
+    * dubbo-springcloud `Dubbo Springcloud`
     * elasticsearch `全文搜索`
     * im `即时聊天/UI` [演示站](http://liu-nian.cn:8904/)
     * influxdb `Influxdb`
@@ -35,9 +36,9 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * nacos-config `Nacos分布式配置`
     * quartz `任务调度/UI`
     * rabbitmq `消息队列`
-    * redis `缓存+序列化`
+    * redis `缓存+序列化+session`
     * sharding-db `分表分库`
-    * spring-security `SpringSecurity`
+    * spring-security `自定义登陆认证、权限标签｜注解、下线｜单机、异常等`
     * storm `Storm`
     * websocket `WebSocket`
     * websocket-mq `分布式WebSocket`
@@ -46,7 +47,7 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
     * sentinel `限流熔断`
 
 ### 集成
-* Spring/MyBatis/SpringBoot/SpringCloud
+* Spring/MyBatis/SpringBoot/SpringCloud/Nacos
 * Spring Redis/Redis Session/Redisson/RedisTemplate
 * APIToken/API验签/防重/SpringSecurity/OAuth授权/SSO单点登录
 * Actuator健康监控、数据源监控
@@ -106,6 +107,10 @@ Developed by @jackson-rick  Blog: [https://www.liu-nian.cn](https://www.liu-nian
 ---
 
 ### 更新日志
+* v6.3.2 `20220809`
+  * sample新增dubbo springcloud示例
+  * 后续将不再使用eureka、hystrix等组件
+  * springsecurity完整示例（见上）
 * v6.3 `20220801`
   * gateway模块使用sentinel限流熔断
   * sample新增sentinel限流熔断示例

@@ -28,8 +28,8 @@ public class WebSecurityOAuthConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .and().authorizeRequests()
-                // 1、自定义RBAC认证
-                //.antMatchers("/api/**").access("@rbacService.hasPermission(request, authentication)")
+                // 1、自定义认证
+                //.antMatchers("/api/**").access("@accessPermission.hasPermission(request, authentication)")
                 // 2、此资源是否拥有某角色（hasRole不能以ROLE_开头，oauth_client_details表字段authorities角色名以ROLE_开头）
                 //.antMatchers("/api/**").hasRole("ADMIN") // 或hasAuthority("ROLE_ADMIN")
                 // /**需要登录

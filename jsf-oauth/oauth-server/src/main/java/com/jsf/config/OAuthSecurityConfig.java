@@ -83,9 +83,10 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authFailureHandler) //登陆失败处理
                 .authenticationDetailsSource(authenticationDetailsSource) //自定义DetailsSource
                 .and()
-                .logout().logoutSuccessUrl("/logoutPage") //退出，若配置logoutSuccessHandler，则logoutSuccessUrl无效
+                .logout().logoutSuccessUrl("/?logout") //退出，若配置logoutSuccessHandler，则logoutSuccessUrl无效
                 .and()
                 .csrf().disable()
+                //.headers().frameOptions().disable();
         ;
     }
     //.antMatcher("/**").authorizeRequests().antMatchers("/oauth/**").permitAll()

@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * Time: 14:49
  */
 @Service
-public class Order2Service {
+public class OrderSingleService {
 
     @Resource
     private OrderMapper orderMapper;

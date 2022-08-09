@@ -18,6 +18,7 @@
         <module>activiti</module>
         <module>actuator</module>
         <module>dubbo</module>
+        <module>dubbo-springcloud</module>
         <module>elasticsearch</module>
         <module>im</module>
         <module>influxdb</module>

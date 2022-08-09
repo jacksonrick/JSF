@@ -6,5 +6,6 @@
 </head>
 <body>
 <h1>Bye!</h1>
+<a href="/login">前往登陆</a>
 </body>
 </html>

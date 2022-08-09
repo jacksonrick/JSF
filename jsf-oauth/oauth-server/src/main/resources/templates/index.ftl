@@ -27,7 +27,10 @@
                     <div class="sys-name"><a href="http://b.com" target="_self">B系统</a></div>
 
                     <#if logout??>
-                        <div style="margin-top: 50px;text-align: center;font-weight: bold;"><font color="red">您已安全退出系统！</font></div>
+                        <div style="margin-top: 50px;text-align: center;">
+                            <b style="color: red;font-weight: bold;">您已安全退出系统！</b>
+                            <a href="javascript:history.back(-1);" style="color: #3e5dbf;">重新登陆</a>
+                        </div>
                     </#if>
                 </div>
             </div>
